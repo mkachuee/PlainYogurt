@@ -1,6 +1,6 @@
 # author: Mohammad Kachuee
 
-
+import os
 import pdb
 import pickle
 
@@ -12,9 +12,7 @@ class TreeNode:
     This class implements each node of the tree using a linked list.
     Attributes:
         - node_id
-        - node_type
         - node_content
-        - node_heads
         - node_tails
     """
     current_id = 0
@@ -118,3 +116,6 @@ def load_tree(path):
         pass
 
     return tree_data
+
+def save_data(path, tree, description, image):
+    pass # TODO: add tree saving
