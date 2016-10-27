@@ -3,6 +3,7 @@
 import os
 import pdb
 import pickle
+import PIL
 
 from IPython import embed
 
@@ -93,7 +94,7 @@ class TreeNode:
         else:
             return False
 
-def load_tree(path):
+def load_data(path):
     """
     Loads all files associated with a tree, including tree object, image, and discription.
     Input is a path which indicates to the storage folder.
@@ -111,11 +112,30 @@ def load_tree(path):
         return None
     try:
         with open(path+'/'+'tree.png', 'rb') as f:
-            tree_data['image'] = None # TODO: add image loading
+            tree_data['image'] = PIL.Image.open(f)
     except:
         pass
 
     return tree_data
 
-def save_data(path, tree, description, image):
-    pass # TODO: add tree saving
+def save_data(path, tree_data):
+    """
+    tree_data  is  {'tree':, 'image':, 'description':}
+    """
+    if not os.path.isdir(path):
+        os.mkdir(path, exists_ok=True)
+    try:
+        with open(path+'/'+'tree.pkl', 'wb') as f:
+            pickle.dump(tree_data['tree'], f)
+
+        with open(path+'/'+'tree.txt', 'w') as f:
+            f.write(tree_data['description'])
+    except:
+        return False
+    try:
+        with open(path+'/'+'tree.png', 'wb') as f:
+            tree_data['image'].save(f)
+    except:
+        pass
+
+    return True
