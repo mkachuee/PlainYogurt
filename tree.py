@@ -10,17 +10,17 @@ class TreeNode:
         - node_id
         - node_type
         - node_content
-        - node_outputs
-        - node_inputs
+        - node_heads
+        - node_tails
     """
     current_id = 0
 
-    def __init__(self, node_type, node_content, node_outputs, node_inputs):
+    def __init__(self, node_type=None, node_content=None, node_heads=None, node_tails=None):
         current_id += 1
-        self.node_id = current_id
-        self.node_content = node_content
-        self.node_outputs = node_outputs
-        self.node_inputs = node_inputs
+        self.__node_id = current_id
+        self.__node_content = node_content
+        self.__node_heads = node_heads
+        self.__node_tails = node_tails
 
     def save(self, filename):
         """
@@ -36,6 +36,15 @@ class TreeNode:
         with open(filename, 'wb') as f:
             self = pickle.load(f)
 
+    def get_id(self):
+        return self.__node_id
 
+    def get_content(self):
+        return self.__node_content
 
-        
+    def get_heads(self):
+        return self.__node_heads
+
+    def get_tails(self):
+        return self.__node_tails
+ 
