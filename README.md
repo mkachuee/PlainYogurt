@@ -3,15 +3,6 @@
 Getting started:
 	Installs django on Ubuntu. Similar for Macs. If you're using windows... good luck
 
-1.1 git clone from our repo
-2. cd MainProject
-3. python manage.py runserver (might need to use python3 manange.py runserver if your default python is 2.7)
-4. On web browser, go to http://127.0.0.1:8000 (local host port 8000) to see website
-
-Setting up database:
-1. Install Mysql v5.5 or up
-2. Log into mysql using root (mysql -u root -p)
-
 1. Install django for your environment
 	https://docs.djangoproject.com/en/1.10/intro/install/
 1.1 git clone git://github.com/django/django.git
