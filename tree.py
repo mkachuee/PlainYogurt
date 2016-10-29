@@ -164,7 +164,7 @@ def save_data(path, tree_data):
     tree_data  is  {'tree':, 'image':, 'description':}
     """
     if not os.path.isdir(path):
-        os.mkdir(path, exists_ok=True)
+        os.mkdir(path)#, exists_ok=True)
     try:
         with open(path+'/'+'tree.pkl', 'wb') as f:
             pickle.dump(tree_data['tree'], f)
