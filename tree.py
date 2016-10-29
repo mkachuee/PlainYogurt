@@ -16,7 +16,7 @@ class TreeNode:
         - node_content
         - node_tails
     """
-    current_id = 0
+    current_id = -1
 
     def __init__(self, node_content=None, node_heads=[], node_tails=[]):
         """
@@ -76,7 +76,8 @@ class TreeNode:
 
     def add_tail(self, node=None):
         """
-        add a node to tail. if the node is not specified a node will be created and added.
+        add a node to tail. if the node is not specified a node will be 
+        created and added.
         """
         if node is None:
             node = TreeNode()
@@ -84,9 +85,49 @@ class TreeNode:
         node.__node_tails = []
         return node
 
+    def walk(self, path=[]):
+        """
+        this method walks through the tree and returns all nodes in 
+        each path to the leafs.
+        """
+        if self.__node_tails == []:
+            path.append(self.__node_id)
+            return path
+        else:
+            paths = []
+            for branch in self.__node_tails:
+                branch_path = branch.walk(path+[self.__node_id])
+                if type(branch_path[0]) is list:
+                    paths += (branch.walk(path+[self.__node_id]))
+                else:
+                    paths.append(branch.walk(path+[self.__node_id]))
+            return paths
+    
+    def traverse(self):
+        """
+        this function visits every node in the tree, and returns a dictionary
+        of {id:content}.
+        """
+        if self.__node_tails == []:
+            return {self.__node_id: self.__node_content}
+        else:
+            contents = {self.__node_id: self.__node_content}
+            for branch in self.__node_tails:
+                contents.update(branch.traverse())
+            return contents
+
+    def to_list(self):
+        """
+        Describes a tree as a list of paths and a list of contents.
+        """ 
+        paths = self.walk(path=[])
+        contents = self.traverse()
+        return {'paths':paths, 'contents':contents}
+
     def remove_tail(self, node):
         """
-        remove a node from tail. if it is found and removed returens True, else returns False.
+        remove a node from tail. if it is found and removed returens True, 
+        else returns False.
         """
         if node in self.__node_tails:
             __node_tails.remove(node)
