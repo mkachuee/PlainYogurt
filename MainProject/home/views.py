@@ -4,5 +4,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 
+class Test:
+	def __init__(self, A, B):
+		self.a = A
+		self.b = B
+
 def home(request):
-	return render(request, 'home/home.html')
+	test = Test(1,2)
+	context = {"Test": test}
+	return render(request, 'home/home.html',context)

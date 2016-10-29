@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-{% load static %}
-{% with relPath="../../weightedtree/weightedtree/" %}    
 <html>
 <head>
     <meta charset="utf-8">
@@ -11,23 +9,21 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto|Raleway:600,400,200' rel='stylesheet' type='text/css'>
 
     <!-- Test container style sheets -->
-    <link rel="stylesheet" href="{% static 'subjects/styles/examples.css' %}">
+    <link rel="stylesheet" href="styles/examples.css">
 
     <!-- Vizuly specific style sheets -->
-    <link rel="stylesheet" href="{% static 'subjects/libBack/styles/vizuly.css' %}">
-    <link rel="stylesheet" href="{% static 'subjects/libBack/styles/vizuly_weightedtree.css' %}">	    
+    <link rel="stylesheet" href="../lib/styles/vizuly.css">
+    <link rel="stylesheet" href="../lib/styles/vizuly_weightedtree.css">
 
     <!-- Supporting test container files:  Vizuly does NOT rely on these -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'subjects/libBack/styles/cssmenu.css' %}">
-    <script type="text/javascript" src="{% static 'subjects/libBack/jquery-2.1.1.min.js' %}"></script>
-    <script src="{% static 'subjects/libBack/cssmenu.js' %}"></script>
+    <link rel="stylesheet" href="../lib/styles/cssmenu.css">
+    <script type="text/javascript" src="../lib/jquery-2.1.1.min.js"></script>
+    <script src="../lib/cssmenu.js"></script>
 
     <!-- D3.js ... of course! -->
-    <script src="{% static 'subjects/lib/d3.min.js' %}"></script>
-    <script>
-	var readingFile = "{% static 'subjects/weightedtree_federal_budget.csv' %}"
-    </script>
+    <script src="lib/d3.min.js"></script>
+
     <!-- debug source scripts: start --> <!--
     <script src="src/namespace/namespace.js"></script>
     <script src="src/viz/_viz.js"></script>
@@ -48,14 +44,15 @@
 
     --> <!-- debug source scripts: end -->
 
-    <script src="{% static 'subjects/lib/vizuly_core.min.js' %}"></script>
-    <script src="{% static 'subjects/lib/vizuly_weightedtree.min.js' %}"></script>
-    <script src="{% static 'subjects/subjectsTree.js' %}"></script>
+    <script src="lib/vizuly_core.min.js"></script>
+	<script src="lib/vizuly_weightedtree.min.js"></script>
 
+    <script src="weightedtree_test.js"></script>
 
 </head>
 
 <body>
+
 <div id='cssmenu'>
     <ul class="main-menu">
         <li class='active'>
@@ -122,11 +119,11 @@
                 .html("<a>" + screenWidth + "px - " + screenHeight + "px</a>");
 
 
-/*        $("#cssmenu").menumaker({
+        $("#cssmenu").menumaker({
             title: "VIZULY WEIGHTED TREE",
             format: "multitoggle"
         });
-*/
+
         // Set the size of our container element.
         viz_container = d3.selectAll("#viz_container")
                 .style("width", screenWidth + "px")
@@ -140,9 +137,8 @@
 
 </script>
 
+
 </body>
 
 
 </html>
-
-{% endwith %}

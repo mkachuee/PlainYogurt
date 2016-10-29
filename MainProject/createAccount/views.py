@@ -7,4 +7,4 @@ from django.http import HttpResponse
 
 # Create your views here.
 def createAccount(request):
-	return HttpResponse("CREATE ACCOUNT")
+	return render(request, 'createAccount/createAccount.html')
