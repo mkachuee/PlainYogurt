@@ -28,25 +28,6 @@
     <script>
 	var readingFile = "{% static 'subjects/weightedtree_federal_budget.csv' %}"
     </script>
-    <!-- debug source scripts: start --> <!--
-    <script src="src/namespace/namespace.js"></script>
-    <script src="src/viz/_viz.js"></script>
-
-    <script src="src/theme/_theme.js"></script>
-
-
-    <script src="src/core/component.js"></script>
-    <script src="src/core/data.js"></script>
-    <script src="src/core/util.js"></script>
-    <script src="src/core/color.js"></script>
-    <script src="src/core/format.js"></script>
-    <script src="src/svg/_svg.js"></script>
-    <script src="src/svg/gradient.js"></script>
-    <script src="src/svg/filter.js"></script>
-    <script src="src/viz/weightedtree.js"></script>
-    <script src="src/theme/weightedtree.js"></script>
-
-    --> <!-- debug source scripts: end -->
 
     <script src="{% static 'subjects/lib/vizuly_core.min.js' %}"></script>
     <script src="{% static 'subjects/lib/vizuly_weightedtree.min.js' %}"></script>
@@ -104,12 +85,7 @@
     $(document).ready(function () {
 
         var rect;
-        if (self==top) {
-            rect = document.body.getBoundingClientRect();
-        }
-        else {
-            rect = document.body.getBoundingClientRect();
-        }
+	rect = document.body.getBoundingClientRect();
 
         //Set display size based on window size.
         screenWidth = (rect.width < 960) ? Math.round(rect.width*.95) : Math.round((rect.width - 210) *.95);
@@ -122,11 +98,6 @@
                 .html("<a>" + screenWidth + "px - " + screenHeight + "px</a>");
 
 
-/*        $("#cssmenu").menumaker({
-            title: "VIZULY WEIGHTED TREE",
-            format: "multitoggle"
-        });
-*/
         // Set the size of our container element.
         viz_container = d3.selectAll("#viz_container")
                 .style("width", screenWidth + "px")
