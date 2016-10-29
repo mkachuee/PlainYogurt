@@ -12,4 +12,4 @@ class Test:
 def home(request):
 	test = Test(1,2)
 	context = {"Test": test}
-	return render(request, 'home/home.html',context)
+	return render(request, 'home/index.html',context)
