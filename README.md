@@ -24,3 +24,8 @@ Getting started:
 
 12. run server (python3 manage.py runserver)
 13. on web browser, go to localhost:8000
+
+Note: For Windows
+Install Python and MySQL: Just Google "Python windows installer"
+If you meet these error: python is not a recognized as an internal or external command
+... add python to PATH environment variable.
