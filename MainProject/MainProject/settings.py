@@ -35,6 +35,7 @@ INSTALLED_APPS = [
 	'home.apps.HomeConfig',
 	'contribute.apps.ContributeConfig',
 	'createAccount.apps.CreateaccountConfig',
+    'learningSoftwareDesign.apps.LearningsoftwaredesignConfig',
 #    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

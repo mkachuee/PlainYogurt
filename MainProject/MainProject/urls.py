@@ -21,5 +21,6 @@ urlpatterns = [
 	url(r'^createAccount/', include('createAccount.urls')),
 	url(r'^subjects/', include('subjects.urls')),
 	url(r'^contribute/', include('contribute.urls')),
-	url(r'^admin/', admin.site.urls),
+	url(r'^learningSoftwareDesign/', include('learningSoftwareDesign.urls')),
+	url(r'^admin/', admin.site.urls)
 ]
