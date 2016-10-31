@@ -29,3 +29,9 @@ Note: For Windows
 Install Python and MySQL: Just Google "Python windows installer"
 If you meet these error: python is not a recognized as an internal or external command
 ... add python to PATH environment variable.
+
+
+Testing
+====
+python3 manage.py test
+will run all tests
