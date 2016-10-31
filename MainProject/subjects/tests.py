@@ -11,9 +11,6 @@ class SubjectTest(TestCase):
     def trivialTest(self):
         self.assertIs(True, True)
 
-    def testIfDatabaseWriteCorrectly(self):
-        s = Subjects(Categories='C', Subjects='S');
-        s.save();
-        self.assertIs(s.Categories,'C');
-        self.assertIs(s.Subjects, 'S');
-
+    def testModel(self):
+        s = Subjects.objects.create(Categories="C",Subject='S')
+        self.assertTrue(isinstance(s,Subjects))

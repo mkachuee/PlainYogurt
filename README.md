@@ -33,5 +33,11 @@ If you meet these error: python is not a recognized as an internal or external c
 
 Testing
 ====
+Create testing database:
+mysql -u root -p
+create database PYdatabase_test;
+grant all privileges on PYdatabase . * to 'plain';
+drop database PYdatabase_test;
+
 python3 manage.py test
 will run all tests

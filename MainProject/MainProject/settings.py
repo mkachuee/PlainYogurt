@@ -31,16 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-	'subjects.apps.SubjectsConfig',
-	'home.apps.HomeConfig',
-	'contribute.apps.ContributeConfig',
-	'createAccount.apps.CreateaccountConfig',
+    'subjects.apps.SubjectsConfig',
+    'home.apps.HomeConfig',
+    'contribute.apps.ContributeConfig',
+    'createAccount.apps.CreateaccountConfig',
     'learningSoftwareDesign.apps.LearningsoftwaredesignConfig',
-#    'django.contrib.admin',
+    #    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-#    'django.contrib.sessions',
-#    'django.contrib.messages',
+    #    'django.contrib.sessions',
+    #    'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
 
@@ -82,10 +82,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'PYdatabase',
-	'USER': 'plain',
-	'PASSWORD': 'yogurt',
-	'HOST': 'localhost',
-	'PORT': '3360',
+        'TEST': {
+            'NAME': 'PYdatabase_test',
+        },
+        'USER': 'plain',
+        'PASSWORD': 'yogurt',
+        'HOST': 'localhost',
+        'PORT': '3360',
+
     }
 }
 
