@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <title> create account </title>
- </head>
-
- <body>
- <h1> create account Page! </h1>
- <p> This is the account page </p>
- </body>
+<head>
+    <meta charset="utf-8">
+    <title>Create Account</title>
+</head>
+<body>
+<div>
+    <form action='/accounts/auth/' method='POST'> {% csrf_token %}
+        <h2>Create new account</h2>
+        <div>
+            <label for='username'>Username</label>
+            <br>
+            <input type='text' name='Username' id='username'>
+        </div>
+        <div>
+            <label for='email'>Email</label>
+            <br>
+            <input type='text' name='Email' id='email'>
+        </div>
+        <div>
+            <label for='password'>Password</label>
+            <br>
+            <input type='password' name='Password' id='password'>
+        </div>
+        <div>
+            <label for='repeatPassword'>Repeat password</label>
+            <br>
+            <input type='password' name='RepeatPassword' id='repeatPassword'>
+        </div>
+        <div>
+            <input type='submit' value='Create'>
+        </div>
+    </form>
+</div>
+</body>
 </html>
