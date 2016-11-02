@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module tree</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>tree</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mohammad/Dropbox/Work/PlainYogurt/tree.py">/home/mohammad/Dropbox/Work/PlainYogurt/tree.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;author:&nbsp;Mohammad&nbsp;Kachuee</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="PIL.html">PIL</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="pdb.html">pdb</a><br>
+</td><td width="25%" valign=top><a href="pickle.html">pickle</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="tree.html#TreeNode">TreeNode</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="TreeNode">class <strong>TreeNode</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;implements&nbsp;each&nbsp;node&nbsp;of&nbsp;the&nbsp;tree&nbsp;using&nbsp;a&nbsp;linked&nbsp;list.<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;node_id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;node_content<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;node_tails<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="TreeNode-__init__"><strong>__init__</strong></a>(self, node_content=None, node_heads=[], node_tails=[])</dt><dd><tt><a href="#TreeNode">TreeNode</a>&nbsp;constructor.<br>
+&nbsp;<br>
+node_id:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;a&nbsp;unique&nbsp;id&nbsp;for&nbsp;each&nbsp;node,&nbsp;it&nbsp;is&nbsp;implemented&nbsp;using&nbsp;a&nbsp;static&nbsp;counter&nbsp;in&nbsp;the&nbsp;class.<br>
+node_content:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;it&nbsp;is&nbsp;None&nbsp;by&nbsp;default&nbsp;which&nbsp;means&nbsp;that&nbsp;it&nbsp;is&nbsp;neither&nbsp;a&nbsp;root&nbsp;node&nbsp;nor&nbsp;a&nbsp;resource&nbsp;node,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;so&nbsp;it&nbsp;can&nbsp;be&nbsp;interpereted&nbsp;as&nbsp;a&nbsp;prerequisite&nbsp;node.<br>
+node_tails:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;stores&nbsp;the&nbsp;list&nbsp;of&nbsp;each&nbsp;node's&nbsp;tail&nbsp;nodes&nbsp;in&nbsp;a&nbsp;linked-list&nbsp;like&nbsp;fashion.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;empty&nbsp;tail&nbsp;means&nbsp;termination&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-add_tail"><strong>add_tail</strong></a>(self, node=None)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;add&nbsp;a&nbsp;node&nbsp;to&nbsp;tail.&nbsp;If&nbsp;the&nbsp;node&nbsp;is&nbsp;not&nbsp;specified&nbsp;a&nbsp;node&nbsp;will&nbsp;be&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;and&nbsp;added.<br>
+Input:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;node:&nbsp;the&nbsp;node&nbsp;to&nbsp;append.&nbsp;if&nbsp;not&nbsp;provided&nbsp;a&nbsp;new&nbsp;NodeTree&nbsp;will&nbsp;be&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;created&nbsp;and&nbsp;linked.<br>
+Output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;returns&nbsp;the&nbsp;newly&nbsp;linked&nbsp;<a href="#TreeNode">TreeNode</a>&nbsp;instance.</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-get_content"><strong>get_content</strong></a>(self)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;get&nbsp;node&nbsp;content.<br>
+Output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;the&nbsp;content&nbsp;attribute&nbsp;of&nbsp;the&nbsp;<a href="#TreeNode">TreeNode</a>&nbsp;instance.</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-get_id"><strong>get_id</strong></a>(self)</dt><dd><tt>Description:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;get&nbsp;uinique&nbsp;node&nbsp;id.<br>
+Output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;returns&nbsp;the&nbsp;unique&nbsp;ID&nbsp;of&nbsp;the&nbsp;<a href="#TreeNode">TreeNode</a>&nbsp;instance.</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-get_tails"><strong>get_tails</strong></a>(self)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;get&nbsp;tail&nbsp;nodes.<br>
+Output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;returns&nbsp;the&nbsp;list&nbsp;of&nbsp;tails&nbsp;which&nbsp;are&nbsp;linked&nbsp;with&nbsp;the&nbsp;instance.</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-load"><strong>load</strong></a>(self, filename)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;loads&nbsp;the&nbsp;<a href="#TreeNode">TreeNode</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;from&nbsp;a&nbsp;dumped&nbsp;pkl&nbsp;file.<br>
+Input:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;filename:&nbsp;the&nbsp;pickle&nbsp;file&nbsp;path&nbsp;to&nbsp;load&nbsp;from.</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-remove_tail"><strong>remove_tail</strong></a>(self, node)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;removes&nbsp;a&nbsp;node&nbsp;from&nbsp;tail.&nbsp;if&nbsp;it&nbsp;is&nbsp;found&nbsp;and&nbsp;removed&nbsp;returens&nbsp;True,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;returns&nbsp;False.<br>
+Input:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;node:&nbsp;the&nbsp;node&nbsp;<a href="builtins.html#object">object</a>&nbsp;to&nbsp;be&nbsp;removed&nbsp;from&nbsp;tail&nbsp;nodes&nbsp;list.<br>
+Output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;returns&nbsp;True&nbsp;if&nbsp;the&nbsp;node&nbsp;is&nbsp;found&nbsp;and&nbsp;removed,&nbsp;else&nbsp;returns&nbsp;False.</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-save"><strong>save</strong></a>(self, filename)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;saves&nbsp;the&nbsp;<a href="#TreeNode">TreeNode</a>&nbsp;<a href="builtins.html#object">object</a>&nbsp;as&nbsp;a&nbsp;pkl&nbsp;file.<br>
+Input:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;filename:&nbsp;the&nbsp;file&nbsp;path&nbsp;to&nbsp;store&nbsp;the&nbsp;pickle&nbsp;dump&nbsp;file&nbsp;to.</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-set_content"><strong>set_content</strong></a>(self, content)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;node&nbsp;contents.<br>
+Input:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;content:&nbsp;sets&nbsp;the&nbsp;content&nbsp;attribute&nbsp;equal&nbsp;to&nbsp;the&nbsp;provided&nbsp;content.</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-to_list"><strong>to_list</strong></a>(self)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Describes&nbsp;a&nbsp;tree&nbsp;as&nbsp;a&nbsp;list&nbsp;of&nbsp;paths&nbsp;and&nbsp;a&nbsp;list&nbsp;of&nbsp;contents.<br>
+Output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;returns&nbsp;a&nbsp;dictionary&nbsp;with&nbsp;to&nbsp;key-words:&nbsp;"path"&nbsp;and&nbsp;"contents".<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;each&nbsp;describing&nbsp;the&nbsp;possible&nbsp;paths&nbsp;and&nbsp;node&nbsp;contents.</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-traverse"><strong>traverse</strong></a>(self)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;function&nbsp;visits&nbsp;every&nbsp;node&nbsp;in&nbsp;the&nbsp;tree,&nbsp;and&nbsp;returns&nbsp;a&nbsp;dictionary<br>
+&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;{id:content}.<br>
+Ouptut:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;returns&nbsp;a&nbsp;dictionary&nbsp;containing&nbsp;node-ids&nbsp;as&nbsp;key&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;node&nbsp;contents&nbsp;as&nbsp;values&nbsp;for&nbsp;each&nbsp;node&nbsp;in&nbsp;the&nbsp;tree</tt></dd></dl>
+
+<dl><dt><a name="TreeNode-walk"><strong>walk</strong></a>(self, path=[])</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;method&nbsp;walks&nbsp;through&nbsp;the&nbsp;tree&nbsp;and&nbsp;returns&nbsp;all&nbsp;nodes&nbsp;in&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;each&nbsp;path&nbsp;to&nbsp;the&nbsp;leafs.<br>
+Output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;returns&nbsp;the&nbsp;list&nbsp;of&nbsp;all&nbsp;possible&nbsp;pathes&nbsp;from&nbsp;the&nbsp;current&nbsp;node<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;leaf&nbsp;terminal&nbsp;nodes&nbsp;of&nbsp;the&nbsp;tree.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>current_id</strong> = -1</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-load_data"><strong>load_data</strong></a>(path)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Loads&nbsp;all&nbsp;files&nbsp;associated&nbsp;with&nbsp;a&nbsp;tree,&nbsp;including&nbsp;tree&nbsp;<a href="builtins.html#object">object</a>,&nbsp;image,&nbsp;and&nbsp;discription.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Input&nbsp;is&nbsp;a&nbsp;path&nbsp;which&nbsp;indicates&nbsp;to&nbsp;the&nbsp;storage&nbsp;folder.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;a&nbsp;dictionary&nbsp;if&nbsp;read&nbsp;was&nbsp;successful,&nbsp;else&nbsp;returns&nbsp;None.<br>
+Input:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;path:&nbsp;the&nbsp;directory&nbsp;path&nbsp;of&nbsp;the&nbsp;tree.<br>
+Output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;tree&nbsp;data&nbsp;dictionary.&nbsp;containing&nbsp;"tree",&nbsp;"description",&nbsp;and&nbsp;"image"&nbsp;key-words.</tt></dd></dl>
+ <dl><dt><a name="-save_data"><strong>save_data</strong></a>(path, tree_data)</dt><dd><tt>Description:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tree_data&nbsp;&nbsp;is&nbsp;&nbsp;{'tree':,&nbsp;'image':,&nbsp;'description':}<br>
+Inputs:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;path:&nbsp;the&nbsp;tree&nbsp;directory&nbsp;path<br>
+Output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;returns&nbsp;True&nbsp;if&nbsp;the&nbsp;save&nbsp;was&nbsp;successful,&nbsp;else&nbsp;returns&nbsp;False.</tt></dd></dl>
+</td></tr></table>
+</body></html>
