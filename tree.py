@@ -16,7 +16,7 @@ class TreeNode:
         - node_content
         - node_tails
     """
-    current_id = -1
+    current_id = -1 # static id counter
 
     def __init__(self, node_content=None, node_heads=[], node_tails=[]):
         """
@@ -31,64 +31,108 @@ class TreeNode:
             - stores the list of each node's tail nodes in a linked-list like fashion. 
             empty tail means termination of the tree.
         """
-        TreeNode.current_id += 1
+        TreeNode.current_id += 1 # increment the static id counter
         self.__node_id = TreeNode.current_id
         self.__node_content = node_content
         self.__node_tails = node_tails
 
     def save(self, filename):
         """
-        saves the TreeNode object as a pkl file.
+        Description:
+            saves the TreeNode object as a pkl file.
+        Input:
+            - filename: the file path to store the pickle dump file to.
         """
         with open(filename, 'wb') as f:
             pickle.dump(self, f)
 
     def load(self, filename):
         """
-        loads the TreeNode object as a pkl file.
+        Description:
+            loads the TreeNode object from a dumped pkl file.
+        Input:
+            - filename: the pickle file path to load from.
         """
         with open(filename, 'wb') as f:
             self = pickle.load(f)
 
     def get_id(self):
         """
-        get uinique node id.
+        Description: 
+            get uinique node id.
+        Output:
+            - returns the unique ID of the TreeNode instance.
         """
         return self.__node_id
 
     def get_content(self):
         """
-        get node content.
+        Description:
+            get node content.
+        Output:
+            - the content attribute of the TreeNode instance.
         """
         return self.__node_content
 
     def get_tails(self):
         """
-        get tail nodes.
+        Description:
+            get tail nodes.
+        Output:
+            - returns the list of tails which are linked with the instance.
         """
         return self.__node_tails
 
     def set_content(self, content):
         """
-        set node contents.
+        Description:
+            set node contents.
+        Input:
+            - content: sets the content attribute equal to the provided content.
         """
         self.__node_content = content
 
     def add_tail(self, node=None):
         """
-        add a node to tail. if the node is not specified a node will be 
-        created and added.
+        Description:
+            add a node to tail. If the node is not specified a node will be 
+            created and added.
+        Input:
+            - node: the node to append. if not provided a new NodeTree will be 
+                    created and linked.
+        Output:
+            - returns the newly linked TreeNode instance.
         """
         if node is None:
             node = TreeNode()
         self.__node_tails.append(node)
         node.__node_tails = []
         return node
+    
+    def remove_tail(self, node):
+        """
+        Description:
+            removes a node from tail. if it is found and removed returens True, 
+            else returns False.
+        Input: 
+            - node: the node object to be removed from tail nodes list.
+        Output:
+            - returns True if the node is found and removed, else returns False.
+        """
+        if node in self.__node_tails:
+            __node_tails.remove(node)
+            return True
+        else:
+            return False
 
     def walk(self, path=[]):
         """
-        this method walks through the tree and returns all nodes in 
-        each path to the leafs.
+        Description:
+            this method walks through the tree and returns all nodes in 
+            each path to the leafs.
+        Output:
+            - returns the list of all possible pathes from the current node
+              to the leaf terminal nodes of the tree.
         """
         if self.__node_tails == []:
             path.append(self.__node_id)
@@ -105,8 +149,12 @@ class TreeNode:
     
     def traverse(self):
         """
-        this function visits every node in the tree, and returns a dictionary
-        of {id:content}.
+        Description:
+            this function visits every node in the tree, and returns a dictionary
+            of {id:content}.
+        Ouptut:
+            - returns a dictionary containing node-ids as key 
+              and node contents as values for each node in the tree
         """
         if self.__node_tails == []:
             return {self.__node_id: self.__node_content}
@@ -118,28 +166,27 @@ class TreeNode:
 
     def to_list(self):
         """
-        Describes a tree as a list of paths and a list of contents.
+        Description:
+            Describes a tree as a list of paths and a list of contents.
+        Output:
+            - returns a dictionary with to key-words: "path" and "contents".
+              each describing the possible paths and node contents.
         """ 
         paths = self.walk(path=[])
         contents = self.traverse()
         return {'paths':paths, 'contents':contents}
 
-    def remove_tail(self, node):
-        """
-        remove a node from tail. if it is found and removed returens True, 
-        else returns False.
-        """
-        if node in self.__node_tails:
-            __node_tails.remove(node)
-            return True
-        else:
-            return False
 
 def load_data(path):
     """
-    Loads all files associated with a tree, including tree object, image, and discription.
-    Input is a path which indicates to the storage folder.
-    Returns a dictionary if read was successful, else returns None.
+    Description:
+        Loads all files associated with a tree, including tree object, image, and discription.
+        Input is a path which indicates to the storage folder.
+        Returns a dictionary if read was successful, else returns None.
+    Input:
+        - path: the directory path of the tree.
+    Output:
+        - tree data dictionary. containing "tree", "description", and "image" key-words.
     """
     tree_data = {'tree':None, 'image':None, 'description':None}
     
@@ -161,7 +208,12 @@ def load_data(path):
 
 def save_data(path, tree_data):
     """
-    tree_data  is  {'tree':, 'image':, 'description':}
+    Description:
+        tree_data  is  {'tree':, 'image':, 'description':}
+    Inputs:
+        - path: the tree directory path
+    Output:
+        - returns True if the save was successful, else returns False.
     """
     if not os.path.isdir(path):
         os.mkdir(path)#, exists_ok=True)
