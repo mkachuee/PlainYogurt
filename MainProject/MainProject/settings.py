@@ -31,18 +31,23 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'subjects.apps.SubjectsConfig',
-    'home.apps.HomeConfig',
-    'contribute.apps.ContributeConfig',
-    'createAccount.apps.CreateaccountConfig',
-    'learningSoftwareDesign.apps.LearningsoftwaredesignConfig',
     #    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     #    'django.contrib.sessions',
     #    'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sessions',
+    'subjects.apps.SubjectsConfig',
+    'home.apps.HomeConfig',
+    'contribute.apps.ContributeConfig',
+    'createAccount.apps.CreateaccountConfig',
+    'learningSoftwareDesign.apps.LearningsoftwaredesignConfig',
+    'acc.apps.AccConfig',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +58,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Add this to tell Django where to redirect after
+# successful login
+LOGIN_REDIRECT_URL = '/'
 
 ROOT_URLCONF = 'MainProject.urls'
 
