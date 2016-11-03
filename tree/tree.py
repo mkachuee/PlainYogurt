@@ -18,7 +18,7 @@ class TreeNode:
     """
     current_id = -1 # static id counter
 
-    def __init__(self, node_content=None, node_heads=[], node_tails=[]):
+    def __init__(self, node_content=None, node_tails=[]):
         """
         TreeNode constructor.
         
@@ -53,8 +53,10 @@ class TreeNode:
         Input:
             - filename: the pickle file path to load from.
         """
-        with open(filename, 'wb') as f:
+        with open(filename, 'rb') as f:
             self = pickle.load(f)
+        
+        return self
 
     def get_id(self):
         """
@@ -120,7 +122,7 @@ class TreeNode:
             - returns True if the node is found and removed, else returns False.
         """
         if node in self.__node_tails:
-            __node_tails.remove(node)
+            self.__node_tails.remove(node)
             return True
         else:
             return False
