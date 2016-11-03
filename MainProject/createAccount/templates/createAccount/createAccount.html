@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Create Account</title>
+
+    <!-- Vendor  -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div>
+    <div class="jumbotron">
+        <div class="container">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="col-md-6 col-md-offset-3">
+                    <h2>Create new account</h2>
+    <form action='/accounts/auth/' method='POST'> {% csrf_token %}
+
+        <div class="form-group">
+            <label for='username'>Username</label>
+            <br>
+            <input type='text' name='Username' id='username'>
+        </div>
+        <div class="form-group">
+            <label for='password'>Password</label>
+            <br>
+            <input type='password' name='Password' id='password'>
+        </div>
+        <div class="form-group">
+            <label for='repeatPassword'>Repeat password</label>
+            <br>
+            <input type='password' name='RepeatPassword' id='repeatPassword'>
+        </div>
+        <div class="form-actions">
+            <input type='submit' value='Create'>
+        </div>
+    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</body>
+</html>

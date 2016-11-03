@@ -87,3 +87,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+MainProject/.idea/MainProject.iml
+MainProject/.idea/misc.xml
+*.xml
