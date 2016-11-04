@@ -130,7 +130,7 @@
                </div>
 
                <div class="col-md-4 col-sm-6 portfolio-item">
-                   <a href="{% url 'allSubjects'%}Algebra" class="portfolio-link" data-toggle="modal">
+                   <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
                        <img src="{% static 'home/img/portfolio/algebra.png' %}" class="img-responsive" alt="">
                    </a>
                    <div class="portfolio-caption">
@@ -140,7 +140,7 @@
                </div>
                <div class="col-md-4 col-sm-6 portfolio-item">
                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
-                       <img src="{% static 'home/img/portfolio/computer_graphics.png' %}" class="img-responsive" alt="">
+                       <img src="{% static 'home/img/portfolio/computer_graphics.jpg' %}" class="img-responsive" alt="">
                    </a>
                    <div class="portfolio-caption">
                        <h4>Computer Graphics</h4>
