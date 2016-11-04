@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module TreeDBAccess</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>TreeDBAccess</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/erlab/Desktop/PlainYogurt/TreeDBAccess.py">/home/erlab/Desktop/PlainYogurt/TreeDBAccess.py</a></font></td></tr></table>
+    <p><tt>#import&nbsp;models<br>
+#from&nbsp;django.db&nbsp;import&nbsp;IntegrityError<br>
+#from&nbsp;django.core.exceptions&nbsp;import&nbsp;FieldError</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="DBAccessToSaveLoad.html">DBAccessToSaveLoad</a><br>
+</td><td width="25%" valign=top><a href="uuid.html">uuid</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-addToCategory"><strong>addToCategory</strong></a>(category, subject, topic)</dt><dd><tt>description&nbsp;-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Will&nbsp;add&nbsp;tupple&nbsp;(category,&nbsp;subject,&nbsp;topic)&nbsp;to&nbsp;Subjects&nbsp;relation.<br>
+input&nbsp;-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;category&nbsp;:&nbsp;string&nbsp;-&nbsp;category&nbsp;(eg.&nbsp;Math)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subject&nbsp;:&nbsp;string&nbsp;-&nbsp;subject(&nbsp;eg.&nbsp;Algebra)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;topic&nbsp;:&nbsp;string&nbsp;&nbsp;-&nbsp;&nbsp;topic&nbsp;(eg.&nbsp;Addition)<br>
+return&nbsp;-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on&nbsp;failure&nbsp;returns&nbsp;None</tt></dd></dl>
+ <dl><dt><a name="-addToTreeInfo"><strong>addToTreeInfo</strong></a>(name, category, subject, topic, keys)</dt><dd><tt>description&nbsp;-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add&nbsp;tree&nbsp;to&nbsp;database,&nbsp;will&nbsp;create&nbsp;a&nbsp;unique&nbsp;path&nbsp;for&nbsp;tree&nbsp;to&nbsp;be&nbsp;added.<br>
+input&nbsp;-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;:&nbsp;string&nbsp;-&nbsp;name&nbsp;of&nbsp;tree<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;category&nbsp;:&nbsp;string&nbsp;-&nbsp;category&nbsp;(eg.&nbsp;Math)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subject&nbsp;:&nbsp;string&nbsp;-&nbsp;subject(&nbsp;eg.&nbsp;Algebra)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;topic&nbsp;:&nbsp;string&nbsp;&nbsp;-&nbsp;&nbsp;topic&nbsp;(eg.&nbsp;Addition)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keys&nbsp;:&nbsp;string&nbsp;-&nbsp;comma&nbsp;seperated&nbsp;tags<br>
+return&nbsp;-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;None&nbsp;on&nbsp;failure</tt></dd></dl>
+ <dl><dt><a name="-getColSubjects"><strong>getColSubjects</strong></a>(*args)</dt><dd><tt>description&nbsp;-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filter&nbsp;Subjects&nbsp;relation&nbsp;given&nbsp;column&nbsp;field&nbsp;names,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;strings&nbsp;should&nbsp;be&nbsp;any&nbsp;of&nbsp;{category,&nbsp;subject,&nbsp;topic}<br>
+input&nbsp;-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[0]&nbsp;-&nbsp;specifiy&nbsp;one&nbsp;column&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[1]&nbsp;-&nbsp;optional&nbsp;2nd&nbsp;column<br>
+&nbsp;<br>
+return&nbsp;-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;Queryset&nbsp;object</tt></dd></dl>
+ <dl><dt><a name="-getColTreeInfo"><strong>getColTreeInfo</strong></a>(*args)</dt><dd><tt>description&nbsp;-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;TreeInfo&nbsp;relation&nbsp;with&nbsp;given&nbsp;column&nbsp;field&nbsp;names,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column&nbsp;strings&nbsp;should&nbsp;be&nbsp;any&nbsp;of&nbsp;{name,&nbsp;category,&nbsp;subject,&nbsp;topic,&nbsp;keys}<br>
+input&nbsp;-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[0]&nbsp;-&nbsp;specifiy&nbsp;one&nbsp;column&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[1]&nbsp;-&nbsp;optional&nbsp;2nd&nbsp;column<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[2]&nbsp;-&nbsp;optional&nbsp;3rd&nbsp;column<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[3]&nbsp;-&nbsp;optional&nbsp;4th&nbsp;column<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[4]&nbsp;-&nbsp;optional&nbsp;5th&nbsp;column<br>
+return&nbsp;-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;Queryset&nbsp;object</tt></dd></dl>
+ <dl><dt><a name="-getTrees"><strong>getTrees</strong></a>(name=None, *agrs)</dt><dd><tt>description&nbsp;-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;queries&nbsp;database&nbsp;for&nbsp;trees&nbsp;info<br>
+input&nbsp;-&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[0]&nbsp;-&nbsp;string&nbsp;-&nbsp;name&nbsp;filter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[1]&nbsp;-&nbsp;string&nbsp;-&nbsp;key&nbsp;filter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[2]&nbsp;-&nbsp;string&nbsp;-&nbsp;category&nbsp;filter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[3]&nbsp;-&nbsp;string&nbsp;-&nbsp;subject&nbsp;filter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args[4]&nbsp;-&nbsp;string&nbsp;-&nbsp;topic&nbsp;filter<br>
+return&nbsp;-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;Queryset&nbsp;object</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>subjectsFieldName</strong> = ['subject', 'category', 'topic']<br>
+<strong>treeInfoFieldName</strong> = ['name', 'topic', 'category', 'subject', 'DIRLink', 'tags']</td></tr></table>
+</body></html>
