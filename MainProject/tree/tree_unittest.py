@@ -6,6 +6,7 @@ import unittest
 
 import tree
 
+
 class NodeTreeTest(unittest.TestCase):
     """
     Basic unittests for the NodeTree class.

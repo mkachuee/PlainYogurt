@@ -1,4 +1,3 @@
-import os
 import pickle
 
 from IPython import embed
@@ -36,7 +35,7 @@ node_7.set_content('Digital Signal Processing: 1-D Digital Filtering \n Resource
 
 #tree_root.save(TREE_PATH + '/tree.pkl')
 
-tree.save_data(TREE_PATH, {'tree':tree_root, 'description':'Deep learning (also known as deep structured learning, hierarchical learning or deep machine learning) is a branch of machine learning based on a set of algorithms that attempt to model high level abstractions in data by using a deep graph with multiple processing layers, composed of multiple linear and non-linear transformations.'})
+tree.save_data(TREE_PATH, {'tree':tree_root, 'description': 'Deep learning (also known as deep structured learning, hierarchical learning or deep machine learning) is a branch of machine learning based on a set of algorithms that attempt to model high level abstractions in data by using a deep graph with multiple processing layers, composed of multiple linear and non-linear transformations.'})
 
 loaded_data = tree.load_data(TREE_PATH)
 

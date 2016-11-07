@@ -1,4 +1,3 @@
-import os
 import pickle
 
 from IPython import embed
@@ -30,7 +29,7 @@ node_E.set_content('E')
 
 #tree_root.save(TREE_PATH + '/tree.pkl')
 
-tree.save_data(TREE_PATH, {'tree':tree_root, 'description':'test tree 0'})
+tree.save_data(TREE_PATH, {'tree':tree_root, 'description': 'test tree 0'})
 
 loaded_data = tree.load_data(TREE_PATH)
 
