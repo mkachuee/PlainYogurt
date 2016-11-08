@@ -3,6 +3,8 @@ from django.db import IntegrityError
 from django.core.exceptions import FieldError
 import uuid
 import os
+import re
+from django.db.models import Q
 
 subjectsFieldName = ['subject', 'category', 'topic']
 treeInfoFieldName = ['name', 'topic', 'category', 'subject', 'DIRLink', 'tags']
@@ -51,28 +53,16 @@ def add_to_category(category, subject=None, topic=None):
 
     if (subject == None and topic == None):
         subjects = Subjects(category=category, subject="", topic="")
-        try:
-            subjects.save()
-        except IntegrityError as e:
-            return None
     elif (topic == None):
         subjects = Subjects(category=category, subject=subject, topic="")
-        try:
-            subjects.save()
-        except IntegrityError as e:
-            return None
     elif (subject == None):
         subjects = Subjects(category=category, subject="", topic=topic)
-        try:
-            subjects.save()
-        except IntegrityError as e:
-            return None
     else:
         subjects = Subjects(category=category, subject=subject, topic=topic)
-        try:
-            subjects.save()
-        except IntegrityError as e:
-            return None
+    try:
+        subjects.save()
+    except IntegrityError as e:
+        return None
     return 1
 
 def get_subjects_tuple(**kwargs):
@@ -86,6 +76,23 @@ def get_subjects_tuple(**kwargs):
 
     try:
         return subjects.values()
+    except FieldError as e:
+        return None
+
+def get_col_subjects(*args):
+
+    """
+        description -
+            filter Subjects relation given column field names,
+            column strings should be any of {category, subject, topic}
+        input -
+
+        return -
+            returns Queryset object containing subject tupples
+
+    """
+    try:
+        return Subjects.objects.values(*args)
     except FieldError as e:
         return None
 
@@ -147,54 +154,7 @@ def add_tree_info(name, category, subject, topic, keys):
     except  ValueError as e:
         return None
 
-def get_col_subjects(*args):
 
-    """
-        description -
-            filter Subjects relation given column field names,
-            column strings should be any of {category, subject, topic}
-        input -
-            args[0] - specifiy one column
-            args[1] - optional 2nd column
-
-        return -
-            returns Queryset object
-
-    """
-    length = len(args)
-    fields = [s.lower() for s in subjectsFieldName]
-    if (length == 0):
-        return Subjects.objects.values()
-    elif (length == 1):
-        try:
-            fieldName = args[0]
-            i = fields.index(fieldName.lower())
-            return Subjects.objects.values(subjectsFieldName[i])
-        except FieldError as e:
-            return None
-    elif (length == 2):
-        try:
-            fieldName1 = args[0]
-            fieldName2 = args[1]
-            i = fields.index(fieldName1.lower())
-            j = fields.index(fieldName2.lower())
-            return Subjects.objects.values(subjectsFieldName[i], subjectsFieldName[j])
-        except FieldError as e:
-            return None
-    elif (length == 3):
-        try:
-            fieldName1 = args[0]
-            fieldName2 = args[1]
-            fieldName3 = args[2]
-            i = fields.index(fieldName1.lower())
-            j = fields.index(fieldName2.lower())
-            k = fields.index(fieldName3.lower())
-            return Subjects.objects.values(subjectsFieldName[i], subjectsFieldName[j],
-                                                  subjectsFieldName[k])
-        except FieldError as e:
-            return None
-    else:
-        return None
 
 
 
@@ -213,59 +173,12 @@ def get_col_tree(*args):
             returns Queryset object
 
     """
-
-    length = len(args)
-
-    if (length == 0):
-        return TreeInfo.objects.values()
-    elif (length == 1):
-        fieldName = args[0]
-        try:
-            i = [s.lower() for s in treeInfoFieldName].index(fieldName.lower())
-            return TreeInfo.objects.values(treeInfoFieldName[i])
-        except FieldError as e:
-            return None
-    elif (length == 2):
-        try:
-            fields = [s.lower() for s in treeInfoFieldName]
-            fieldName1 = args[0]
-            fieldName2 = args[1]
-            i = fields.index(fieldName1.lower())
-            j = fields.index(fieldName2.lower())
-            return TreeInfo.objects.values(treeInfoFieldName[i],
-                                                  treeInfoFieldName[j])
-        except FieldError as e:
-            return None
-    elif (length == 3):
-        try:
-            fields = [s.lower() for s in treeInfoFieldName]
-            fieldName1 = args[0]
-            fieldName2 = args[1]
-            fieldName3 = args[2]
-            i = fields.index(fieldName1.lower())
-            j = fields.index(fieldName2.lower())
-            k = fields.index(fieldName3.lower())
-            return TreeInfo.objects.values(treeInfoFieldName[i], treeInfoFieldName[j],
-                                                  treeInfoFieldName[k])
-        except FieldError as e:
-            return None
-    elif (length == 4):
-        try:
-            fields = [s.lower() for s in treeInfoFieldName]
-            fieldName1 = args[0]
-            fieldName2 = args[1]
-            fieldName3 = args[2]
-            fieldName4 = args[3]
-            i = fields.index(fieldName1.lower())
-            j = fields.index(fieldName2.lower())
-            k = fields.index(fieldName3.lower())
-            z = fields.index(fieldName4.lower())
-            return TreeInfo.objects.values(treeInfoFieldName[i], treeInfoFieldName[j],
-                                                  treeInfoFieldName[k], treeInfoFieldName[z])
-        except FieldError as e:
-            return None
-    else:
+    try:
+        return TreeInfo.objects.values(*args)
+    except FieldError as e:
         return None
+
+
 
 def get_specific_tree(**kwargs):
 
@@ -295,5 +208,53 @@ def get_specific_tree(**kwargs):
         tree = tree.filter(topic__icontains=kwargs['topic'])
     try:
         return tree.values()
+    except FieldError as e:
+        return None
+
+
+
+def normalize_query(query_string,
+                    findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
+                    normspace=re.compile(r'\s{2,}').sub):
+    ''' Splits the query string in invidual keywords, getting rid of unecessary spaces
+        and grouping quoted words together.
+        Example:
+
+        >>> normalize_query('  some random  words "with   quotes  " and   spaces')
+        ['some', 'random', 'words', 'with quotes', 'and', 'spaces']
+
+    '''
+    return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
+
+
+def get_query(query_string, search_fields):
+    ''' Returns a query, that is a combination of Q objects. That combination
+        aims to search keywords within a model by testing the given search fields.
+
+    '''
+    query = None  # Query to search for every search term
+    terms = normalize_query(query_string)
+    for term in terms:
+        or_query = None  # Query to search for a given term in each field
+        for field_name in search_fields:
+            q = Q(**{"%s__icontains" % field_name: term})
+            if or_query is None:
+                or_query = q
+            else:
+                or_query = or_query | q
+        if query is None:
+            query = or_query
+        else:
+            query = query & or_query
+    return query
+
+def search_tree(str):
+    query = normalize_query(str)
+
+    q_object = get_query(str, ['name', 'tags'])
+
+    try:
+        result = TreeInfo.objects.filter(q_object)
+        return result.values()
     except FieldError as e:
         return None
