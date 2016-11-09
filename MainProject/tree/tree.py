@@ -4,6 +4,8 @@ import os
 import pdb
 import pickle
 import PIL
+import xml.etree.ElementTree as xmlet
+
 
 from IPython import embed
 
@@ -177,6 +179,40 @@ class TreeNode:
         paths = self.walk(path=[])
         contents = self.traverse()
         return {'paths':paths, 'contents':contents}
+
+    def load_xml(self, filename):
+        """
+        Description:
+            loads the TreeNode object from a xml file.
+        Input:
+            - filename: the xml file path to load from.
+        """
+        xml_tree = xmlet.parse(filename)
+        nodes_dict = {}
+        connections_list = []
+        # iterate over xml objects
+        for obj in xml_tree.getroot()[0]:
+            # if it is a node
+            if 'value' in obj.keys():
+                nodes_dict[obj.get('id')] = \
+                        TreeNode(node_content=obj.get('value'))
+            # if it is a connector
+            elif 'source' in obj.keys():
+                connections_list.append(obj)
+        
+        # make connections
+        target_ids = set()
+        source_ids = set()
+        for connection in connections_list:
+            source = nodes_dict[connection.get('source')]
+            target = nodes_dict[connection.get('target')]
+            source_ids.add(connection.get('source'))
+            target_ids.add(connection.get('target'))
+            source.add_tail(target)
+        
+        root_id = (source_ids - target_ids).pop()
+        self = nodes_dict[root_id]
+        return self
 
 
 def load_data(path):
