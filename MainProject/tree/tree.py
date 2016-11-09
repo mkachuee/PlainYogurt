@@ -210,8 +210,9 @@ class TreeNode:
             target_ids.add(connection.get('target'))
             source.add_tail(target)
         
-        root_id = (source_ids - target_ids).pop()
-        self = nodes_dict[root_id]
+        #root_id = (source_ids - target_ids).pop()
+        #self = nodes_dict[root_id]
+        #embed()
         return self
 
 
