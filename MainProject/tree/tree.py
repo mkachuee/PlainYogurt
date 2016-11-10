@@ -37,6 +37,7 @@ class TreeNode:
         self.__node_id = TreeNode.current_id
         self.__node_content = node_content
         self.__node_tails = node_tails
+        self.__path = None
 
     def save(self, filename):
         """
@@ -86,6 +87,24 @@ class TreeNode:
             - returns the list of tails which are linked with the instance.
         """
         return self.__node_tails
+
+    def set_path(self, path):
+        """
+        Description:
+            set node path.
+        Input:
+            - path: sets the path attribute equal to the provided path.
+        """
+        self.__path = path
+
+    def get_path(self):
+        """
+        Description:
+            get node path.
+        Output:
+            - returns the node path.
+        """
+        return self.__path
 
     def set_content(self, content):
         """
@@ -210,9 +229,10 @@ class TreeNode:
             target_ids.add(connection.get('target'))
             source.add_tail(target)
         
-        #root_id = (source_ids - target_ids).pop()
-        #self = nodes_dict[root_id]
-        #embed()
+        root_id = (source_ids - target_ids).pop()
+        self.__node_tails = nodes_dict[root_id].__node_tails
+        self.__node_content = nodes_dict[root_id].__node_content
+
         return self
 
 
