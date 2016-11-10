@@ -9,6 +9,7 @@ from django.db.models import Q
 subjectsFieldName = ['subject', 'category', 'topic']
 treeInfoFieldName = ['name', 'topic', 'category', 'subject', 'DIRLink', 'tags']
 
+
 """
     The database consists of two relations:
 
@@ -37,7 +38,6 @@ treeInfoFieldName = ['name', 'topic', 'category', 'subject', 'DIRLink', 'tags']
             tags used to search for tree
 """
 
-
 def add_to_category(category, subject=None, topic=None):
     """
         description -
@@ -65,23 +65,21 @@ def add_to_category(category, subject=None, topic=None):
         return None
     return 1
 
-
 def get_subjects_tuple(**kwargs):
     subjects = Subjects.objects
     if ('category' in kwargs):
         subjects = subjects.filter(category__icontains=kwargs['category'])
-    if ('subject' in kwargs):
+    if ('subject' in kwargs and kwargs['subject'] != None):
         subjects = subjects.filter(subject__icontains=kwargs['subject'])
-    if ('topic' in kwargs):
+    if ('topic' in kwargs and kwargs['topic'] != None):
         subjects = subjects.filter(topic__icontains=kwargs['topic'])
-
     try:
         return subjects.values()
     except FieldError as e:
         return None
 
-
 def get_col_subjects(*args):
+
     """
         description -
             filter Subjects relation given column field names,
@@ -98,16 +96,19 @@ def get_col_subjects(*args):
         return None
 
 
-def add_tree_info(name, category, subject, topic, keys):
+
+def add_tree_info(**kwargs):
     """
         description -
             Add tree to database, will create a unique path for tree to be added.
         input -
-            name : string - name of tree
-            category : string - category (eg. Math)
-            subject : string - subject( eg. Algebra)
-            topic : string  -  topic (eg. Addition)
-            keys : string - comma seperated tags
+
+            **kwargs :
+                name : string - name of tree
+                category : string - category (eg. Math)
+                subject : string - subject( eg. Algebra)
+                topic : string  -  topic (eg. Addition)
+                keys : string - comma seperated tags
         return -
             None on failure
 
@@ -143,16 +144,23 @@ def add_tree_info(name, category, subject, topic, keys):
         PATH = PATH + '/' + dirname
         return PATH
 
-    dirlink = generate_dir_name(name)
-    dirlink = get_dir_link(dirlink)
+    dirlink = ''
+    if ('name' in kwargs):
+        dirlink = generate_dir_name(kwargs['name'])
+        dirlink = get_dir_link(dirlink)
+    else:
+        dirlink = generate_dir_name("unknown")
+        dirlink = get_dir_link(dirlink)
 
-    treeInfo = TreeInfo(name=name, topic=topic,
-                        category=category, subject=subject,
-                        DIRLink=dirlink, tags=keys)
+    treeInfo = TreeInfo(DIRLink = dirlink, **kwargs)
     try:
         treeInfo.save()
+        return dirlink
     except  ValueError as e:
         return None
+
+
+
 
 
 def get_col_tree(*args):
@@ -176,7 +184,9 @@ def get_col_tree(*args):
         return None
 
 
+
 def get_specific_tree(**kwargs):
+
     """
         description -
             queries database for trees info
@@ -205,6 +215,7 @@ def get_specific_tree(**kwargs):
         return tree.values()
     except FieldError as e:
         return None
+
 
 
 def normalize_query(query_string,
@@ -241,7 +252,6 @@ def get_query(query_string, search_fields):
         else:
             query = query & or_query
     return query
-
 
 def search_tree(str):
     query = normalize_query(str)

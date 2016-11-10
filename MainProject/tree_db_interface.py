@@ -3,44 +3,112 @@ An interface between file management (load, and save)
 to back end DB access.
 
 """
-
-def fetchTrees(query):
-	"""
-		description -
-			given query, fetch trees from the database
-		input - 
-			query: string submitted by user to search trees
-		output -
-			list of tree's 
-	"""
-	
+import dbaccess as db
+from tree.tree import TreeNode, load_data, save_data
 
 
-def loadTree(*args):
-	"""
-		description - 
-			using *args fetch tree to be loaded.
-		input - 
-			*args: can contain key, name, category, subject, topic, id of tree of interest
+def get_categories():
+    """
+        description -
+            return all the categories stored on db
+        input -
+            None
+        output -
+            Queryset object containing categories.
+    """
+    q = db.get_col_subjects("category")
+    q = q.distinct()
+    return q
 
-		output - 
-			return object dump to front-end
-	"""
+def get_category_subjects():
+    """
+        description -
+            return all the categories and subjects stored on db
+        input -
+            None
+        output -
+            Queryset object containing result.
+    """
+    q = db.get_col_subjects("category", "subject")
+    return q
 
-	return
+def get_subjects_in_category(str):
+    """
+        description -
+            get list of subjects in category
+        input -
+            str : category name
+        output -
+            Queryset object containing result.
+    """
+    q = db.get_subjects_tuple(category=str)
+    return q
+
+def get_specific_tuples(category, subject=None, topic=None):
+    q = db.get_subjects_tuple(category=category, subject=subject, topic=topic)
+    return q
+
+def get_all_in_subjects():
+    """
+        description -
+            return all the info stored in the subject table
+        input -
+            None
+        output -
+            Queryset object containing result.
+    """
+    q = db.get_col_subjects("category", "subject", "topic")
+    return q
+
+
+def search_trees(str):
+    """
+    description -
+        search database tree entries for potential matches to user query
+    input -
+        str: user input string
+
+    return -
+        Queryset object containing search results
+    """
+    found_entries = None
+    found_entries  = db.search_tree(str)
+    return found_entries
 
 
 
-def saveTree(tree):
 
-	"""
-		description -
-			dump tree object to file and update database
-		input - 
-			tree: object containing information on tree
-		output -
-			None
+def load_trees(qset_obj):
+    """
+        description -
+            given Queryset object, load tree objects from file.
+        input -
+            qset_obj: Queryset object containing tree tuples.
+        output -
+            list of tree objects
+    """
+    tree_objects = []
+    # load tree objects
+    for tuple in qset_obj:
+        dir = tuple['DIRLink']
+        tree_objects.append(load_data(dir))
+    return tree_objects
 
-	"""
 
-	return
+
+
+def save_tree(tree_object, **tree_details):
+    """
+
+
+    """
+    tree_info = db.get_specific_tree(**tree_details)
+    temp_status = None
+    if (tree_info == None):
+        temp_status =  db.add_tree_info(**tree_details)
+        if (temp_status != None):
+            temp_status = save_data(['DIRLink'], tree_object)
+    else:
+        temp_status = save_data(tree_info['DIRLink'], tree_object)
+
+    return temp_status
