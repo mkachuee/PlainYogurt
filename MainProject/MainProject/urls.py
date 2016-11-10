@@ -21,6 +21,7 @@ urlpatterns = [
 	url(r'^acc/', include('acc.urls')),
 	url(r'^createAccount/', include('createAccount.urls')),
 	url(r'^subjects/', include('subjects.urls')),
+	url(r'^search/', include('search.urls')),
 	url(r'^contribute/', include('contribute.urls')),
 	url(r'^learningSoftwareDesign/', include('learningSoftwareDesign.urls')),
 	url(r'^admin/', admin.site.urls)

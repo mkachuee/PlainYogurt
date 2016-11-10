@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'createAccount.apps.CreateaccountConfig',
     'learningSoftwareDesign.apps.LearningsoftwaredesignConfig',
     'acc.apps.AccConfig',
+    'search.apps.SearchConfig'
 ]
 
 SITE_ID = 1
