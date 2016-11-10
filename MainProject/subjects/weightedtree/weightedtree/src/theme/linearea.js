@@ -69,10 +69,10 @@ vizuly.theme.linearea = function (viz) {
 
     // We put the callbacks in an array so we can keep track of them when we need to release the viz
     var callbacks = [
-        {on: "measure.theme",callback: onMeasure},
-        {on: "update.theme",callback: applyTheme},
-        {on: "mouseover.theme",callback: onMouseOver},
-        {on: "mouseout.theme",callback: onMouseOut}
+        {on: "measure.theme", callback: onMeasure},
+        {on: "update.theme", callback: applyTheme},
+        {on: "mouseover.theme", callback: onMouseOver},
+        {on: "mouseout.theme", callback: onMouseOut}
     ];
 
     // Create our function chained theme object
@@ -87,7 +87,7 @@ vizuly.theme.linearea = function (viz) {
     function applyTheme() {
 
         // If we don't have a skin we want to exit - as there is nothing we can do.
-        if (!skin || skin==null) return;
+        if (!skin || skin == null) return;
 
         // The width and height of the viz
         var w = viz.width();
@@ -97,11 +97,11 @@ vizuly.theme.linearea = function (viz) {
         var selection = viz.selection();
 
         // Set our skin class
-        selection.attr("class",skin.class);
+        selection.attr("class", skin.class);
 
         // Update the background
         selection.selectAll(".vz-background").attr("fill", function () {
-            return "url(#" +  backgroundGradient.attr("id") + ")";
+            return "url(#" + backgroundGradient.attr("id") + ")";
         });
 
         // Hide the plot background
@@ -109,14 +109,24 @@ vizuly.theme.linearea = function (viz) {
 
         // Style the area paths
         selection.selectAll(".vz-area")
-            .style("fill", function (d, i) { return skin.area_fill(d, i); })
-            .style("fill-opacity", function (d, i) { return skin.area_fill_opacity.apply(viz, [d, i]); });
+            .style("fill", function (d, i) {
+                return skin.area_fill(d, i);
+            })
+            .style("fill-opacity", function (d, i) {
+                return skin.area_fill_opacity.apply(viz, [d, i]);
+            });
 
         // Style the line paths
         selection.selectAll(".vz-line")
-            .style("stroke-width", function () {  return h / 450 })
-            .style("stroke", function (d, i) { return skin.line_stroke(d, i) })
-            .style("opacity", function (d, i) { return skin.line_opacity.apply(viz, [d, i]) });
+            .style("stroke-width", function () {
+                return h / 450
+            })
+            .style("stroke", function (d, i) {
+                return skin.line_stroke(d, i)
+            })
+            .style("opacity", function (d, i) {
+                return skin.line_opacity.apply(viz, [d, i])
+            });
 
         // Hide all data points
         selection.selectAll(".vz-data-point").style("opacity", 0);
@@ -128,7 +138,9 @@ vizuly.theme.linearea = function (viz) {
             .style("font-weight", 300)
             .style("fill-opacity", .8)
             .style("font-size", Math.max(8, Math.round(w / 65)) + "px")
-            .style("opacity", function () { return w > 399 ? 1 : 0 });
+            .style("opacity", function () {
+                return w > 399 ? 1 : 0
+            });
 
         // Update the left axis
         selection.selectAll(".vz-left-axis line")
@@ -147,34 +159,44 @@ vizuly.theme.linearea = function (viz) {
     }
 
     // Fires on each mouse over
-    function onMouseOver(d,i,j) {
+    function onMouseOver(d, i, j) {
 
         // Animate the line to be less bright unless it is the selected one
         viz.selection().selectAll(".vz-line").transition()
-            .style("stroke", function (d,i) { return skin.line_over_stroke(d,i) })
-            .style("opacity", function (d,i) { return (i==j) ? 1 : 0 });
+            .style("stroke", function (d, i) {
+                return skin.line_over_stroke(d, i)
+            })
+            .style("opacity", function (d, i) {
+                return (i == j) ? 1 : 0
+            });
 
         // Anmiate the area paths to be less bright unless it is the selcted one
         viz.selection().selectAll(".vz-area").transition()
-            .style("opacity", function (d,i) { return (i==j) ? 1 : .35 });
+            .style("opacity", function (d, i) {
+                return (i == j) ? 1 : .35
+            });
 
         // Remove any data tips
         viz.selection().selectAll(".vz-point-tip").remove();
 
         // Create a data tip circle for the appropriate data point.
-        var g =  d3.select(this);
-            g.append("circle")
-            .attr("class","vz-point-tip").attr("r",4).style("fill","#000").style("stroke","#FFF").style("stroke-width",2).style("pointer-events","none");
+        var g = d3.select(this);
+        g.append("circle")
+            .attr("class", "vz-point-tip").attr("r", 4).style("fill", "#000").style("stroke", "#FFF").style("stroke-width", 2).style("pointer-events", "none");
 
     }
 
     // Fires on each mouse out
-    function onMouseOut(d,i,j) {
+    function onMouseOut(d, i, j) {
 
         // Put all the lines back to original styling.
         viz.selection().selectAll(".vz-line").transition()
-            .style("stroke", function (d, i) { return skin.line_stroke(d, i) })
-            .style("opacity", function (d, i) { return skin.line_opacity.apply(viz,[d, i]) });
+            .style("stroke", function (d, i) {
+                return skin.line_stroke(d, i)
+            })
+            .style("opacity", function (d, i) {
+                return skin.line_opacity.apply(viz, [d, i])
+            });
 
         // Put all areas back to full opacity
         viz.selection().selectAll(".vz-area").transition()
@@ -196,8 +218,8 @@ vizuly.theme.linearea = function (viz) {
         viz.selection().selectAll(".vz-background").style("fill-opacity", 1);
         backgroundGradient.selectAll("stop")
             .transition().duration(500).attr("stop-color", function (d, i) {
-                return (i == 0) ? skin.grad0 : skin.grad1;
-            });
+            return (i == 0) ? skin.grad0 : skin.grad1;
+        });
     }
 
     // Our primary external function that fires the "apply" function.
@@ -218,11 +240,11 @@ vizuly.theme.linearea = function (viz) {
     // Removes viz from skin
     theme.release = function () {
         if (!viz) return;
-        viz.selection().attr("class",null);
+        viz.selection().attr("class", null);
         callbacks.forEach(function (d) {
             viz.on(d.on, null);
         })
-        viz=null;
+        viz = null;
     };
 
     // Returns the selected viz or sets one and applies the callbacks
@@ -253,7 +275,7 @@ vizuly.theme.linearea = function (viz) {
     }
 
     var skins = {
-        Fire : {
+        Fire: {
             name: "Fire",
             labelColor: "#FFF",
             color: "#02C3FF",
@@ -265,7 +287,7 @@ vizuly.theme.linearea = function (viz) {
             line_stroke: function (d, i) {
                 return this.stroke_colors[i % 5];
             },
-            line_over_stroke: function (d,i) {
+            line_over_stroke: function (d, i) {
                 return d3.rgb(this.stroke_colors[i % 5]).brighter();
             },
             line_opacity: function (d, i) {
@@ -300,14 +322,14 @@ vizuly.theme.linearea = function (viz) {
             line_stroke: function (d, i) {
                 return this.stroke_colors[i % 5];
             },
-            line_over_stroke: function (d,i) {
+            line_over_stroke: function (d, i) {
                 return d3.rgb(this.stroke_colors[i % 5]).brighter();
             },
             line_opacity: function (d, i) {
                 return (this.layout() == vizuly.viz.layout.STREAM) ? .4 : .9;
             },
             area_fill: function (d, i) {
-                return "url(#" + vizuly.svg.gradient.fade(viz, this.fill_colors[i % 5], "vertical", [.5,1]).attr("id") + ")";
+                return "url(#" + vizuly.svg.gradient.fade(viz, this.fill_colors[i % 5], "vertical", [.5, 1]).attr("id") + ")";
             },
             area_fill_opacity: function (d, i) {
                 return (this.layout() == vizuly.viz.layout.OVERLAP) ? .8 : 1;
@@ -330,7 +352,7 @@ vizuly.theme.linearea = function (viz) {
             line_stroke: function (d, i) {
                 return "#000"
             },
-            line_over_stroke: function (d,i) {
+            line_over_stroke: function (d, i) {
                 return "#FFF"
             },
             line_opacity: function (d, i) {
@@ -340,14 +362,14 @@ vizuly.theme.linearea = function (viz) {
                 return "#FFF";
             },
             area_fill_opacity: function (d, i) {
-                return ((i+1)/viz.data().length) * ((this.layout() == vizuly.viz.layout.OVERLAP) ?  0.8 : 0.85);
+                return ((i + 1) / viz.data().length) * ((this.layout() == vizuly.viz.layout.OVERLAP) ? 0.8 : 0.85);
             },
             xAxis_font_weight: 200,
             yAxis_line_stroke: "#FFF",
             yAxis_line_opacity: .25,
             class: "vz-skin-ocean"
         },
-        Neon : {
+        Neon: {
             name: "Neon",
             labelColor: "#FFF",
             color: "#02C3FF",
@@ -359,7 +381,7 @@ vizuly.theme.linearea = function (viz) {
             line_stroke: function (d, i) {
                 return "#FFF";
             },
-            line_over_stroke: function (d,i) {
+            line_over_stroke: function (d, i) {
                 return "#FFF";
             },
             line_opacity: function (d, i) {
@@ -369,14 +391,14 @@ vizuly.theme.linearea = function (viz) {
                 return "#D1F704";
             },
             area_fill_opacity: function (d, i) {
-                return ((i+1)/this.data().length) * ((this.layout() == vizuly.viz.layout.OVERLAP) ?  0.6 : 0.8);
+                return ((i + 1) / this.data().length) * ((this.layout() == vizuly.viz.layout.OVERLAP) ? 0.6 : 0.8);
             },
             xAxis_font_weight: 200,
             yAxis_line_stroke: "#FFF",
             yAxis_line_opacity: .25,
             class: "vz-skin-default"
         },
-        Business : {
+        Business: {
             name: "Business",
             labelColor: "#000",
             color: "#000",
@@ -384,11 +406,11 @@ vizuly.theme.linearea = function (viz) {
             fill_colors: ["#C50A0A", "#C2185B", "#F57C00", "#FF9800", "#FFEB3B"],
             grad0: "#CCC",
             grad1: "#EEE",
-            background_transition:  materialBackground,
+            background_transition: materialBackground,
             line_stroke: function (d, i) {
                 return d3.rgb(businessColors(i)).darker();
             },
-            line_over_stroke: function (d,i) {
+            line_over_stroke: function (d, i) {
                 return "#FFF"
                 return d3.rgb(businessColors(i)).darker().darker();
             },

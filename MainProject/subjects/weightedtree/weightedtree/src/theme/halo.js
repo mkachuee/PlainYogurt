@@ -64,19 +64,19 @@ vizuly.theme.halo = function (viz) {
     var backgroundGradient = vizuly.svg.gradient.blend(viz, "#000", "#000");
 
     // Used to set stroke width for nodes
-    var nodeStrokeScale=d3.scale.linear();
+    var nodeStrokeScale = d3.scale.linear();
 
     // We put the callbacks in an array so we can keep track of them when we need to release the viz
     // ANY mouse out event calls the same function, which restores all of the styles and properties for the viz
     var callbacks = [
-        {on: "measure.theme",callback: onMeasure},
-        {on: "update.theme",callback: applyTheme},
-        {on: "nodeover.theme",callback: node_onMouseOver},
-        {on: "nodeout.theme",callback: onMouseOut},
-        {on: "arcover.theme",callback: arc_onMouseOver},
-        {on: "arcout.theme",callback: onMouseOut},
-        {on: "linkover.theme",callback: link_onMouseOver},
-        {on: "linkout.theme",callback: onMouseOut}
+        {on: "measure.theme", callback: onMeasure},
+        {on: "update.theme", callback: applyTheme},
+        {on: "nodeover.theme", callback: node_onMouseOver},
+        {on: "nodeout.theme", callback: onMouseOut},
+        {on: "arcover.theme", callback: arc_onMouseOver},
+        {on: "arcout.theme", callback: onMouseOut},
+        {on: "linkover.theme", callback: link_onMouseOver},
+        {on: "linkout.theme", callback: onMouseOut}
     ];
 
     // Create our function chained theme object
@@ -96,11 +96,11 @@ vizuly.theme.halo = function (viz) {
         var selection = viz.selection();
 
         // Set our skin class
-        selection.attr("class",skin.class);
+        selection.attr("class", skin.class);
 
         // Update the background
         selection.selectAll(".vz-background").attr("fill", function () {
-            return "url(#" +  backgroundGradient.attr("id") + ")";
+            return "url(#" + backgroundGradient.attr("id") + ")";
         });
 
         // Hide the plot background
@@ -108,33 +108,49 @@ vizuly.theme.halo = function (viz) {
 
         // Style the link paths
         selection.selectAll(".vz-halo-link-path")
-            .style("fill",function (d,i) { return skin.link_fill(d,i)})
+            .style("fill", function (d, i) {
+                return skin.link_fill(d, i)
+            })
             .style("fill-opacity", skin.link_fill_opacity)
-            .style("stroke",function (d,i) { return skin.link_stroke(d,i)})
+            .style("stroke", function (d, i) {
+                return skin.link_stroke(d, i)
+            })
 
         // Style the link nodes (smaller ones)
         selection.selectAll(".vz-halo-link-node")
-            .style("fill",function (d,i) { return skin.link_fill(d,i)})
-            .style("fill-opacity",skin.link_node_fill_opacity);
+            .style("fill", function (d, i) {
+                return skin.link_fill(d, i)
+            })
+            .style("fill-opacity", skin.link_node_fill_opacity);
 
         // Style the main nodes
         selection.selectAll(".vz-halo-node")
-            .style("fill",function (d,i) { return skin.node_fill(d,i)})
-            .style("stroke",function (d,i) { return skin.node_stroke(d,i)})
-            .style("stroke-width",function (d,i) { return nodeStrokeScale(d.r); });
+            .style("fill", function (d, i) {
+                return skin.node_fill(d, i)
+            })
+            .style("stroke", function (d, i) {
+                return skin.node_stroke(d, i)
+            })
+            .style("stroke-width", function (d, i) {
+                return nodeStrokeScale(d.r);
+            });
 
         // Style the arc slices
-        selection.selectAll(".vz-halo-arc-slice").style("fill",function (d,i) { return skin.arc_fill(d,i)});
+        selection.selectAll(".vz-halo-arc-slice").style("fill", function (d, i) {
+            return skin.arc_fill(d, i)
+        });
 
         // Style the main arcs
-        selection.selectAll(".vz-halo-arc").style("fill",function (d,i) { return skin.arc_fill(d,i)});
+        selection.selectAll(".vz-halo-arc").style("fill", function (d, i) {
+            return skin.arc_fill(d, i)
+        });
 
         // Run our background transition
         skin.background_transition();
     }
 
     // Each time the user mouses over a halo arc group this fires
-    function arc_onMouseOver(e,d,i) {
+    function arc_onMouseOver(e, d, i) {
 
         // demphasize all elements
         lowLight();
@@ -148,7 +164,7 @@ vizuly.theme.halo = function (viz) {
     }
 
     // Fires each time the user mouses over a link path
-    function link_onMouseOver(e,d,i) {
+    function link_onMouseOver(e, d, i) {
 
         // demphasize all elements
         lowLight();
@@ -162,15 +178,15 @@ vizuly.theme.halo = function (viz) {
     }
 
     // Fires each time the user mouses over a node
-    function node_onMouseOver(e,d,i) {
+    function node_onMouseOver(e, d, i) {
 
         // demphasize all elements
         lowLight();
 
         // For each link associated with the node, highlight all arc slices
-        var links=viz.selection().selectAll(".vz-halo-link-path.node-key_" + d.key);
+        var links = viz.selection().selectAll(".vz-halo-link-path.node-key_" + d.key);
         links.each(function (d) {
-           var arc=viz.selection().selectAll(".vz-halo-arc.halo-key_" + viz.haloKey()(d.data));
+            var arc = viz.selection().selectAll(".vz-halo-arc.halo-key_" + viz.haloKey()(d.data));
             highlightArc(arc);
         });
 
@@ -185,71 +201,83 @@ vizuly.theme.halo = function (viz) {
     }
 
     // On mouse out for ANY element we restore all elements
-    function onMouseOut(e,d,i) {
+    function onMouseOut(e, d, i) {
         restoreElements();
     }
 
     // demphasizes all elements
     function lowLight() {
-        viz.selection().selectAll(".vz-halo-node").style("fill-opacity",.1).style("stroke-opacity",.05);
-        viz.selection().selectAll(".vz-halo-link-node").style("fill-opacity",0);
-        viz.selection().selectAll(".vz-halo-link-path").style("fill-opacity",.025);
+        viz.selection().selectAll(".vz-halo-node").style("fill-opacity", .1).style("stroke-opacity", .05);
+        viz.selection().selectAll(".vz-halo-link-node").style("fill-opacity", 0);
+        viz.selection().selectAll(".vz-halo-link-path").style("fill-opacity", .025);
     }
 
     function highlightLink(selection) {
-        selection.style("fill-opacity",.6).style("stroke-opacity",.25);
+        selection.style("fill-opacity", .6).style("stroke-opacity", .25);
     }
 
     function highlightNodeStroke(selection) {
-        selection.style("stroke-opacity",.8).style("stroke",function (d,i) { return skin.node_over_stroke(d,i)});
+        selection.style("stroke-opacity", .8).style("stroke", function (d, i) {
+            return skin.node_over_stroke(d, i)
+        });
     }
 
 
     function highlightNode(selection) {
-        selection.style("fill-opacity",.8).style("stroke-opacity",.5).style("stroke",function (d,i) { return skin.node_over_stroke(d,i)});
+        selection.style("fill-opacity", .8).style("stroke-opacity", .5).style("stroke", function (d, i) {
+            return skin.node_over_stroke(d, i)
+        });
     }
 
     function highlightLinkNode(selection) {
-        selection.style("fill-opacity",.5).style("stroke-opacity",.7).style("stroke",function (d,i) { return skin.node_over_stroke(d,i)});
+        selection.style("fill-opacity", .5).style("stroke-opacity", .7).style("stroke", function (d, i) {
+            return skin.node_over_stroke(d, i)
+        });
     }
 
     function highlightArcSlice(selection) {
-        selection.style("fill-opacity",.8).style("stroke-opacity",.8);
+        selection.style("fill-opacity", .8).style("stroke-opacity", .8);
     }
 
     function highlightArc(selection) {
-        selection.style("fill-opacity",.65).style("stroke-opacity",.8).style("fill",function (d,i) { return skin.arc_over_fill(d,i)});
+        selection.style("fill-opacity", .65).style("stroke-opacity", .8).style("fill", function (d, i) {
+            return skin.arc_over_fill(d, i)
+        });
     }
 
     // Restores all elements to original style settings
     function restoreElements() {
         viz.selection().selectAll(".vz-halo-arc")
-            .style("fill-opacity",null)
-            .style("stroke-opacity",null)
-            .style("fill",function (d,i) { return skin.arc_fill(d,i)});
+            .style("fill-opacity", null)
+            .style("stroke-opacity", null)
+            .style("fill", function (d, i) {
+                return skin.arc_fill(d, i)
+            });
 
         viz.selection().selectAll(".vz-halo-node")
-            .style("fill-opacity",null)
-            .style("stroke-opacity",null)
-            .style("stroke",function(d,i) { return skin.node_stroke(d,i)});
+            .style("fill-opacity", null)
+            .style("stroke-opacity", null)
+            .style("stroke", function (d, i) {
+                return skin.node_stroke(d, i)
+            });
 
         viz.selection().selectAll(".vz-halo-link-node")
-            .style("fill-opacity",skin.link_node_fill_opacity).style("stroke",null);
+            .style("fill-opacity", skin.link_node_fill_opacity).style("stroke", null);
 
         viz.selection().selectAll(".vz-halo-link-path")
-            .style("fill-opacity",skin.link_fill_opacity)
-            .style("stroke-opacity",null);
+            .style("fill-opacity", skin.link_fill_opacity)
+            .style("stroke-opacity", null);
 
         viz.selection().selectAll(".vz-halo-arc-slice")
-            .style("fill-opacity",null)
-            .style("stroke-opacity",null);
+            .style("fill-opacity", null)
+            .style("stroke-opacity", null);
     }
 
     // Each time the viz is resized we need to adjust our scale for the node strokes
     function onMeasure() {
-        var r=Math.min(viz.width(),viz.height()/2);
-        nodeStrokeScale.domain([0,r/20]);
-        nodeStrokeScale.range([0,r/80]);
+        var r = Math.min(viz.width(), viz.height() / 2);
+        nodeStrokeScale.domain([0, r / 20]);
+        nodeStrokeScale.range([0, r / 80]);
     }
 
     // Utitliy to transition the background
@@ -257,8 +285,8 @@ vizuly.theme.halo = function (viz) {
         viz.selection().selectAll(".vz-background").style("fill-opacity", 1);
         backgroundGradient.selectAll("stop")
             .transition().duration(500).attr("stop-color", function (d, i) {
-                return (i == 0) ? skin.grad0 : skin.grad1;
-            });
+            return (i == 0) ? skin.grad0 : skin.grad1;
+        });
     }
 
     // Our primary external function that fires the "apply" function.
@@ -279,11 +307,11 @@ vizuly.theme.halo = function (viz) {
     // Removes viz from skin
     theme.release = function () {
         if (!viz) return;
-        viz.selection().attr("class",null);
+        viz.selection().attr("class", null);
         callbacks.forEach(function (d) {
             viz.on(d.on, null);
         })
-        viz=null;
+        viz = null;
     };
 
     // Returns the selected viz or sets one and applies the callbacks
@@ -329,8 +357,8 @@ vizuly.theme.halo = function (viz) {
             link_fill: function (d, i) {
                 return this.fill_colors[i % 5];
             },
-            link_fill_opacity:.1,
-            link_node_fill_opacity:.1,
+            link_fill_opacity: .1,
+            link_node_fill_opacity: .1,
             node_stroke: function (d, i) {
                 return this.stroke_colors[i % 5];
             },
@@ -366,8 +394,8 @@ vizuly.theme.halo = function (viz) {
             link_fill: function (d, i) {
                 return this.fill_colors[i % 5];
             },
-            link_fill_opacity:.2,
-            link_node_fill_opacity:.5,
+            link_fill_opacity: .2,
+            link_node_fill_opacity: .5,
             node_stroke: function (d, i) {
                 return this.stroke_colors[i % 5];
             },
@@ -401,8 +429,8 @@ vizuly.theme.halo = function (viz) {
             link_fill: function (d, i) {
                 return "#D1F704";
             },
-            link_fill_opacity:.1,
-            link_node_fill_opacity:.1,
+            link_fill_opacity: .1,
+            link_node_fill_opacity: .1,
             node_stroke: function (d, i) {
                 return "#D1F704";
             },
@@ -436,8 +464,8 @@ vizuly.theme.halo = function (viz) {
             link_fill: function (d, i) {
                 return "#FFF";
             },
-            link_fill_opacity:.075,
-            link_node_fill_opacity:.075,
+            link_fill_opacity: .075,
+            link_node_fill_opacity: .075,
             node_stroke: function (d, i) {
                 return "#FFF";
             },

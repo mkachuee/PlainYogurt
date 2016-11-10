@@ -7,10 +7,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 
+
 def allSubjects(request):
-	return render(request, 'subjects/subjects.html') 
+    return render(request, 'subjects/subjects.html')
+
 
 def specificSubject(request, subjectName):
-	# get subjectName from database and put into context
-	context = {'subjectName':subjectName,'subjectID':'1'}
-	return render(request, 'subjects/specificSubject.html', context)
+    # get subjectName from database and put into context
+    context = {'subjectName': subjectName, 'subjectID': '1'}
+    return render(request, 'subjects/specificSubject.html', context)

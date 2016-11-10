@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.template.context_processors import csrf
 from acc.forms import RegistrationForm
 
+
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -21,9 +22,11 @@ def register(request):
 
     return render_to_response('acc/register.html', token)
 
+
 def registerSuccess(request):
     return render_to_response('acc/registerSuccess.html')
 
+
 @login_required(login_url="login/")
 def home(request):
-	return render(request,"acc/home.html")
+    return render(request, "acc/home.html")

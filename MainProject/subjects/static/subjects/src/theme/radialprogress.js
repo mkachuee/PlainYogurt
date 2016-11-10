@@ -108,7 +108,7 @@ vizuly.theme.radial_progress = function (viz) {
 //is optimized for performance and doesn't use gradients and filters, which can slow down rendering.*
 // Here are our custom skins
     var skins = {
-        Alert : {
+        Alert: {
             name: "Alert",                          // Skin Name
             label_color: "#CCC",                    // Color of the center label
             track_fill: "#DDDDDD",                  // Color of the background 'track' of the progress bar
@@ -116,7 +116,7 @@ vizuly.theme.radial_progress = function (viz) {
             arc_fill: function (d, i) {
                 return this.progress_colors[i % 5]; // Dynamic function that returns a fill based on the index value
             },
-            arc_fill_opacity: function (d,i) {
+            arc_fill_opacity: function (d, i) {
                 return 1;                           // Dynamic function that returns opacity (in this case it is 1, but the WHITE skin uses a dynamic opacity
             },
             arc_stroke: function (d, i) {
@@ -133,7 +133,7 @@ vizuly.theme.radial_progress = function (viz) {
             arc_fill: function (d, i) {
                 return this.progress_colors[i % 5];
             },
-            arc_fill_opacity: function (d,i) {
+            arc_fill_opacity: function (d, i) {
                 return 1;
             },
             arc_stroke: function (d, i) {
@@ -148,8 +148,8 @@ vizuly.theme.radial_progress = function (viz) {
             arc_fill: function (d, i) {
                 return "#FFF";
             },
-            arc_fill_opacity: function (d,i) {
-                return .85/Math.exp(i*.75);
+            arc_fill_opacity: function (d, i) {
+                return .85 / Math.exp(i * .75);
             },
             arc_stroke: function (d, i) {
                 return "#FFF";
@@ -161,10 +161,10 @@ vizuly.theme.radial_progress = function (viz) {
             label_color: "#D1F704",
             track_fill: "#000",
             progress_colors: ["#D1F704", "#A8C102", "#788A04", "#566204", "#383F04"],
-            arc_fill: function (d,i) {
+            arc_fill: function (d, i) {
                 return this.progress_colors[i % 5];
             },
-            arc_fill_opacity: function (d,i) {
+            arc_fill_opacity: function (d, i) {
                 return 1;
             },
             arc_stroke: function (d, i) {
@@ -177,10 +177,10 @@ vizuly.theme.radial_progress = function (viz) {
             label_color: "#EEE",
             track_fill: "#DDDDDD",
             progress_colors: d3.scale.category20(),
-            arc_fill: function (d,i) {
+            arc_fill: function (d, i) {
                 return this.progress_colors(i);
             },
-            arc_fill_opacity: function (d,i) {
+            arc_fill_opacity: function (d, i) {
                 return 1;
             },
             arc_stroke: function (d, i) {
@@ -196,9 +196,9 @@ vizuly.theme.radial_progress = function (viz) {
 
     // We put the **callbacks** in an array so we can keep track of them when we need to release the viz.
     var callbacks = [
-        {on: "update.theme",callback: applyTheme},
-        {on: "mouseover.theme",callback: onMouseOver},
-        {on: "mouseout.theme",callback: onMouseOut}
+        {on: "update.theme", callback: applyTheme},
+        {on: "mouseover.theme", callback: onMouseOver},
+        {on: "mouseout.theme", callback: onMouseOut}
     ];
 
     // Now we create our function chained **theme** object that will wrap a closure around its functions.
@@ -220,37 +220,43 @@ vizuly.theme.radial_progress = function (viz) {
         var selection = viz.selection();
 
         // Set our skin **css** class
-        selection.attr("class",skin.class);
+        selection.attr("class", skin.class);
 
         // Style our **progress** arcs
         selection.selectAll(".vz-radial_progress-arc")
-            .style("fill",function (d,i) { return skin.arc_fill(d,i)})
-            .style("fill-opacity",function (d,i) { return skin.arc_fill_opacity(d,i)})
-            .style("stroke",function (d,i) { return skin.arc_stroke(d,i)});
+            .style("fill", function (d, i) {
+                return skin.arc_fill(d, i)
+            })
+            .style("fill-opacity", function (d, i) {
+                return skin.arc_fill_opacity(d, i)
+            })
+            .style("stroke", function (d, i) {
+                return skin.arc_stroke(d, i)
+            });
 
         // Style the **track** arcs
         selection.selectAll(".vz-radial_progress-track")
-            .style("fill",skin.track_fill);
+            .style("fill", skin.track_fill);
 
         // Style the **label**
         selection.selectAll(".vz-radial_progress-label")
-            .style("fill",skin.label_color)
-            .style("stroke-opacity",0)
-            .style("font-size",viz.radius() *.25);  // Notice we dynamically size the font based on the gauge radius.
+            .style("fill", skin.label_color)
+            .style("stroke-opacity", 0)
+            .style("font-size", viz.radius() * .25);  // Notice we dynamically size the font based on the gauge radius.
 
     }
 
     //Now we get to some user triggered display changes.
     //For the gauge we simply change the font-weight of the label when a **mouseover** event occurs.
-    function onMouseOver(e,d,i) {
+    function onMouseOver(e, d, i) {
         viz.selection().selectAll(".vz-radial_progress-label")
-            .style("font-weight",700);
+            .style("font-weight", 700);
     }
 
     //On **mouseout** we want to undo any changes we made on the mouseover callback.
-    function onMouseOut(e,d,i) {
+    function onMouseOut(e, d, i) {
         viz.selection().selectAll(".vz-radial_progress-label")
-            .style("font-weight",null);
+            .style("font-weight", null);
     }
 
     // This function **binds** all of our theme **callbacks** to the viz so the theme can respond to events as needed.
@@ -287,9 +293,9 @@ vizuly.theme.radial_progress = function (viz) {
     // This **removes**  the viz from skin and any associated event listeners.
     theme.release = function () {
         if (!viz) return;
-        viz.selection().attr("class",null);
+        viz.selection().attr("class", null);
         removeCallbacks();
-        viz=null;
+        viz = null;
     };
 
     // Here we can either manually set a new viz object or **grab a reference** to the current one.

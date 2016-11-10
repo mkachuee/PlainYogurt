@@ -2,23 +2,24 @@ from django.test import TestCase
 from acc.forms import RegistrationForm
 from acc.forms import LoginForm
 
+
 # Create your tests here.
 class AccTest(TestCase):
     def trivialTest(self):
         self.assertIs(True, True)
 
     def testRegistrationForm1(self):
-        formData = {'username': 'qaz','password1': 'aaaaaaaaaa', 'password2': 'aaaaaaaaaa'}
+        formData = {'username': 'qaz', 'password1': 'aaaaaaaaaa', 'password2': 'aaaaaaaaaa'}
         form = RegistrationForm(data=formData)
         self.assertTrue(form.is_valid())
 
     def testRegistrationForm2(self):
-        formData = {'username': 'www','password1': 'aaaaaaaaaa', 'password2': 'bbbbbbbbbb'}
+        formData = {'username': 'www', 'password1': 'aaaaaaaaaa', 'password2': 'bbbbbbbbbb'}
         form = RegistrationForm(data=formData)
         self.assertFalse(form.is_valid())
 
     def testRegistrationForm3(self):
-        formData = {'username': 'too','password1': 'short', 'password2': 'short'}
+        formData = {'username': 'too', 'password1': 'short', 'password2': 'short'}
         form = RegistrationForm(data=formData)
         self.assertFalse(form.is_valid())
 
@@ -32,7 +33,8 @@ class AccTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def testRegistrationForm5(self):
-        formData = {'username': 'sameUsernamePassword', 'password1': 'sameUsernamePassword', 'password2': 'sameUsernamePassword'}
+        formData = {'username': 'sameUsernamePassword', 'password1': 'sameUsernamePassword',
+                    'password2': 'sameUsernamePassword'}
         form = RegistrationForm(data=formData)
         self.assertFalse(form.is_valid())
 
@@ -73,8 +75,8 @@ class AccTest(TestCase):
         self.assertFalse(form.is_valid())
 
     def testRegistrationForm12(self):
-        for i in range(0,1000):
-            formData = {'username': 'Spam'+str(i),
+        for i in range(0, 1000):
+            formData = {'username': 'Spam' + str(i),
                         'password1': 'aaaaaaaaaa',
                         'password2': 'aaaaaaaaaa'}
             form = RegistrationForm(data=formData)

@@ -1,4 +1,3 @@
-
 //Here we **instantiate** the theme borrowing from the same design pattern as D3.js where we use an encapsulated function chained object.
 //Each theme requires a viz component at construction.  It is important to note that while a viz component has no
 //dependency on a theme, the theme does require knowledge of the viz display OUTPUT (but not the internals), so it can modify them.
@@ -7,7 +6,7 @@ vizuly.theme.weighted_tree = function (viz) {
 
 
     var skins = {
-        "Axiis" : {
+        "Axiis": {
             name: "Axiis",                          // Skin Name
             label_color: "#333",                    // Color of the center label
             link_colors: ["#bd0026", "#fecc5c", "#fd8d3c", "#f03b20", "#B02D5D",
@@ -16,15 +15,15 @@ vizuly.theme.weighted_tree = function (viz) {
             link_stroke: function (d, i) {
                 return d.target.vz_link_color;
             },
-            link_stroke_opacity: function (d,i) {
-                if (viz.value()(d.target) <= 0 ) return .15;
+            link_stroke_opacity: function (d, i) {
+                if (viz.value()(d.target) <= 0) return .15;
                 return .35;                           // Dynamic function that returns opacity (in this case it is 1, but the WHITE skin uses a dynamic opacity
             },
             node_fill: function (d, i) {
                 return d.vz_link_color;
             },
             node_fill_opacity: function (d, i) {
-                if (viz.value()(d) <= 0 ) return .15;
+                if (viz.value()(d) <= 0) return .15;
                 return .4;
             },
             node_stroke: function (d, i) {
@@ -33,13 +32,15 @@ vizuly.theme.weighted_tree = function (viz) {
             node_stroke_opacity: function (d, i) {
                 return .6;
             },
-            text_fill_opacity: function (d,i) {
-                if (viz.value()(d) <= 0 ) return .35;
+            text_fill_opacity: function (d, i) {
+                if (viz.value()(d) <= 0) return .35;
                 return 1;
             },
-            font_size: function () { return fontSize + "px"; }
+            font_size: function () {
+                return fontSize + "px";
+            }
         },
-        "None" : {
+        "None": {
             name: "None",                          // Skin Name
             label_color: null,                    // Color of the center label
             link_colors: ["#bd0026", "#fecc5c", "#fd8d3c", "#f03b20", "#B02D5D",
@@ -48,7 +49,7 @@ vizuly.theme.weighted_tree = function (viz) {
             link_stroke: function (d, i) {
                 return null;
             },
-            link_stroke_opacity: function (d,i) {
+            link_stroke_opacity: function (d, i) {
                 return null;
             },
             node_fill: function (d, i) {
@@ -63,10 +64,12 @@ vizuly.theme.weighted_tree = function (viz) {
             node_stroke_opacity: function (d, i) {
                 return null;
             },
-            text_fill_opacity: function (d,i) {
+            text_fill_opacity: function (d, i) {
                 return null;
             },
-            font_size: function() { return null; }
+            font_size: function () {
+                return null;
+            }
         }
     }
 
@@ -78,10 +81,10 @@ vizuly.theme.weighted_tree = function (viz) {
 
     // We put the **callbacks** in an array so we can keep track of them when we need to release the viz.
     var callbacks = [
-        {on: "update.theme",callback: applyTheme},
-        {on: "data_prepped.theme",callback: prepColorData},
-        {on: "mouseover.theme",callback: onMouseOver},
-        {on: "mouseout.theme",callback: onMouseOut}
+        {on: "update.theme", callback: applyTheme},
+        {on: "data_prepped.theme", callback: prepColorData},
+        {on: "mouseover.theme", callback: onMouseOver},
+        {on: "mouseout.theme", callback: onMouseOut}
     ];
 
     // Now we create our function chained **theme** object that will wrap a closure around its functions.
@@ -106,19 +109,33 @@ vizuly.theme.weighted_tree = function (viz) {
 
 
         selection.selectAll(".vz-weighted_tree-node circle")
-            .style("stroke",function (d) { return skin.node_stroke(d) })
-            .style("stroke-opacity",function (d) { return skin.node_stroke_opacity(d) })
-            .style("fill",function (d) { return skin.node_fill(d) })
-            .style("fill-opacity", function (d) { return skin.node_fill_opacity(d)});
+            .style("stroke", function (d) {
+                return skin.node_stroke(d)
+            })
+            .style("stroke-opacity", function (d) {
+                return skin.node_stroke_opacity(d)
+            })
+            .style("fill", function (d) {
+                return skin.node_fill(d)
+            })
+            .style("fill-opacity", function (d) {
+                return skin.node_fill_opacity(d)
+            });
 
         selection.selectAll(".vz-weighted_tree-node text")
-            .style("font-size",skin.font_size())
-            .style("fill",skin.label_color)
-            .style("fill-opacity",function (d) { return skin.text_fill_opacity(d)});
+            .style("font-size", skin.font_size())
+            .style("fill", skin.label_color)
+            .style("fill-opacity", function (d) {
+                return skin.text_fill_opacity(d)
+            });
 
         selection.selectAll(".vz-weighted_tree-link")
-            .style("stroke",function (d) { return skin.link_stroke(d) })
-            .style("stroke-opacity", function (d) { return skin.link_stroke_opacity(d)});
+            .style("stroke", function (d) {
+                return skin.link_stroke(d)
+            })
+            .style("stroke-opacity", function (d) {
+                return skin.link_stroke_opacity(d)
+            });
 
 
     }
@@ -129,15 +146,15 @@ vizuly.theme.weighted_tree = function (viz) {
 
         var nodes = viz.data();
 
-        viz.children()(nodes).forEach(function (node,i) {
+        viz.children()(nodes).forEach(function (node, i) {
 
             node.vz_link_color = skin.link_colors[i % skin.link_colors.length];
             setLinkColor(node);
 
         });
 
-        skinDirty=false;
-        dataDirty=false;
+        skinDirty = false;
+        dataDirty = false;
     }
 
     function setLinkColor(node) {
@@ -151,26 +168,32 @@ vizuly.theme.weighted_tree = function (viz) {
 
     //Now we get to some user triggered display changes.
     //For the gauge we simply change the font-weight of the label when a **mouseover** event occurs.
-    function onMouseOver(e,d,i) {
+    function onMouseOver(e, d, i) {
         var selection = viz.selection();
-        selection.selectAll(".vz-id-" + d.vz_tree_id + " circle").style("fill-opacity",.9);
-        selection.selectAll("path.vz-id-" + d.vz_tree_id).style("stroke-opacity",.8);
-        selection.selectAll(".vz-id-" + d.vz_tree_id + " text").transition().style("font-size",fontSize*1.25).style("font-weight","bold");
+        selection.selectAll(".vz-id-" + d.vz_tree_id + " circle").style("fill-opacity", .9);
+        selection.selectAll("path.vz-id-" + d.vz_tree_id).style("stroke-opacity", .8);
+        selection.selectAll(".vz-id-" + d.vz_tree_id + " text").transition().style("font-size", fontSize * 1.25).style("font-weight", "bold");
     }
 
     //On **mouseout** we want to undo any changes we made on the mouseover callback.
-    function onMouseOut(e,d,i) {
+    function onMouseOut(e, d, i) {
 
         var selection = viz.selection();
 
         selection.selectAll(".vz-weighted_tree-node circle")
-            .style("fill",function (d) { return skin.node_fill(d) })
-            .style("fill-opacity", function (d) { return skin.node_fill_opacity(d)})
+            .style("fill", function (d) {
+                return skin.node_fill(d)
+            })
+            .style("fill-opacity", function (d) {
+                return skin.node_fill_opacity(d)
+            })
 
-        selection.selectAll(".vz-weighted_tree-node text").transition().style("font-size",fontSize).style("font-weight","normal");
+        selection.selectAll(".vz-weighted_tree-node text").transition().style("font-size", fontSize).style("font-weight", "normal");
 
         selection.selectAll(".vz-weighted_tree-link")
-            .style("stroke-opacity",function (d) { return skin.link_stroke_opacity(d) })
+            .style("stroke-opacity", function (d) {
+                return skin.link_stroke_opacity(d)
+            })
     }
 
     // This function **binds** all of our theme **callbacks** to the viz so the theme can respond to events as needed.
@@ -207,10 +230,10 @@ vizuly.theme.weighted_tree = function (viz) {
     // This **removes**  the viz from skin and any associated event listeners.
     theme.release = function () {
         if (!viz) return;
-        skin=skins["None"];
+        skin = skins["None"];
         applyTheme();
         removeCallbacks();
-        viz=null;
+        viz = null;
     };
 
     // Here we can either manually set a new viz object or **grab a reference** to the current one.
@@ -231,7 +254,7 @@ vizuly.theme.weighted_tree = function (viz) {
             return skin;
         }
         if (skins[_]) {
-            skinDirty=true;
+            skinDirty = true;
             skin = skins[_];
         }
         else

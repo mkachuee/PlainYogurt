@@ -45,7 +45,7 @@
     --> <!-- debug source scripts: end -->
 
     <script src="lib/vizuly_core.min.js"></script>
-	<script src="lib/vizuly_weightedtree.min.js"></script>
+    <script src="lib/vizuly_weightedtree.min.js"></script>
 
     <script src="weightedtree_test.js"></script>
 
@@ -72,7 +72,7 @@
             </ul>
         </li>
         <li class='active'><a><span class="label">Data </span><br><span class="setting"></span></a>
-          <ul class="options" callback="changeData">
+            <ul class="options" callback="changeData">
                 <li item_value="0" class="selected"><a>Federal</a></li>
                 <li item_value="1"><a>State</a></li>
                 <li item_value="2"><a>Local</a></li>
@@ -86,11 +86,11 @@
     <div id="viz_container" class="z-depth-3">
     </div>
     <div style="margin-left:0px; height:0px; width:90%; margin:0px auto; margin-top:20px; font-family:Raleway; font-size:14px;">
-        When politicians talk about “spending” have you ever wanted to know where your tax dollars actually go? This visualization shows you how congress allocates expenditures across three government levels (Federal, State, and Local.) The thicker the line, the more that is being spent.
+        When politicians talk about “spending” have you ever wanted to know where your tax dollars actually go? This
+        visualization shows you how congress allocates expenditures across three government levels (Federal, State, and
+        Local.) The thicker the line, the more that is being spent.
     </div>
 </div>
-
-
 
 
 <script>
@@ -101,7 +101,7 @@
     $(document).ready(function () {
 
         var rect;
-        if (self==top) {
+        if (self == top) {
             rect = document.body.getBoundingClientRect();
         }
         else {
@@ -109,9 +109,9 @@
         }
 
         //Set display size based on window size.
-        screenWidth = (rect.width < 960) ? Math.round(rect.width*.95) : Math.round((rect.width - 210) *.95);
+        screenWidth = (rect.width < 960) ? Math.round(rect.width * .95) : Math.round((rect.width - 210) * .95);
 
-        screenHeight=750;
+        screenHeight = 750;
 
         d3.select("#currentDisplay")
                 .attr("item_value", screenWidth + "," + screenHeight)

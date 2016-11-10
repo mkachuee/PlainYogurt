@@ -69,10 +69,10 @@ vizuly.theme.radial_linearea = function (viz) {
 
     // We put the callbacks in an array so we can keep track of them when we need to release the viz
     var callbacks = [
-        {on: "measure.theme",callback: onMeasure},
-        {on: "update.theme",callback: applyTheme},
-        {on: "mouseover.theme",callback: onMouseOver},
-        {on: "mouseout.theme",callback: onMouseOut}
+        {on: "measure.theme", callback: onMeasure},
+        {on: "update.theme", callback: applyTheme},
+        {on: "mouseover.theme", callback: onMouseOver},
+        {on: "mouseout.theme", callback: onMouseOut}
     ];
 
     // Create our function chained theme object
@@ -93,11 +93,11 @@ vizuly.theme.radial_linearea = function (viz) {
         var selection = viz.selection();
 
         // Set our skin class
-        selection.attr("class",skin.class);
+        selection.attr("class", skin.class);
 
         // Update the background
         selection.selectAll(".vz-background").attr("fill", function () {
-            return "url(#" +  backgroundGradient.attr("id") + ")";
+            return "url(#" + backgroundGradient.attr("id") + ")";
         });
 
         // Hide the plot background
@@ -105,14 +105,24 @@ vizuly.theme.radial_linearea = function (viz) {
 
         // Update any of the area paths based on the skin settings
         selection.selectAll(".vz-area")
-            .style("fill", function (d, i) { return skin.area_fill(d, i); })
-            .style("fill-opacity", function (d, i) { return skin.area_fill_opacity.apply(viz, [d, i]); });
+            .style("fill", function (d, i) {
+                return skin.area_fill(d, i);
+            })
+            .style("fill-opacity", function (d, i) {
+                return skin.area_fill_opacity.apply(viz, [d, i]);
+            });
 
         // Update any of the line paths based on the skin settings
         selection.selectAll(".vz-line")
-            .style("stroke-width", function () {  return viz.outerRadius() / 450 })
-            .style("stroke", function (d, i) { return skin.line_stroke(d, i) })
-            .style("opacity", function (d, i) { return skin.line_opacity.apply(viz, [d, i]) });
+            .style("stroke-width", function () {
+                return viz.outerRadius() / 450
+            })
+            .style("stroke", function (d, i) {
+                return skin.line_stroke(d, i)
+            })
+            .style("opacity", function (d, i) {
+                return skin.line_opacity.apply(viz, [d, i])
+            });
 
         // Hide all the data points
         selection.selectAll(".vz-data-point").style("opacity", 0);
@@ -135,57 +145,77 @@ vizuly.theme.radial_linearea = function (viz) {
         selection.selectAll(".vz-y-axis-tick-label")
             .style("font-size", Math.max(8, Math.round(viz.outerRadius() / 30)) + "px")
             .style("fill", skin.labelColor)
-            .style("font-weight",200)
-            .style("fill-opacity", function () { return (skin === skins.Business) ? 1 : .4 });
+            .style("font-weight", 200)
+            .style("fill-opacity", function () {
+                return (skin === skins.Business) ? 1 : .4
+            });
 
         // Transition our background
         skin.background_transition();
     }
 
     // This runs on every mouse over
-    function onMouseOver(d,i,j) {
+    function onMouseOver(d, i, j) {
 
         // Animate the changes to the line path
         viz.selection().selectAll(".vz-line").transition()
-            .style("stroke-width",function () { return viz.outerRadius()/270})
-            .style("stroke", function (d,i) { return skin.line_over_stroke(d,i) })
-            .style("opacity", function (d,i) { return (i==j) ? 1 : 0 });
+            .style("stroke-width", function () {
+                return viz.outerRadius() / 270
+            })
+            .style("stroke", function (d, i) {
+                return skin.line_over_stroke(d, i)
+            })
+            .style("opacity", function (d, i) {
+                return (i == j) ? 1 : 0
+            });
 
         // Animate reduced opacity on area path
         viz.selection().selectAll(".vz-area").transition()
-            .style("opacity", function (d,i) { return (i==j) ? 1 : .35 });
+            .style("opacity", function (d, i) {
+                return (i == j) ? 1 : .35
+            });
 
         // Set the stroked dash highlight
         viz.selection().selectAll(".vz-plot")
-            .append("circle").attr("class","vz-yAxis-mouseover")
-            .attr("cx",0)
-            .attr("cy",0)
-            .attr("r",function () { return viz.radiusScale()(d.y + d.y0)})
-            .style("stroke","#FFF")
-            .style("fill","none")
-            .style("stroke-dasharray",function () { return viz.outerRadius()/80 + "," + viz.outerRadius()/80});
+            .append("circle").attr("class", "vz-yAxis-mouseover")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", function () {
+                return viz.radiusScale()(d.y + d.y0)
+            })
+            .style("stroke", "#FFF")
+            .style("fill", "none")
+            .style("stroke-dasharray", function () {
+                return viz.outerRadius() / 80 + "," + viz.outerRadius() / 80
+            });
 
         // Reduce the contrast on the y axis ticks
-        viz.selection().selectAll(".vz-y-axis-tick").style("opacity",.1)
+        viz.selection().selectAll(".vz-y-axis-tick").style("opacity", .1)
 
         // Remove any previous point tips
         viz.selection().selectAll(".vz-point-tip").remove();
 
         // Add a highlight circle
-        var g =  d3.select(this);
-            g.append("circle")
-            .attr("class","vz-point-tip").attr("r",4).style("fill","#000").style("stroke","#FFF").style("stroke-width",2).style("pointer-events","none");
+        var g = d3.select(this);
+        g.append("circle")
+            .attr("class", "vz-point-tip").attr("r", 4).style("fill", "#000").style("stroke", "#FFF").style("stroke-width", 2).style("pointer-events", "none");
 
     }
 
     // This runs on every mouse out
-    function onMouseOut(d,i,j) {
+    function onMouseOut(d, i, j) {
 
         // Animate the line paths back to original settings
         viz.selection().selectAll(".vz-line").transition()
-            .style("stroke-width", function () {  return viz.outerRadius() / 450 })
-            .style("stroke", function (d, i) { return skin.line_stroke(d, i) })
-            .style("opacity", function (d, i) { return skin.line_opacity.apply(viz, [d, i]) });
+            .style("stroke-width", function () {
+                return viz.outerRadius() / 450
+            })
+            .style("stroke", function (d, i) {
+                return skin.line_stroke(d, i)
+            })
+            .style("opacity", function (d, i) {
+                return skin.line_opacity.apply(viz, [d, i])
+            });
 
         // Animate area opacity back to original
         viz.selection().selectAll(".vz-area").transition()
@@ -206,7 +236,7 @@ vizuly.theme.radial_linearea = function (viz) {
     // Fires on every viz.measure()
     function onMeasure() {
         // Set the correct orientation and ticks for the y axis lines
-        viz.yAxis().tickSize(viz.outerRadius()).ticks( (viz.layout() == vizuly.viz.layout.OVERLAP) ? 5 : 7).orient("left");
+        viz.yAxis().tickSize(viz.outerRadius()).ticks((viz.layout() == vizuly.viz.layout.OVERLAP) ? 5 : 7).orient("left");
     }
 
     // A utilty function that creates the gradient backgrounds.
@@ -214,8 +244,8 @@ vizuly.theme.radial_linearea = function (viz) {
         viz.selection().selectAll(".vz-background").style("fill-opacity", 1);
         backgroundGradient.selectAll("stop")
             .transition().duration(500).attr("stop-color", function (d, i) {
-                return (i == 0) ? skin.grad0 : skin.grad1;
-            });
+            return (i == 0) ? skin.grad0 : skin.grad1;
+        });
     }
 
     // Our primary external function that fires the "apply" function.
@@ -236,11 +266,11 @@ vizuly.theme.radial_linearea = function (viz) {
     // Removes viz from skin
     theme.release = function () {
         if (!viz) return;
-        viz.selection().attr("class",null);
+        viz.selection().attr("class", null);
         callbacks.forEach(function (d) {
             viz.on(d.on, null);
         })
-        viz=null;
+        viz = null;
     };
 
     // Returns the selected viz or sets one and applies the callbacks
@@ -271,7 +301,7 @@ vizuly.theme.radial_linearea = function (viz) {
     }
 
     var skins = {
-        Fire : {
+        Fire: {
             name: "Fire",
             labelColor: "#FFF",
             color: "#02C3FF",
@@ -283,14 +313,14 @@ vizuly.theme.radial_linearea = function (viz) {
             line_stroke: function (d, i) {
                 return this.stroke_colors[i % 5];
             },
-            line_over_stroke: function (d,i) {
+            line_over_stroke: function (d, i) {
                 return d3.rgb(this.stroke_colors[i % 5]).brighter();
             },
             line_opacity: function (d, i) {
                 return (this.layout() == vizuly.viz.layout.STREAM) ? .4 : .6;
             },
             area_fill: function (d, i) {
-                return "url(#" + vizuly.svg.gradient.radialFade(viz, this.fill_colors[i % 5], [1,.35]).attr("id") + ")";
+                return "url(#" + vizuly.svg.gradient.radialFade(viz, this.fill_colors[i % 5], [1, .35]).attr("id") + ")";
             },
             area_fill_opacity: function (d, i) {
                 return (this.layout() == vizuly.viz.layout.OVERLAP) ? .7 : .9;
@@ -312,14 +342,14 @@ vizuly.theme.radial_linearea = function (viz) {
             line_stroke: function (d, i) {
                 return this.stroke_colors[i % 5];
             },
-            line_over_stroke: function (d,i) {
+            line_over_stroke: function (d, i) {
                 return d3.rgb(this.stroke_colors[i % 5]).brighter();
             },
             line_opacity: function (d, i) {
                 return (this.layout() == vizuly.viz.layout.STREAM) ? .4 : .9;
             },
             area_fill: function (d, i) {
-                return "url(#" + vizuly.svg.gradient.radialFade(viz, this.fill_colors[i % 5], [1,.35]).attr("id") + ")";
+                return "url(#" + vizuly.svg.gradient.radialFade(viz, this.fill_colors[i % 5], [1, .35]).attr("id") + ")";
             },
             area_fill_opacity: function (d, i) {
                 return (this.layout() == vizuly.viz.layout.OVERLAP) ? .8 : 1;
@@ -342,14 +372,14 @@ vizuly.theme.radial_linearea = function (viz) {
             line_stroke: function (d, i) {
                 return "#FFF"
             },
-            line_over_stroke: function (d,i) {
+            line_over_stroke: function (d, i) {
                 return "#FFF"
             },
             line_opacity: function (d, i) {
                 return .3;
             },
             area_fill: function (d, i) {
-                return "url(#" + vizuly.svg.gradient.radialFade(viz, "#FFF", [1,.35]).attr("id") + ")";
+                return "url(#" + vizuly.svg.gradient.radialFade(viz, "#FFF", [1, .35]).attr("id") + ")";
             },
             area_fill_opacity: function (d, i) {
                 return (this.layout() == vizuly.viz.layout.OVERLAP) ? .2 : .7;
@@ -359,7 +389,7 @@ vizuly.theme.radial_linearea = function (viz) {
             yAxis_line_opacity: .25,
             class: "vz-skin-ocean"
         },
-        Neon : {
+        Neon: {
             name: "Neon",
             labelColor: "#FFF",
             color: "#02C3FF",
@@ -371,25 +401,25 @@ vizuly.theme.radial_linearea = function (viz) {
             line_stroke: function (d, i) {
                 return "#FFF";
             },
-            line_over_stroke: function (d,i) {
+            line_over_stroke: function (d, i) {
                 return "#FFF";
             },
             line_opacity: function (d, i) {
-                return (this.layout() == vizuly.viz.layout.STREAM) ? .2: .4;
+                return (this.layout() == vizuly.viz.layout.STREAM) ? .2 : .4;
             },
             area_fill: function (d, i) {
                 return "#D1F704";
             },
             area_fill_opacity: function (d, i) {
-                var p = d3.scale.linear().range([.1,.8]).domain([0,viz.data().length])(i);
-                return (this.layout() == vizuly.viz.layout.OVERLAP ?  p *.8 : p);
+                var p = d3.scale.linear().range([.1, .8]).domain([0, viz.data().length])(i);
+                return (this.layout() == vizuly.viz.layout.OVERLAP ? p * .8 : p);
             },
             xAxis_font_weight: 200,
             yAxis_line_stroke: "#FFF",
             yAxis_line_opacity: .25,
             class: "vz-skin-default"
         },
-        Business : {
+        Business: {
             name: "Business",
             labelColor: "#000",
             color: "#000",
@@ -397,11 +427,11 @@ vizuly.theme.radial_linearea = function (viz) {
             fill_colors: ["#C50A0A", "#C2185B", "#F57C00", "#FF9800", "#FFEB3B"],
             grad0: "#CCC",
             grad1: "#CCC",
-            background_transition:  materialBackground,
+            background_transition: materialBackground,
             line_stroke: function (d, i) {
                 return d3.rgb(businessColors(i)).darker();
             },
-            line_over_stroke: function (d,i) {
+            line_over_stroke: function (d, i) {
                 return "#FFF";
             },
             line_opacity: function (d, i) {

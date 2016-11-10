@@ -23,12 +23,12 @@ vizuly.color = {};
 
 // Shifts color hue using a bitmask value
 
-vizuly.color.shift = function (color,value) {
-   color = "0x" + color.replace("#","");
-   color = (parseInt(color , 16));
-   color = color + 0x010101;
-   color = color | value;
-   return "#" + color.toString(16);
+vizuly.color.shift = function (color, value) {
+    color = "0x" + color.replace("#", "");
+    color = (parseInt(color, 16));
+    color = color + 0x010101;
+    color = color | value;
+    return "#" + color.toString(16);
 
 }
 

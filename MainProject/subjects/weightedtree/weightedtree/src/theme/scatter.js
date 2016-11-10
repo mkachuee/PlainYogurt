@@ -66,10 +66,10 @@ vizuly.theme.scatter = function (viz) {
 
     // We put the callbacks in an array so we can keep track of them when we need to release the viz
     var callbacks = [
-        {on: "measure.theme",callback: onMeasure},
-        {on: "update.theme",callback: applyTheme},
-        {on: "mouseover.theme",callback: onMouseOver},
-        {on: "mouseout.theme",callback: onMouseOut}
+        {on: "measure.theme", callback: onMeasure},
+        {on: "update.theme", callback: applyTheme},
+        {on: "mouseover.theme", callback: onMouseOver},
+        {on: "mouseout.theme", callback: onMouseOut}
     ];
 
     // Create our function chained theme object
@@ -88,17 +88,17 @@ vizuly.theme.scatter = function (viz) {
 
         // Viz measurements
         var w = viz.width();
-        var sw = Math.min(viz.width(),viz.height())/80;
+        var sw = Math.min(viz.width(), viz.height()) / 80;
 
         // Grab the d3 selection from the viz so we can operate on it.
         var selection = viz.selection();
 
         // Set our skin class
-        selection.attr("class",skin.class);
+        selection.attr("class", skin.class);
 
         // Update the background
         selection.selectAll(".vz-background").attr("fill", function () {
-            return "url(#" +  backgroundGradient.attr("id") + ")";
+            return "url(#" + backgroundGradient.attr("id") + ")";
         });
 
         // Hide the plot background
@@ -109,7 +109,9 @@ vizuly.theme.scatter = function (viz) {
             .style("font-weight", skin.xAxis_font_weight)
             .style("fill", skin.labelColor)
             .style("font-size", Math.max(8, Math.round(w / 85)) + "px")
-            .style("opacity", function () { return w > 399 ? 1 : 0 });
+            .style("opacity", function () {
+                return w > 399 ? 1 : 0
+            });
 
         // Update the left axis
         selection.selectAll(".vz-scatter-left-axis line")
@@ -125,11 +127,17 @@ vizuly.theme.scatter = function (viz) {
 
         // Update the scatter plots
         selection.selectAll(".vz-scatter-node")
-            .style("stroke-width",sw)
-            .style("stroke-opacity",0)
-            .style("stroke",function (d,i) { return skin.node_stroke(d,i)})
-            .style("fill",function (d,i) { return skin.node_fill(d,i)})
-            .style("fill-opacity",function (d,i) { return skin.node_fill_opacity(d,i)})
+            .style("stroke-width", sw)
+            .style("stroke-opacity", 0)
+            .style("stroke", function (d, i) {
+                return skin.node_stroke(d, i)
+            })
+            .style("fill", function (d, i) {
+                return skin.node_fill(d, i)
+            })
+            .style("fill-opacity", function (d, i) {
+                return skin.node_fill_opacity(d, i)
+            })
 
         // Transition our background
         skin.background_transition();
@@ -142,33 +150,35 @@ vizuly.theme.scatter = function (viz) {
     }
 
     // Fires on each mouse over event
-    function onMouseOver(e,d,i) {
+    function onMouseOver(e, d, i) {
 
         // Reduce opacity of all nodes
         viz.selection().selectAll(".vz-scatter-node")
-            .style("opacity",0.15);
+            .style("opacity", 0.15);
 
         // Higlight the opacity of the selected node.
-        d3.select(e).style("opacity",1)
-            .style("stroke-opacity",.5)
-            .style("fill-opacity",.9);
+        d3.select(e).style("opacity", 1)
+            .style("stroke-opacity", .5)
+            .style("fill-opacity", .9);
 
         //
-        dispatch.mouseover(e,d,i);
+        dispatch.mouseover(e, d, i);
 
     }
 
     // Fires on each mouse out
-    function onMouseOut(e,d,i) {
+    function onMouseOut(e, d, i) {
 
         // Return selected node to correct opacity
-        d3.select(e).style("opacity",1)
-            .style("fill-opacity",function (d,i) { return skin.node_fill_opacity(d,i)});
+        d3.select(e).style("opacity", 1)
+            .style("fill-opacity", function (d, i) {
+                return skin.node_fill_opacity(d, i)
+            });
 
         // Return all nodes to correct opacity
         viz.selection().selectAll(".vz-scatter-node")
-            .style("stroke-opacity",0)
-            .style("opacity",1)
+            .style("stroke-opacity", 0)
+            .style("opacity", 1)
     }
 
     // Utility to transition background
@@ -176,8 +186,8 @@ vizuly.theme.scatter = function (viz) {
         viz.selection().selectAll(".vz-background").style("fill-opacity", 1);
         backgroundGradient.selectAll("stop")
             .transition().duration(500).attr("stop-color", function (d, i) {
-                return (i == 0) ? skin.grad0 : skin.grad1;
-            });
+            return (i == 0) ? skin.grad0 : skin.grad1;
+        });
     }
 
     // Our primary external function that fires the "apply" function.
@@ -198,11 +208,11 @@ vizuly.theme.scatter = function (viz) {
     // Removes viz from skin
     theme.release = function () {
         if (!viz) return;
-        viz.selection().attr("class",null);
+        viz.selection().attr("class", null);
         callbacks.forEach(function (d) {
             viz.on(d.on, null);
         })
-        viz=null;
+        viz = null;
     };
 
     // Returns the selected viz or sets one and applies the callbacks
@@ -234,9 +244,9 @@ vizuly.theme.scatter = function (viz) {
 
     // This theme allows for callbacks on internal events so any additional style/property changes
     // can be applied AFTER the theme has done its own changes
-    var dispatch = d3.dispatch("mouseover","mouseout");
-    theme.on = function (event,listener) {
-        dispatch.on(event,listener);
+    var dispatch = d3.dispatch("mouseover", "mouseout");
+    theme.on = function (event, listener) {
+        dispatch.on(event, listener);
         return theme;
     };
 
@@ -245,7 +255,7 @@ vizuly.theme.scatter = function (viz) {
             name: "Fire",
             labelColor: "#FFF",
             labelFill: "#C50A0A",
-            stroke_colors:  ["#C50A0A", "#C2185B", "#F57C00", "#FF9800", "#FFEB3B"],
+            stroke_colors: ["#C50A0A", "#C2185B", "#F57C00", "#FF9800", "#FFEB3B"],
             fill_colors: ["#C50A0A", "#C2185B", "#F57C00", "#FF9800", "#FFEB3B"],
             grad0: "#000000",
             grad1: "#474747",

@@ -22,13 +22,13 @@
 vizuly.svg.text = {}
 
 // Creates a single line path that can be used for texts along an arc
-vizuly.svg.text.arcPath = function (r,t) {
+vizuly.svg.text.arcPath = function (r, t) {
     var radian = 0.0174533;
-    var d={};
-    d.angle=t;
+    var d = {};
+    d.angle = t;
     d.startAngle = d.angle - (179 * radian);
-    d.endAngle  = d.angle + (179 * radian);
-    var pd=d3.svg.arc().innerRadius(r).outerRadius(r)(d);
+    d.endAngle = d.angle + (179 * radian);
+    var pd = d3.svg.arc().innerRadius(r).outerRadius(r)(d);
     var justArc = /[Mm][\d\.\-e,\s]+[Aa][\d\.\-e,\s]+/;
     var arcD = justArc.exec(pd)[0];
     return arcD;

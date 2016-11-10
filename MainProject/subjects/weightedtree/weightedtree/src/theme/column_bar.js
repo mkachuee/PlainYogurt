@@ -20,31 +20,6 @@
 // For our walkthrough we will be looking at the the <code>src/theme/column_bar.js</code> theme that is used for both the vizuly bar chart and column chart.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //First we are going to declare some namespaced constants that refer to the various skins our theme will implement.
 vizuly.skin.COLUMNBAR_AXIIS = "Axiis";
 vizuly.skin.COLUMNBAR_NEON = "Neon";
@@ -193,7 +168,7 @@ vizuly.theme.column_bar = function (viz) {
             },
             bar_fill: function (d, i) {
                 var fade = vizuly.svg.gradient.fade(viz, vizuly.color
-                        .shift(this.colorScale(viz.xScale()
+                    .shift(this.colorScale(viz.xScale()
                         .domain().indexOf(viz.x().apply(this, [d]))), 0x224400 * i));
 
                 return "url(#" + fade.attr("id") + ")";
@@ -256,10 +231,10 @@ vizuly.theme.column_bar = function (viz) {
     var viz = viz, skin = null, valueAxis, ordinalAxis, fontSize;
 
     var callbacks = [
-        {on: "measure.theme",callback: onMeasure},
-        {on: "update.theme",callback: applyTheme},
-        {on: "mouseover.theme",callback: onMouseOver},
-        {on: "mouseout.theme",callback: onMouseOut}
+        {on: "measure.theme", callback: onMeasure},
+        {on: "update.theme", callback: applyTheme},
+        {on: "mouseover.theme", callback: onMouseOver},
+        {on: "mouseout.theme", callback: onMouseOut}
     ];
 
     theme();
@@ -276,11 +251,11 @@ vizuly.theme.column_bar = function (viz) {
         //We implement a little extra logic so this theme can be re-used for both
         //bar charts and column charts by updating the respective axis.
         if (viz.type == "viz.chart.column") {
-            valueAxis =  ".vz-left-axis";
+            valueAxis = ".vz-left-axis";
             ordinalAxis = ".vz-bottom-axis";
         }
         else {
-            ordinalAxis =  ".vz-left-axis";
+            ordinalAxis = ".vz-left-axis";
             valueAxis = ".vz-bottom-axis";
         }
 
@@ -298,7 +273,7 @@ vizuly.theme.column_bar = function (viz) {
         fontSize = Math.max(8, Math.round(viz.width() / 65));
 
         //Each skin can have an associated **CSS class**, we set one here.
-        selection.attr("class",_skin.class);
+        selection.attr("class", _skin.class);
 
         //Now we update our **ordinal axis labels** with various styles.
         //*Note, at this point we are using pure D3 to make changes to the specific svg output of the viz*
@@ -332,7 +307,7 @@ vizuly.theme.column_bar = function (viz) {
         if (viz.layout() == vizuly.viz.layout.STACKED) {
             bar.style("stroke-opacity", 1)
                 .style("stroke-width", function () {
-                    return (w/800) +"px";
+                    return (w / 800) + "px";
                 }).style("stroke-opacity", .6);
         } else {
             bar.style("stroke-opacity", _skin.bar_stroke_opacity);
@@ -352,7 +327,7 @@ vizuly.theme.column_bar = function (viz) {
                     .style("fill", function (d, i) {
                         return _skin.bar_fill(d, i)
                     })
-                    .style("rx",_skin.barRadius);
+                    .style("rx", _skin.barRadius);
             });
 
         //This is the call that animates the background when the skin changes.
@@ -365,7 +340,7 @@ vizuly.theme.column_bar = function (viz) {
     //Now we get to some **user triggered display changes**.
     //For the bar and column chart we want to highlight the specific bar/column and
     //the respective axis abel when a <code>mouseover</code> event occurs.
-        function onMouseOver(bar, d, i) {
+    function onMouseOver(bar, d, i) {
 
         //Making style and color changes to our bar for the <code>mouseover</code>.
         d3.select(bar)
@@ -378,28 +353,32 @@ vizuly.theme.column_bar = function (viz) {
         d3.select(viz.selection()
             .selectAll(ordinalAxis + " .tick text")[0][getSeriesIndex(d)])
             .transition()
-            .style("font-size",(fontSize*1.2) + "px")
+            .style("font-size", (fontSize * 1.2) + "px")
             .style("font-weight", 700)
             .style("fill", _skin.color)
             .style("text-decoration", "underline")
             .style("fill-opacity", 1)
-            .style("opacity",1);
+            .style("opacity", 1);
     }
 
     //On <coce>mouseout</code> we want to undo any changes we made on the <code>mouseover</code>.
     function onMouseOut(bar, d, i) {
 
         d3.select(bar).style("fill",
-                function () { return _skin.bar_fill(d, i);})
+            function () {
+                return _skin.bar_fill(d, i);
+            })
             .style("fill-opacity",
-                function () { return _skin.bar_fill_opacity(d, i); })
+                function () {
+                    return _skin.bar_fill_opacity(d, i);
+                })
             .style("stroke", "#FFF")
             .attr("filter", _skin.bar_filter());
 
         d3.select(viz.selection()
             .selectAll(ordinalAxis + " .tick text")[0][getSeriesIndex(d)])
             .transition()
-            .style("font-size",fontSize + "px")
+            .style("font-size", fontSize + "px")
             .style("fill", _skin.labelColor)
             .style("font-weight", _skin.ordinalAxis_font_weight)
             .style("text-decoration", null)
@@ -465,8 +444,8 @@ vizuly.theme.column_bar = function (viz) {
             .style("fill-opacity", 1);
         viz.selection().selectAll(".vz-background")
             .attr("fill", function () {
-                return "url(#" +  backgroundGradient.attr("id") + ")";
-        });
+                return "url(#" + backgroundGradient.attr("id") + ")";
+            });
         backgroundGradient.selectAll("stop")
             .transition()
             .duration(500)
@@ -497,11 +476,11 @@ vizuly.theme.column_bar = function (viz) {
     //Removes viz from skin
     theme.release = function () {
         if (!viz) return;
-        viz.selection().attr("class",null);
+        viz.selection().attr("class", null);
         callbacks.forEach(function (d) {
             viz.on(d.on, null);
         })
-        viz=null;
+        viz = null;
     };
 
     theme.viz = function (_) {
@@ -513,7 +492,7 @@ vizuly.theme.column_bar = function (viz) {
     }
 
     //This function sets the skin theme without updating the component.
-    var _skin=null;
+    var _skin = null;
     theme.skin = function (_) {
         if (arguments.length == 0) {
             return _skin;

@@ -46,13 +46,16 @@ var valueField = "Federal";
 var valueFields = ["Federal", "State", "Local"];
 
 
-var formatCurrency = function (d) { if (isNaN(d)) d = 0; return "$" + d3.format(",.2f")(d) + " Billion"; };
+var formatCurrency = function (d) {
+    if (isNaN(d)) d = 0;
+    return "$" + d3.format(",.2f")(d) + " Billion";
+};
 
 function loadData() {
 
     d3.csv(readingFile, function (csv) {
 
-        data.values=prepData(csv);
+        data.values = prepData(csv);
 
         initialize();
 
@@ -62,10 +65,10 @@ function loadData() {
 
 function prepData(csv) {
 
-    var values=[];
+    var values = [];
 
     //Clean federal budget data and remove all rows where all values are zero or no labels
-    csv.forEach(function (d,i) {
+    csv.forEach(function (d, i) {
         var t = 0;
         for (var i = 0; i < valueFields.length; i++) {
             t += Number(d[valueFields[i]]);
@@ -95,25 +98,25 @@ function prepData(csv) {
     });
 
     //Remove empty child nodes left at end of aggregation and add unqiue ids
-    function removeEmptyNodes(node,parentId,childId) {
+    function removeEmptyNodes(node, parentId, childId) {
         if (!node) return;
-        node.id=parentId + "_" + childId;
+        node.id = parentId + "_" + childId;
         if (node.values) {
-            for(var i = node.values.length - 1; i >= 0; i--) {
-                node.id=parentId + "_" + i;
-                if(!node.values[i].key && !node.values[i].Level4) {
+            for (var i = node.values.length - 1; i >= 0; i--) {
+                node.id = parentId + "_" + i;
+                if (!node.values[i].key && !node.values[i].Level4) {
                     node.values.splice(i, 1);
                 }
                 else {
-                    removeEmptyNodes(node.values[i],node.id,i)
+                    removeEmptyNodes(node.values[i], node.id, i)
                 }
             }
         }
     }
 
-    var node={};
+    var node = {};
     node.values = nest;
-    removeEmptyNodes(node,"0","0");
+    removeEmptyNodes(node, "0", "0");
 
     return nest;
 }
@@ -134,17 +137,23 @@ function initialize() {
     viz.data(data)                                                      // Expects hierarchical array of objects.
         .width(600)                                                     // Width of component
         .height(600)                                                    // Height of component
-        .children(function (d) { return d.values })                     // Denotes the property that holds child object array
-        .key(function (d) { return d.id })                              // Unique key
+        .children(function (d) {
+            return d.values
+        })                     // Denotes the property that holds child object array
+        .key(function (d) {
+            return d.id
+        })                              // Unique key
         .value(function (d) {
-            return Number(d["agg_" + valueField]) })                    // The property of the datum that will be used for the branch and node size
+            return Number(d["agg_" + valueField])
+        })                    // The property of the datum that will be used for the branch and node size
         .fixedSpan(-1)                                                  // fixedSpan > 0 will use this pixel value for horizontal spread versus auto size based on viz width
         .label(function (d) {                                           // returns label for each node.
-            return trimLabel(d.key || (d['Level' + d.depth]))})
-        .on("measure",onMeasure)                                        // Make any measurement changes
-        .on("mouseover",onMouseOver)                                    // mouseover callback - all viz components issue these events
-        .on("mouseout",onMouseOut)                                      // mouseout callback - all viz components issue these events
-        .on("click",onClick);                                           // mouseout callback - all viz components issue these events
+            return trimLabel(d.key || (d['Level' + d.depth]))
+        })
+        .on("measure", onMeasure)                                        // Make any measurement changes
+        .on("mouseover", onMouseOver)                                    // mouseover callback - all viz components issue these events
+        .on("mouseout", onMouseOut)                                      // mouseout callback - all viz components issue these events
+        .on("click", onClick);                                           // mouseout callback - all viz components issue these events
 
 
     //We use this function to size the components based on the selected value from the RadiaLProgressTest.html page.
@@ -159,11 +168,11 @@ function initialize() {
 
 
 function trimLabel(label) {
-   return (String(label).length > 20) ? String(label).substr(0, 17) + "..." : label;
+    return (String(label).length > 20) ? String(label).substr(0, 17) + "..." : label;
 }
 
 
-var datatip='<div class="tooltip" style="width: 250px; background-opacity:.5">' +
+var datatip = '<div class="tooltip" style="width: 250px; background-opacity:.5">' +
     '<div class="header1">HEADER1</div>' +
     '<div class="header-rule"></div>' +
     '<div class="header2"> HEADER2 </div>' +
@@ -174,7 +183,7 @@ var datatip='<div class="tooltip" style="width: 250px; background-opacity:.5">' 
 
 // This function uses the above html template to replace values and then creates a new <div> that it appends to the
 // document.body.  This is just one way you could implement a data tip.
-function createDataTip(x,y,h1,h2,h3) {
+function createDataTip(x, y, h1, h2, h3) {
 
     var html = datatip.replace("HEADER1", h1);
     html = html.replace("HEADER2", h2);
@@ -186,37 +195,35 @@ function createDataTip(x,y,h1,h2,h3) {
         .style("position", "absolute")
         .style("top", y + "px")
         .style("left", (x - 125) + "px")
-        .style("opacity",0)
+        .style("opacity", 0)
         .html(html)
-        .transition().style("opacity",1);
+        .transition().style("opacity", 1);
 
 }
 
 function onMeasure() {
-   // Allows you to manually override vertical spacing
-   // viz.tree().nodeSize([100,0]);
+    // Allows you to manually override vertical spacing
+    // viz.tree().nodeSize([100,0]);
 }
 
-function onMouseOver(e,d,i) {
+function onMouseOver(e, d, i) {
     if (d == data) return;
     var rect = e.getBoundingClientRect();
     if (d.target) d = d.target; //This if for link elements
-    createDataTip(rect.left, rect.top, (d.key || (d['Level' + d.depth])), formatCurrency(d["agg_" + valueField]),valueField);
+    createDataTip(rect.left, rect.top, (d.key || (d['Level' + d.depth])), formatCurrency(d["agg_" + valueField]), valueField);
 
 
 }
 
-function onMouseOut(e,d,i) {
+function onMouseOut(e, d, i) {
     d3.selectAll(".vz-weighted_tree-tip").remove();
 }
 
 
-
 //We can capture click events and respond to them
-function onClick(g,d,i) {
+function onClick(g, d, i) {
     viz.toggleNode(d);
 }
-
 
 
 //This function is called when the user selects a different skin.
@@ -236,12 +243,12 @@ function changeSkin(val) {
 function changeSize(val) {
     var s = String(val).split(",");
     viz_container.transition().duration(300).style('width', s[0] + 'px').style('height', s[1] + 'px');
-    viz.width(s[0]).height(s[1]*.8).update();
+    viz.width(s[0]).height(s[1] * .8).update();
 }
 
 //This sets the same value for each radial progress
 function changeData(val) {
-    valueField=valueFields[Number(val)];
+    valueField = valueFields[Number(val)];
     viz.update();
 }
 

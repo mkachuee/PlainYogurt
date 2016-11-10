@@ -9,7 +9,6 @@ from django.db.models import Q
 subjectsFieldName = ['subject', 'category', 'topic']
 treeInfoFieldName = ['name', 'topic', 'category', 'subject', 'DIRLink', 'tags']
 
-
 """
     The database consists of two relations:
 
@@ -38,6 +37,7 @@ treeInfoFieldName = ['name', 'topic', 'category', 'subject', 'DIRLink', 'tags']
             tags used to search for tree
 """
 
+
 def add_to_category(category, subject=None, topic=None):
     """
         description -
@@ -65,6 +65,7 @@ def add_to_category(category, subject=None, topic=None):
         return None
     return 1
 
+
 def get_subjects_tuple(**kwargs):
     subjects = Subjects.objects
     if ('category' in kwargs):
@@ -79,8 +80,8 @@ def get_subjects_tuple(**kwargs):
     except FieldError as e:
         return None
 
-def get_col_subjects(*args):
 
+def get_col_subjects(*args):
     """
         description -
             filter Subjects relation given column field names,
@@ -95,7 +96,6 @@ def get_col_subjects(*args):
         return Subjects.objects.values(*args)
     except FieldError as e:
         return None
-
 
 
 def add_tree_info(name, category, subject, topic, keys):
@@ -146,16 +146,13 @@ def add_tree_info(name, category, subject, topic, keys):
     dirlink = generate_dir_name(name)
     dirlink = get_dir_link(dirlink)
 
-    treeInfo = TreeInfo(name = name, topic = topic,
-        category = category, subject = subject,
-        DIRLink = dirlink, tags = keys)
+    treeInfo = TreeInfo(name=name, topic=topic,
+                        category=category, subject=subject,
+                        DIRLink=dirlink, tags=keys)
     try:
         treeInfo.save()
     except  ValueError as e:
         return None
-
-
-
 
 
 def get_col_tree(*args):
@@ -179,9 +176,7 @@ def get_col_tree(*args):
         return None
 
 
-
 def get_specific_tree(**kwargs):
-
     """
         description -
             queries database for trees info
@@ -210,7 +205,6 @@ def get_specific_tree(**kwargs):
         return tree.values()
     except FieldError as e:
         return None
-
 
 
 def normalize_query(query_string,
@@ -247,6 +241,7 @@ def get_query(query_string, search_fields):
         else:
             query = query & or_query
     return query
+
 
 def search_tree(str):
     query = normalize_query(str)

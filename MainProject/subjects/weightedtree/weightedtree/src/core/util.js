@@ -26,18 +26,17 @@ vizuly.util = {};
 // a size object that has the following properties: size.top, size.left, size.height, size.width
 // This function is used by many of the components and skins.
 
-vizuly.util.size = function (margin,width,height) {
+vizuly.util.size = function (margin, width, height) {
 
-    size={};
+    size = {};
 
-    size.width = width - vizuly.util.measure(margin.left,width) - vizuly.util.measure(margin.right,width);
-    size.height = height - vizuly.util.measure(margin.top,height) - vizuly.util.measure(margin.bottom,height);
-    size.top = vizuly.util.measure(margin.top,height);
-    size.left = vizuly.util.measure(margin.left,width);
+    size.width = width - vizuly.util.measure(margin.left, width) - vizuly.util.measure(margin.right, width);
+    size.height = height - vizuly.util.measure(margin.top, height) - vizuly.util.measure(margin.bottom, height);
+    size.top = vizuly.util.measure(margin.top, height);
+    size.left = vizuly.util.measure(margin.left, width);
 
     return size;
 }
-
 
 
 // This function sets a scale based on the value being passed into it.
@@ -46,31 +45,30 @@ vizuly.util.size = function (margin,width,height) {
 // or application level
 
 vizuly.util.getTypedScale = function (value) {
-        var scale;
-        if (typeof value == "string") {
-            scale = d3.scale.ordinal();
-        }
-        else if (value instanceof Date) {
-            scale = d3.time.scale();
-        }
-        else {
-            scale= d3.scale.linear();
-        }
-        return scale;
+    var scale;
+    if (typeof value == "string") {
+        scale = d3.scale.ordinal();
+    }
+    else if (value instanceof Date) {
+        scale = d3.time.scale();
+    }
+    else {
+        scale = d3.scale.linear();
+    }
+    return scale;
 }
-
 
 
 // This function sets a range based on min and max values, and
 // uses range bands if the scale is an ordinal scale (assumed by string value in the scale domain -
 // as class equality is not supported in javascript outside of using protoype chains (which we don't use.)
 
-vizuly.util.setRange = function (scale,min,max) {
+vizuly.util.setRange = function (scale, min, max) {
     if (typeof(scale.domain()[0]) == "string") {
-        scale.rangeBands([min,max],0);
+        scale.rangeBands([min, max], 0);
     }
     else {
-        scale.range([min,max]);
+        scale.range([min, max]);
     }
 }
 
@@ -80,22 +78,19 @@ vizuly.util.setRange = function (scale,min,max) {
 // If we aren't it just returns the original m0 parameter
 // This is primarily used by the vizuly.util.size function.
 
-vizuly.util.measure = function (m0,m1) {
-    if(typeof m0 == "string" && m0.substr(m0.length-1) == "%") {
-        var r = Math.min(Number(m0.substr(0,m0.length-1)),100)/100;
+vizuly.util.measure = function (m0, m1) {
+    if (typeof m0 == "string" && m0.substr(m0.length - 1) == "%") {
+        var r = Math.min(Number(m0.substr(0, m0.length - 1)), 100) / 100;
         return (Math.round(m1 * r));
     }
     else return m0;
 };
 
 
-
-
 // This function generates a GUID
 // All vizuly components use a GUID as an unique identifiers within the DOM
 
-vizuly.util.guid = function()
-{
+vizuly.util.guid = function () {
     /* REAL GUID
      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
      var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
@@ -104,8 +99,8 @@ vizuly.util.guid = function()
      */
 
     //Simple ID that is unique enough for an DOM tree.
-    return 'vzxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+    return 'vzxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 };
@@ -121,8 +116,7 @@ vizuly.util.getDefs = function (viz) {
 }
 
 
-
-vizuly.util.createCSSKey = function(s) {
+vizuly.util.createCSSKey = function (s) {
     s = String(s).replace(",", "_");
     s = s.replace(/[\s+,'+,\.,\(,\),\"]/g, "");
     s = "css" + s.toUpperCase();

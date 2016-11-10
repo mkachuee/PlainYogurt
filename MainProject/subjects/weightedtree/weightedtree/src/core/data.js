@@ -24,7 +24,7 @@ vizuly.data = {};
 // Takes data produced by a d3.nest() call and aggregates the aggProperties according to the aggregateFunction
 // This also will take all nth deep child nodes and create the same properties and associated values on the parent nest nodes.
 
-vizuly.data.aggregateNest = function(nest,aggProperties, aggregateFunction) {
+vizuly.data.aggregateNest = function (nest, aggProperties, aggregateFunction) {
 
     //Go down to the last depth and get source values so we can roll them up t
 
@@ -56,11 +56,11 @@ vizuly.data.aggregateNest = function(nest,aggProperties, aggregateFunction) {
 
     }
 
-    function aggregateNodes(nodes,parent) {
+    function aggregateNodes(nodes, parent) {
         for (var y = 0; y < nodes.length; y++) {
             var node = nodes[y];
             if (node.values) {
-                aggregateNodes(node.values,node);
+                aggregateNodes(node.values, node);
                 for (var z = 0; z < node.values.length; z++) {
                     var child = node.values[z];
                     for (var i = 0; i < aggProperties.length; i++) {

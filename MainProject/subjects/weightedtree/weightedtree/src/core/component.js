@@ -36,16 +36,16 @@
 
 vizuly.component = {};  //Consider moving to core/_core.js  to normalize
 
-vizuly.component.create = function(parent,scope,props,events) {
+vizuly.component.create = function (parent, scope, props, events) {
 
     //We set the primary scope properties
     scope.parent = parent;
     scope.properties = props;
     scope.id = vizuly.util.guid();
-    scope.selection = d3.select(parent).append("div").attr("id","div_" + scope.id).style("width","100%").style("height","100%");
+    scope.selection = d3.select(parent).append("div").attr("id", "div_" + scope.id).style("width", "100%").style("height", "100%");
 
     // Adding our dispatch event that the viz will use for any attached callbacks.
-    var args=[];
+    var args = [];
 
     // Interaction events
     args.push("mouseover");
@@ -79,17 +79,17 @@ vizuly.component.create = function(parent,scope,props,events) {
 
     // Sets up all of our dispatch calls by attaching a d3.dispatch to the scope variable
     // For more info on dispatch, see here: https://github.com/mbostock/d3/wiki/Internals#d3_dispatch
-    scope.dispatch = d3.dispatch.apply(this,args);
+    scope.dispatch = d3.dispatch.apply(this, args);
 
     //This is our primary constructor that sets all properties
     var component = function () {
-        setProps(component,scope,scope.properties);
+        setProps(component, scope, scope.properties);
         return component;
     };
 
 
     //For each property in our 'props' array create a callback if the property value has changed.
-    setProps = function(component,scope,props) {
+    setProps = function (component, scope, props) {
         Object.getOwnPropertyNames(props).forEach(function (val, idx, array) {
             if (typeof (scope[val]) == "undefined") {
                 scope[val] = props[val];
@@ -101,7 +101,7 @@ vizuly.component.create = function(parent,scope,props,events) {
                         var oldVal = scope[val];
                         scope[val] = _;
                         if (scope[val] !== oldVal) {
-                            scope.dispatch[val + "_change"].apply(this,[scope[val],oldVal]);  //Broadcast for public events
+                            scope.dispatch[val + "_change"].apply(this, [scope[val], oldVal]);  //Broadcast for public events
                         }
                     }
                     return component;
@@ -121,8 +121,8 @@ vizuly.component.create = function(parent,scope,props,events) {
     };
 
     // This function is used to bind all callbacks to any events emitted by the dispatch object
-    component.on = function (event,listener) {
-        scope.dispatch.on(event,listener);
+    component.on = function (event, listener) {
+        scope.dispatch.on(event, listener);
         return component;
     };
 

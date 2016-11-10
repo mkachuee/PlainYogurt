@@ -18,9 +18,11 @@ class RegistrationForm(UserCreationForm):
             password1/password2 too short (<8 characters)
             password1 is not the same as password2
     """
+
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2')
+
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)
 
@@ -28,6 +30,7 @@ class RegistrationForm(UserCreationForm):
             user.save()
 
         return user
+
     username = forms.CharField(label="Username", max_length=30,
                                widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))
     password1 = forms.CharField(label="Password", max_length=30,
