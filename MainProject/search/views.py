@@ -12,15 +12,24 @@ from django.template import loader
 
 # Create your views here.
 def search(request):
-    title = "Search Results"
+    q = ""
+    if request.method == 'GET':
+        q = request.GET.get('q','')
+    title = "Search"
 
     query = {}
-    query['title'] = "Query"
+    query['title'] = "Query:" + q
     search = "Machine Learning"
-    query['search'] = search
-    result = search_tree(search)
+    query['search'] = q
+    if q:
+        result = search_tree(q)
+    else:
+        result = ""
     query['result'] = result
-    queryObject = get_query(search, 'name')
+    if q:
+        queryObject = get_query(q, 'name')
+    else:
+        queryObject = ""
     query['object'] = queryObject
 
     context = {}

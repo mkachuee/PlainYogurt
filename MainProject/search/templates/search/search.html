@@ -2,22 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Search Result</title>
+    <title>Search</title>
 </head>
 <body>
 <h1>{{ title }}</h1>
-<h2>{{ query.title }}</h2>
+<form action='' method='get'> {% csrf_token %}
+    <div class="form-group">
+        <input type='text' name='q' id='searchbox'>
+        <input type='submit' value='Go!'>
+    </div>
+</form>
 <p>Query String: {{ query.search }}</p>
 <p>Query Result: {{ query.result }}</p>
 <p>Query Object: {{ query.object }}</p>
 
-<form action='' method='get'> {% csrf_token %}
-        <div class="form-group">
-            <label for='searchbox'>Search</label>
-            <br>
-            <input type='text' name='q' id='searchbox'>
-            <input type='submit' value='Go!'>
-        </div>
-    </form>
+
 </body>
 </html>
