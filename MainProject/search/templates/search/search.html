@@ -3,18 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>{{ title }}</h1>
-<form action='' method='get'> {% csrf_token %}
-    <div class="form-group">
-        <input type='text' name='q' id='searchbox'>
-        <input type='submit' value='Go!'>
+<div class="jumbotron">
+    <div class="container text-center" style="margin: 0 auto; width: 50%">
+        <div>
+            <h1>Search</h1>
+            <form action='' method='get'> {% csrf_token %}
+                <div class="form-group">
+                    <input type='text' name='q' id='searchbox'>
+                    <input type='submit' value='Go!'>
+                </div>
+            </form>
+            <p>Query String: {{ query.search }}</p>
+            <p>{{ firstTuple.name }}</p>
+            <img src="{{ firstResult.image }}" class="img-responsive" style="width:100%" alt="Image">
+            <p>{{ firstResult.description }}</p>
+        </div>
     </div>
-</form>
-<p>Query String: {{ query.search }}</p>
-<p>Query Result: {{ query.result }}</p>
-<p>Query Object: {{ query.object }}</p>
+</div>
+
+<h2>Results</h2><br>
+{% for i in query.count1 %}
+<div class="container-fluid bg-3 text-center">
+    <div class="row">
+        {% for j in query.count2 %}
+        <div class="col-sm-3">
+            <h3>Subject</h3>
+            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+            <p>Description</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<br>
+{% endfor %}
+
+<footer class="container-fluid text-center">
+    <p>Footer Text</p>
+</footer>
+
 
 
 </body>
