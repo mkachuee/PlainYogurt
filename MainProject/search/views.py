@@ -35,7 +35,22 @@ def search(request):
 
     query['count1'] = range(0, 3)
     query['count2'] = range(0, 4)
+
+    resultCount = 13
     querySetResultTable = {}
+    c = 0;
+    breakLoopFlag = False;
+    while True:
+        querySetResultRow = {}
+        for i in range(0,4):
+            """Add result[i] to querySetResultRow"""
+            """Add querySetResultRow to querySetResultTable"""
+            c = c+1
+            if (c==resultCount):
+                breakLoopFlag = True
+                break
+        if (breakLoopFlag):
+            break
 
 
     context = {}
