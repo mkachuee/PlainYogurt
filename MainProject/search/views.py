@@ -46,7 +46,7 @@ def search(request):
             """Add result[i] to querySetResultRow"""
             """Add querySetResultRow to querySetResultTable"""
             c = c+1
-            if (c==resultCount):
+            if (c>=resultCount):
                 breakLoopFlag = True
                 break
         if (breakLoopFlag):
