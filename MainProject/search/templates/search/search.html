@@ -11,5 +11,13 @@
 <p>Query Result: {{ query.result }}</p>
 <p>Query Object: {{ query.object }}</p>
 
+<form action='' method='get'> {% csrf_token %}
+        <div class="form-group">
+            <label for='searchbox'>Search</label>
+            <br>
+            <input type='text' name='q' id='searchbox'>
+            <input type='submit' value='Go!'>
+        </div>
+    </form>
 </body>
 </html>
