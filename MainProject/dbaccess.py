@@ -1,3 +1,5 @@
+# import sys
+# sys.path.append('./home/models')
 from home.models import Subjects, TreeInfo
 from django.db import IntegrityError
 from django.core.exceptions import FieldError
@@ -144,19 +146,25 @@ def add_tree_info(**kwargs):
         PATH = PATH + '/' + dirname
         return PATH
 
+
+    name = kwargs.get('name', 'unknown')
+    category = kwargs.get('category', '')
+    subject = kwargs.get('subject', '')
+    topic = kwargs.get('topic', '')
+    tags = kwargs.get('tags', '')
     dirlink = ''
-    if ('name' in kwargs):
-        dirlink = generate_dir_name(kwargs['name'])
-        dirlink = get_dir_link(dirlink)
+    if ('DIRLink' in kwargs):
+        dirlink = kwargs.get('DIRLink', '')
     else:
-        dirlink = generate_dir_name("unknown")
+
+        dirlink = generate_dir_name(name)
         dirlink = get_dir_link(dirlink)
 
-    treeInfo = TreeInfo(DIRLink = dirlink, **kwargs)
+    treeInfo = TreeInfo(name=name, category=category, subject=subject, topic=topic, tags=tags, DIRLink=dirlink)
     try:
         treeInfo.save()
         return dirlink
-    except  ValueError as e:
+    except ValueError as e:
         return None
 
 
