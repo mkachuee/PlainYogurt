@@ -15,50 +15,52 @@ from django.template import loader
 def search(request):
     q = ""
     if request.method == 'GET':
-        q = request.GET.get('q','')
+        q = request.GET.get('q', '')
 
     query = {}
     query['title'] = "Query:" + q
-
+    context = {}
+    context.update(csrf(request))
     if q:
         querySetResult = search_trees(q)
         result = load_trees(querySetResult)
-    else:
-        result = ""
-    query['result'] = result
-
-    if q:
+        query['result'] = result
         queryObject = get_query(q, 'name')
-    else:
-        queryObject = ""
-    query['object'] = queryObject
-
-    query['count1'] = range(0, 3)
-    query['count2'] = range(0, 4)
-
-    resultCount = 13
-    querySetResultTable = {}
-    c = 0;
-    breakLoopFlag = False;
-    while True:
-        querySetResultRow = {}
-        for i in range(0,4):
-            """Add result[i] to querySetResultRow"""
-            """Add querySetResultRow to querySetResultTable"""
-            c = c+1
-            if (c>=resultCount):
-                breakLoopFlag = True
+        query['object'] = queryObject
+        query['count1'] = range(0, 3)
+        query['count2'] = range(0, 4)
+        resultCount = 13
+        querySetResultTable = {}
+        c = 0;
+        breakLoopFlag = False;
+        while True:
+            querySetResultRow = {}
+            for i in range(0, 4):
+                """Add result[i] to querySetResultRow"""
+                """Add querySetResultRow to querySetResultTable"""
+                c = c + 1
+                if (c >= resultCount):
+                    breakLoopFlag = True
+                    break
+            if (breakLoopFlag):
                 break
-        if (breakLoopFlag):
-            break
 
+        context['hasQuery'] = True
+        context['query'] = query
+        context['result'] = result
+        context['tuple'] = querySetResult
 
-    context = {}
-    context.update(csrf(request))
-    context['query'] = query
-    context['result'] = result
-    context['tuple'] = querySetResult
-    context['firstTuple'] = querySetResult[0]
-    context['firstResult'] = result[0]
-
+        if len(querySetResult)>0:
+            context['firstTuple'] = querySetResult[0]
+            context['firstResult'] = result[0]
+        else:
+            context['firstTuple'] = {}
+            context['firstResult'] = {}
+    else:
+        context['hasQuery'] = False
+        context['query'] = {}
+        context['result'] = {}
+        context['tuple'] = {}
+        context['firstTuple'] = {}
+        context['firstResult'] = {}
     return render(request, 'search/search.html', context)

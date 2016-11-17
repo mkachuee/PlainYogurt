@@ -18,35 +18,34 @@
                     <input type='submit' value='Go!'>
                 </div>
             </form>
+
+            {% if context.hasQuery %}
             <p>Query String: {{ query.search }}</p>
             <p>{{ firstTuple.name }}</p>
             <img src="{{ firstResult.image }}" class="img-responsive" style="width:100%" alt="Image">
             <p>{{ firstResult.description }}</p>
+            {% endif %}
         </div>
     </div>
 </div>
 
-<h2>Results</h2><br>
-{% for i in query.count1 %}
-<div class="container-fluid bg-3 text-center">
-    <div class="row">
-        {% for j in query.count2 %}
-        <div class="col-sm-3">
-            <h3>Subject</h3>
-            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-            <p>Description</p>
+{% if context.hasQuery %}
+    <h2>Results</h2><br>
+    {% for i in query.count1 %}
+        <div class="container-fluid bg-3 text-center">
+            <div class="row">
+                {% for j in query.count2 %}
+                    <div class="col-sm-3">
+                        <h3>Subject</h3>
+                        <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%"
+                             alt="Image">
+                        <p>Description</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
-    </div>
-</div>
-<br>
-{% endfor %}
-
-<footer class="container-fluid text-center">
-    <p>Footer Text</p>
-</footer>
-
-
-
+        <br>
+    {% endfor %}
+{% endif %}
 </body>
 </html>
