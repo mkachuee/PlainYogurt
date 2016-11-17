@@ -19,17 +19,24 @@
                 </div>
             </form>
 
-            {% if context.hasQuery %}
-            <p>Query String: {{ query.search }}</p>
+            {% if hasQuery %}
+            <p>Query String: {{ q }}</p>
+            {% endif %}
+
+            {% if hasQuery and hasResult %}
             <p>{{ firstTuple.name }}</p>
             <img src="{{ firstResult.image }}" class="img-responsive" style="width:100%" alt="Image">
             <p>{{ firstResult.description }}</p>
+            {% endif %}
+
+            {% if hasQuery and not hasResult %}
+            <p>No result!</p>
             {% endif %}
         </div>
     </div>
 </div>
 
-{% if context.hasQuery %}
+{% if hasQuery and hasResult %}
     <h2>Results</h2><br>
     {% for i in query.count1 %}
         <div class="container-fluid bg-3 text-center">

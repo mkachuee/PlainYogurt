@@ -46,21 +46,26 @@ def search(request):
                 break
 
         context['hasQuery'] = True
+        context['q'] = q
         context['query'] = query
         context['result'] = result
         context['tuple'] = querySetResult
 
         if len(querySetResult)>0:
+            context['hasResult'] = True
             context['firstTuple'] = querySetResult[0]
             context['firstResult'] = result[0]
         else:
+            context['hasResult'] = False
             context['firstTuple'] = {}
             context['firstResult'] = {}
     else:
         context['hasQuery'] = False
+        context['q'] = q
         context['query'] = {}
         context['result'] = {}
         context['tuple'] = {}
+        context['hasResult'] = False
         context['firstTuple'] = {}
         context['firstResult'] = {}
     return render(request, 'search/search.html', context)
