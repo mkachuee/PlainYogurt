@@ -1,123 +1,137 @@
 <!DOCTYPE html>
 {% load static %}
-{% with relPath="../../weightedtree/weightedtree/" %}
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Vizuly - Weighted Tree</title>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vizuly - Weighted Tree</title>
 
-        <!-- We use google fonts for many of the examples, but they are not necessary -->
-        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Roboto|Raleway:600,400,200' rel='stylesheet'
-              type='text/css'>
+<!-- VIM NOTES
+:filetype indent on
+:set filetype=html
+:set smartindent
+-->
+<!-- We use google fonts for many of the examples, but they are not necessary -->
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto|Raleway:600,400,200' rel='stylesheet'
+type='text/css'>
 
-        <!-- Test container style sheets -->
-        <link rel="stylesheet" href="{% static 'subjects/styles/examples.css' %}">
+<!-- Test container style sheets -->
+<link rel="stylesheet" href="{% static 'subjects/styles/examples.css' %}">
 
-        <!-- Vizuly specific style sheets -->
-        <link rel="stylesheet" href="{% static 'subjects/libBack/styles/vizuly.css' %}">
-        <link rel="stylesheet" href="{% static 'subjects/libBack/styles/vizuly_weightedtree.css' %}">
+<!-- Vizuly specific style sheets -->
+<link rel="stylesheet" href="{% static 'subjects/lib/styles/vizuly.css' %}">
+<link rel="stylesheet" href="{% static 'subjects/lib/styles/vizuly_weightedtree.css' %}">
 
-        <!-- Supporting test container files:  Vizuly does NOT rely on these -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'subjects/libBack/styles/cssmenu.css' %}">
-        <script type="text/javascript" src="{% static 'subjects/libBack/jquery-2.1.1.min.js' %}"></script>
-        <script src="{% static 'subjects/libBack/cssmenu.js' %}"></script>
+<!-- Supporting test container files:  Vizuly does NOT rely on these -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'subjects/lib/styles/cssmenu.css' %}">
+<script type="text/javascript" src="{% static 'subjects/lib/jquery-2.1.1.min.js' %}"></script>
+<script src="{% static 'subjects/lib/cssmenu.js' %}"></script>
 
-        <!-- D3.js ... of course! -->
-        <script src="{% static 'subjects/lib/d3.min.js' %}"></script>
-        <script>
-            var readingFile = "{% static 'subjects/weightedtree_federal_budget.csv' %}"
-        </script>
+<!-- D3.js ... of course! -->
+<script src="{% static 'subjects/lib/d3.min.js' %}"></script>
+<script>
+var readingFile = "{% static 'subjects/data/weightedtree_federal_budget.csv' %}"
+</script>
+<script>
+var dataInJson = "{{data}}"
+</script>
 
-        <script src="{% static 'subjects/lib/vizuly_core.min.js' %}"></script>
-        <script src="{% static 'subjects/lib/vizuly_weightedtree.min.js' %}"></script>
-        <script src="{% static 'subjects/subjectsTree.js' %}"></script>
+<script src="{% static 'subjects/lib/vizuly_core.min.js' %}"></script>
+<script src="{% static 'subjects/lib/vizuly_weightedtree.min.js' %}"></script>
+<script src="{% static 'subjects/subjectsTree.js' %}"></script>
 
+</head>
 
-    </head>
+<body>
+<div id='temp_header'>
+	<h1> Algebra Knowledge Tree </h1>
+</div>
 
-    <body>
-    <div id='temp_header'>
-        <h1> Algebra Knowledge Tree </h1>
-    </div>
+<div id='cssmenu'>
+	<ul class="main-menu">
+		<li class='active'>
+		<a><span>Display</span><br><span class="setting"></span></a>
+		<ul class="options" callback="changeSize">
+			<li id="currentDisplay" class="selected"><a></a></li>
+			<li item_value="1000,1000"><a>1000px - 1000px</a></li>
+			<li item_value="800,600"><a>800px - 600px</a></li>
+			<li item_value="375,667"><a>375px - 667px</a></li>
+			<li item_value="320,568"><a>320px - 568px</a></li>
+		</ul>
+		</li>
+		<li class='active'><a><span>Theme </span><br><span class="setting"></span></a>
+		<ul class="options" callback="changeSkin">
+			<li item_value="None"><a>None</a></li>
+			<li item_value="Axiis" class="selected"><a>Axiis</a></li>
+		</ul>
+		</li>
+		<li class='active'><a><span class="label">Data </span><br><span class="setting"></span></a>
+		<ul class="options" callback="changeData">
+			<li item_value="0" class="selected"><a>Federal</a></li>
+			<li item_value="1"><a>State</a></li>
+			<li item_value="2"><a>Local</a></li>
+		</ul>
+		</li>
+	</ul>
+</div>
 
-    <div id='cssmenu'>
-        <ul class="main-menu">
-            <li class='active'>
-                <a><span>Display</span><br><span class="setting"></span></a>
-                <ul class="options" callback="changeSize">
-                    <li id="currentDisplay" class="selected"><a></a></li>
-                    <li item_value="1000,1000"><a>1000px - 1000px</a></li>
-                    <li item_value="800,600"><a>800px - 600px</a></li>
-                    <li item_value="375,667"><a>375px - 667px</a></li>
-                    <li item_value="320,568"><a>320px - 568px</a></li>
-                </ul>
-            </li>
-            <li class='active'><a><span>Theme </span><br><span class="setting"></span></a>
-                <ul class="options" callback="changeSkin">
-                    <li item_value="None"><a>None</a></li>
-                    <li item_value="Axiis" class="selected"><a>Axiis</a></li>
-                </ul>
-            </li>
-            <li class='active'><a><span class="label">Data </span><br><span class="setting"></span></a>
-                <ul class="options" callback="changeData">
-                    <li item_value="0" class="selected"><a>Federal</a></li>
-                    <li item_value="1"><a>State</a></li>
-                    <li item_value="2"><a>Local</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+<!-- Our main content container-->
+<div class="container" style="width:100%">
+	<div id="viz_container" class="z-depth-3">
+	</div>
+	<div style="margin-left:0px; height:0px; width:90%; margin:0px auto; margin-top:20px; font-family:Raleway; font-size:14px;">
+		A place for you to learn everything you need about Algebra! Good luck!
 
-    <!-- Our main content container-->
-    <div class="container" style="width:100%">
-        <div id="viz_container" class="z-depth-3">
-        </div>
-        <div style="margin-left:0px; height:0px; width:90%; margin:0px auto; margin-top:20px; font-family:Raleway; font-size:14px;">
-            A place for you to learn everything you need about Algebra! Good luck!
-
-        </div>
-    </div>
-
-
-    <script>
-        //Once the document is ready we set javascript and page settings
-        var screenWidth;
-        var screenHeight;
-
-        $(document).ready(function () {
-
-            var rect;
-            rect = document.body.getBoundingClientRect();
-
-            //Set display size based on window size.
-            screenWidth = (rect.width < 960) ? Math.round(rect.width * .95) : Math.round((rect.width - 210) * .95);
-
-            screenHeight = 750;
-
-            d3.select("#currentDisplay")
-                    .attr("item_value", screenWidth + "," + screenHeight)
-                    .attr("class", "selected")
-                    .html("<a>" + screenWidth + "px - " + screenHeight + "px</a>");
+	</div>
+</div>
 
 
-            // Set the size of our container element.
-            viz_container = d3.selectAll("#viz_container")
-                    .style("width", screenWidth + "px")
-                    .style("height", screenHeight + "px");
+<script>
+//Once the document is ready we set javascript and page settings
+var screenWidth;
+var screenHeight;
+
+$(document).ready(function () {
+
+		var rect;
+		if(self == top) {	
+		rect = document.body.getBoundingClientRect();
+		}
+		else {
+		rect = document.body.getBoundignClientRect();
+		}
+
+		//Set display size based on window size.
+		screenWidth = (rect.width < 960) ? Math.round(rect.width * .95) : Math.round((rect.width - 210) * .95);
+
+		screenHeight = 1500;
+
+		d3.select("#currentDisplay")
+		.attr("item_value", screenWidth + "," + screenHeight)
+		.attr("class", "selected")
+		.html("<a>" + screenWidth + "px - " + screenHeight + "px</a>");
+
+		$("#cssmenu").menumaker({
+title: "VIZULY WEIGHTED TREE",
+format: "multitoggle"
+});
 
 
-            loadData();
+// Set the size of our container element.
+viz_container = d3.selectAll("#viz_container")
+.style("width", screenWidth + "px")
+.style("height", screenHeight + "px");
 
 
-        });
-
-    </script>
-
-    </body>
+loadData();
 
 
-    </html>
+});
 
-{% endwith %}
+</script>
+
+</body>
+
+
+</html>
