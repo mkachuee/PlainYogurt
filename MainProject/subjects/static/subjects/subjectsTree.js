@@ -47,17 +47,12 @@ var valueFields = ["Federal", "State", "Local"];
 
 var dataObject;
 
-var formatCurrency = function (d) {
-	if (isNaN(d)) d = 0;
-	return "$" + d3.format(",.2f")(d) + " Billion";
-};
+var timer = null;
 
 function loadData() {
+	// create dataObject (dictionary)
 	var decoded = $('<div/>').html(dataInJson).text();	
 	dataObject = eval('(' + decoded + ')');
-	//console.log(dataObject);
-
-	
 
 	d3.csv(readingFile, function (csv) 
 	{
@@ -87,11 +82,12 @@ function prepData(csv) {
 		}
 		values.push(temp);
 	}
-	
-	console.log(values);
 
 	// d3 nests: nests by key values
 	var nest = d3.nest()
+	.key(function (d) {
+			return d.Level0;
+			})
 	.key(function (d) {
 			return d.Level1;
 			})
@@ -106,14 +102,16 @@ function prepData(csv) {
 	//Remove empty child nodes left at end of aggregation and add unqiue ids
 	function removeEmptyNodes(node, parentId, childId) 
 	{
-		if (!node) return;
-		node.id = parentId + "_" + childId;
-		if (node.values) 
+		if (!node) 
+			return; // if node is empty
+
+		node.id = parentId + "_" + childId; // setting unique id
+		if (node.values) // nest
 		{
-			for (var i = node.values.length - 1; i >= 0; i--) 
+			for (var i = node.values.length - 1; i >= 0; i--) // for every child node
 			{
 				node.id = parentId + "_" + i;
-				if (!node.values[i].key && !node.values[i].Level4) 
+				if (node.values[i].key == "undefined" || !node.values[i].key)// && !node.values[i].Level4) 
 				{
 					node.values.splice(i, 1);
 				}
@@ -131,7 +129,7 @@ function prepData(csv) {
 
 	return nest;
 }
-var global = 0;
+
 function initialize() {
 
 
@@ -159,7 +157,6 @@ function initialize() {
 	.value(function (d) // The property of the datum that will be used for the branch and node size
 	{
 		return 10
-		return Number(d["agg_" + valueField])
 	})
         .fixedSpan(100) // default: -1, change to change horizontal aspect 
 	.label(function (d) 
@@ -222,7 +219,12 @@ function onMouseOver(e, d, i)
 	if (d == data) return;
 	var rect = e.getBoundingClientRect();
 	if (d.target) d = d.target; //This if for link elements
-	createDataTip(rect.left, rect.top, (d.key || (d['Level' + d.depth])), formatCurrency(d["agg_" + valueField]), valueField);
+	
+	var subjectName = d.key;
+	console.log(subjectName);
+	var description = dataObject['contents'][subjectName];
+	
+	createDataTip(rect.left, rect.top, (d.key || (d['Level' + d.depth])), description, "");
 }
 
 function onMouseOut(e, d, i) 
@@ -230,11 +232,23 @@ function onMouseOut(e, d, i)
 	d3.selectAll(".vz-weighted_tree-tip").remove();
 }
 
-
 //We can capture click events and respond to them
 function onClick(g, d, i) 
 {
-	viz.toggleNode(d);
+	if(timer != null)
+	{
+		// TODO: toggle a sidebar menu
+		window.clearTimeout(timer);
+		timer = null;
+	}
+	else
+	{
+		// start timer. if timer expires before second click, toggleNode
+		timer = window.setTimeout(function() {
+			viz.toggleNode(d);
+			timer = null;
+			}, 250);
+	}
 }
 
 

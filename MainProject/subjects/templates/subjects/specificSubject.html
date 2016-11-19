@@ -45,7 +45,7 @@ var dataInJson = "{{data}}"
 
 <body>
 <div id='temp_header'>
-	<h1> Algebra Knowledge Tree </h1>
+	<h1> {{subjectName}} Knowledge Tree </h1>
 </div>
 
 <div id='cssmenu'>
@@ -66,23 +66,23 @@ var dataInJson = "{{data}}"
 			<li item_value="Axiis" class="selected"><a>Axiis</a></li>
 		</ul>
 		</li>
-		<li class='active'><a><span class="label">Data </span><br><span class="setting"></span></a>
+	<!--	<li class='active'><a><span class="label">Data </span><br><span class="setting"></span></a>
 		<ul class="options" callback="changeData">
 			<li item_value="0" class="selected"><a>Federal</a></li>
 			<li item_value="1"><a>State</a></li>
 			<li item_value="2"><a>Local</a></li>
 		</ul>
-		</li>
+		</li>-->
 	</ul>
 </div>
 
+
 <!-- Our main content container-->
 <div class="container" style="width:100%">
+	<br>
+	<br>
+	<br>
 	<div id="viz_container" class="z-depth-3">
-	</div>
-	<div style="margin-left:0px; height:0px; width:90%; margin:0px auto; margin-top:20px; font-family:Raleway; font-size:14px;">
-		A place for you to learn everything you need about Algebra! Good luck!
-
 	</div>
 </div>
 
@@ -105,7 +105,7 @@ $(document).ready(function () {
 		//Set display size based on window size.
 		screenWidth = (rect.width < 960) ? Math.round(rect.width * .95) : Math.round((rect.width - 210) * .95);
 
-		screenHeight = 1500;
+		screenHeight = 750;
 
 		d3.select("#currentDisplay")
 		.attr("item_value", screenWidth + "," + screenHeight)

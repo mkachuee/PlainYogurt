@@ -282,7 +282,7 @@ vizuly.viz.weighted_tree = function (parent) {
 
         nodeEnter.append("circle")
             .attr("class", ".vz-weighted_tree-node-circle")
-            .attr("r", 1e-6)
+            .attr("r", 0)
             .style("cursor", "pointer");
 
         nodeEnter.append("text")
@@ -342,7 +342,7 @@ vizuly.viz.weighted_tree = function (parent) {
 
         nodeUpdate.select("circle")
             .attr("r", function (d) {
-                return nodeRadius(d)
+                return 0 
             });
 
         // Transition exiting nodes to the parent's new position.
@@ -356,7 +356,7 @@ vizuly.viz.weighted_tree = function (parent) {
             .remove();
 
         nodeExit.select("circle")
-            .attr("r", 1e-6);
+            .attr("r", 0);
 
         nodeExit.select("text");
 
