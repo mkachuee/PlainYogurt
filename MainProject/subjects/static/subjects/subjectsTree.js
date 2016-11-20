@@ -41,10 +41,6 @@ var theme;
 // nested data
 var data = {};
 
-// stores the currently selected value field
-var valueField = "Federal";
-var valueFields = ["Federal", "State", "Local"];
-
 var dataObject;
 
 var timer = null;
@@ -168,8 +164,11 @@ function initialize() {
 	.on("mouseout", onMouseOut)     // mouseout callback - all viz components issue these events
 	.on("click", onClick);         	// mouseout callback - all viz components issue these events
 
+	updateLinks(data.values[0].key);
+
 	//We use this function to size the components based on the selected value from the RadiaLProgressTest.html page.
 	changeSize(d3.select("#currentDisplay").attr("item_value"));
+
 }
 
 
@@ -208,6 +207,16 @@ function createDataTip(x, y, h1, h2, h3)
 	.transition().style("opacity", 1);
 }
 
+function updateLinks(subjectName)
+{
+	var html = "";
+	html += "<h3 style=\"margin-left: 30px\"> links to learn " + subjectName + "</h3>\n";
+	// TODO: append to html with link names/links (href)
+	html += "<br>\n";
+	html += "<a style=\"margin-left: 30px\"href=\"https://en.wikipedia.org/wiki/Machine_learning\" target=\"_blank\"> wikipedia link </a>\n";
+	document.getElementById("link_container").innerHTML=html;
+}
+
 function onMeasure() 
 {
 	// Allows you to manually override vertical spacing
@@ -221,7 +230,6 @@ function onMouseOver(e, d, i)
 	if (d.target) d = d.target; //This if for link elements
 	
 	var subjectName = d.key;
-	console.log(subjectName);
 	var description = dataObject['contents'][subjectName];
 	
 	createDataTip(rect.left, rect.top, (d.key || (d['Level' + d.depth])), description, "");
@@ -237,7 +245,8 @@ function onClick(g, d, i)
 {
 	if(timer != null)
 	{
-		// TODO: toggle a sidebar menu
+		updateLinks(d.key);
+		
 		window.clearTimeout(timer);
 		timer = null;
 	}
@@ -276,9 +285,3 @@ function changeSize(val)
 	viz.width(s[0]).height(s[1] * .8).update();
 }
 
-//This sets the same value for each radial progress
-function changeData(val) 
-{
-	valueField = valueFields[Number(val)];
-	viz.update();
-}
