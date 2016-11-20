@@ -9,7 +9,7 @@
         }, options);
 
         return this.each(function () {
-            cssmenu.prepend('<div id="menu-button"><img src="../lib/styles/img/logo_16x16.png" class="logo">' + settings.title + '</div>');
+            cssmenu.prepend('<div id="menu-button"><img src="/static/subjects/lib/styles/img/logo_16x16.png" class="logo">' + settings.title + '</div>');
 
             $(this).find("#menu-button").on('click', function () {
                 toggleMenu(this);

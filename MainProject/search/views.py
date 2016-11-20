@@ -16,7 +16,6 @@ from django.http import HttpResponse
 from django.template import loader
 
 
-
 @csrf_protect
 def search(request):
     context = {}
@@ -33,6 +32,5 @@ def search(request):
     for i in range(0, len(context['tuples'])):
         t = [context['tuples'][i], context['result_objects'][i]]
         context['combined_result'].append(t)
-
     return render(request, 'search/search.html', context)
 
