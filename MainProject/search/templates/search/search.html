@@ -3,48 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        $( document ).ready(function() {
+            $("[rel='tooltip']").tooltip();
+
+            $('.thumbnail').hover(
+                function(){
+                    $(this).find('.caption').slideDown(250); //.fadeIn(250)
+                },
+                function(){
+                    $(this).find('.caption').slideUp(250); //.fadeOut(205)
+                }
+            );
+        });
+    </script>
 </head>
 <body>
-<div class="jumbotron">
-    <div class="container text-center" style="margin: 0 auto; width: 50%">
-        <div>
-            <h1>Search</h1>
-            <form action='' method='get'> {% csrf_token %}
-                <div class="form-group">
-                    <input type='text' name='q' id='searchbox'>
-                    <input type='submit' value='Go!'>
-                </div>
-            </form>
-            <p>Query String: {{ query.search }}</p>
-            <p>{{ firstTuple.name }}</p>
-            <img src="{{ firstResult.image }}" class="img-responsive" style="width:100%" alt="Image">
-            <p>{{ firstResult.description }}</p>
-        </div>
-    </div>
-</div>
 
-<h2>Results</h2><br>
-{% for i in query.count1 %}
-<div class="container-fluid bg-3 text-center">
-    <div class="row">
-        {% for j in query.count2 %}
-        <div class="col-sm-3">
-            <h3>Subject</h3>
-            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-            <p>Description</p>
+
+    <section id="search">
+      <div class="container">
+        <br><br>
+	          <form action = "{% url 'search' %}" method='post' class='form-horizontal'> {% csrf_token %}
+	              <div class="form-group">
+	                 <center><input type="text" placeholder="{{q}}" class="form-control" name="q" style="margin:auto; width:800px; height:45px;"></center>
+    	         </div>
+
+	             <div class="form-group">
+		              <center><button class="btn btn-primary" type="submit" value="Submit">Search</button></center>
+	           </div>
+	         </form>
+          <center><h1>Search Result</h1></center>
+
+    </div>
+    </section>
+
+
+    <div class="container">
+        {% for obj in combined_result %}
+        <div class="row">
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h4>{{obj.0.name|capfirst}}</h4>
+                        <p>{{obj.1.description}} {{obj.1.image}}</p>
+                        <p><a href="" class="label label-danger" rel="tooltip" title="Zoom">Zoom</a>
+                        <a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>
+                    </div>
+                    <img src="/home/erlab/PycharmProjects/PlainYogurt/TreeFiles/Mechanics/tree.png" alt="...">
+                </div>
+          </div>
         </div>
         {% endfor %}
-    </div>
-</div>
-<br>
-{% endfor %}
 
-<footer class="container-fluid text-center">
-    <p>Footer Text</p>
-</footer>
+  </div>
+
+    </div><!-- /.container -->
+
+
+
+
+    <!--<div class="col-md-3 pin">-->
+            <!--&lt;!&ndash;<div class="hover-buttons">&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<a type="button" class="btn download" href="">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<i class="icon-download"></i> Subscribe</a>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<button type="button" class="btn btn-save header-btn-save icon-star-empty"&ndash;&gt;-->
+                <!--&lt;!&ndash;&gt;<span class="save-title">SAVE</span></button>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--<div class="asset-image">-->
+                <!--<a href="/refcardz/getting-started-eclipse"><img src="//dz2cdn3.dzone.com/storage/rc-covers/3441354-refcard-cover003.png" alt="Getting Started with Eclipse" width="320"></a>-->
+            <!--</div>-->
+            <!--<div class="asset-subtitle"><a href="/refcardz/getting-started-eclipse">Test and Debug Code With Java’s Leading IDE</a></div>-->
+
+            <!--<div class="asset-description description">Eclipse IDE is a cross-platform, multi-purpose, open-source Integrated Development Environment. It is widely used to develop projects in Java, JavaScript, PHP, C++, Scala, and many others. This newly updated Refcard breaks down installing, setting up, and getting started with Eclipse. It also covers productivity tips, creating new projects and files, accessing Source Control Managers, and debugging configurations.</div>-->
+
+            <!--<div class="asset-info">-->
+                        <!--<div class="asset-author-n-stats">-->
+                            <!--<div class="asset-authors">-->
+                                <!--<a href="/users/2692243/mistria.html">Mickael Istria</a>-->
+                            <!--</div>-->
+                            <!--<div class="asset-stats">-->
+                                <!--<span class="asset-downloads"><i class="icon-download"></i>75.5k</span>-->
+                                <!--<span class="asset-views"><i class="icon-eye"></i>186.6k</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
 
 

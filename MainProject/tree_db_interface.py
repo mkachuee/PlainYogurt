@@ -5,7 +5,7 @@ to back end DB access.
 """
 import dbaccess as db
 from tree.tree import TreeNode, load_data, save_data
-
+import os
 
 def get_categories():
     """
@@ -71,6 +71,10 @@ def search_trees(str):
     return -
         Queryset object containing search results
     """
+
+    if (not str):
+        return None
+
     found_entries = None
     found_entries  = db.search_tree(str)
     return found_entries
@@ -91,6 +95,7 @@ def load_trees(qset_obj):
     # load tree objects
     for tuple in qset_obj:
         dir = tuple['DIRLink']
+        dir = os.path.abspath(os.path.join(os.getcwd(), dir))
         tree_objects.append(load_data(dir))
     return tree_objects
 

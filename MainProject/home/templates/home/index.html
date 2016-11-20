@@ -97,11 +97,11 @@
         <center><h1>Find a Tree.</h1></center>
 	<center><h1>Master. <i>Faster.</i></h1></center>
         <br><br>
-	          <form method='post' class='form-horizontal'>
+	          <form action = "{% url 'search' %}" method='POST' class='form-horizontal'>{% csrf_token %}
 	              <div class="form-group">
-	                 <center><input type="text" placeholder="Search" class="form-control" name="searching" style="margin:auto; width:800px; height:45px;"></center>
-
+	                 <center><input type="text" placeholder="Search" class="form-control" name="q" style="margin:auto; width:800px; height:45px;"></center>
     	         </div>
+
 	             <div class="form-group">
 		              <center><button class="btn btn-primary" type="submit" value="Submit">Search</button></center>
 	           </div>

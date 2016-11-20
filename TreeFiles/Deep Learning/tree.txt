@@ -1,0 +1,1 @@
+Reach the top and learn about the layers that make deep learning: convolutional networks, linear classifiers, cost functions and optimization algorithms.

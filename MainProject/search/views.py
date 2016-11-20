@@ -1,64 +1,38 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import sys
+import os
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if path not in sys.path:
+    sys.path.append(path)
 
 from django.shortcuts import render
 from django.template.context_processors import csrf
-from dbaccess import search_tree
 from dbaccess import get_query
 from tree_db_interface import search_trees, load_trees
-
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import loader
 
 
-# Create your views here.
+
+@csrf_protect
 def search(request):
-    q = ""
-    if request.method == 'GET':
-        q = request.GET.get('q','')
-
-    query = {}
-    query['title'] = "Query:" + q
-
-    if q:
-        querySetResult = search_trees(q)
-        result = load_trees(querySetResult)
-    else:
-        result = ""
-    query['result'] = result
-
-    if q:
-        queryObject = get_query(q, 'name')
-    else:
-        queryObject = ""
-    query['object'] = queryObject
-
-    query['count1'] = range(0, 3)
-    query['count2'] = range(0, 4)
-
-    resultCount = 13
-    querySetResultTable = {}
-    c = 0;
-    breakLoopFlag = False;
-    while True:
-        querySetResultRow = {}
-        for i in range(0,4):
-            """Add result[i] to querySetResultRow"""
-            """Add querySetResultRow to querySetResultTable"""
-            c = c+1
-            if (c>=resultCount):
-                breakLoopFlag = True
-                break
-        if (breakLoopFlag):
-            break
-
-
     context = {}
-    context.update(csrf(request))
-    context['query'] = query
-    context['result'] = result
-    context['tuple'] = querySetResult
-    context['firstTuple'] = querySetResult[0]
-    context['firstResult'] = result[0]
+    if request.method == 'POST':
+        context['q'] = request.POST.get("q", "hello")
+    else:
+        context['q'] = ""
+
+    q = context['q']
+    context['tuples'] = search_trees(q)
+    context['result_objects'] = load_trees(context['tuples'])
+
+    context['combined_result'] = []
+    for i in range(0, len(context['tuples'])):
+        t = [context['tuples'][i], context['result_objects'][i]]
+        context['combined_result'].append(t)
 
     return render(request, 'search/search.html', context)
+

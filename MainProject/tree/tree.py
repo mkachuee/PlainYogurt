@@ -3,8 +3,9 @@
 import os
 import pdb
 import pickle
-import PIL
+
 import xml.etree.ElementTree as xmlet
+import PIL
 
 
 from IPython import embed
@@ -23,14 +24,14 @@ class TreeNode:
     def __init__(self, node_content=None, node_tails=[]):
         """
         TreeNode constructor.
-        
+
         node_id:
             - a unique id for each node, it is implemented using a static counter in the class.
         node_content:
-            - it is None by default which means that it is neither a root node nor a resource node, 
+            - it is None by default which means that it is neither a root node nor a resource node,
             so it can be interpereted as a prerequisite node.
         node_tails:
-            - stores the list of each node's tail nodes in a linked-list like fashion. 
+            - stores the list of each node's tail nodes in a linked-list like fashion.
             empty tail means termination of the tree.
         """
         TreeNode.current_id += 1 # increment the static id counter
@@ -58,12 +59,12 @@ class TreeNode:
         """
         with open(filename, 'rb') as f:
             self = pickle.load(f)
-        
+
         return self
 
     def get_id(self):
         """
-        Description: 
+        Description:
             get uinique node id.
         Output:
             - returns the unique ID of the TreeNode instance.
@@ -118,10 +119,10 @@ class TreeNode:
     def add_tail(self, node=None):
         """
         Description:
-            add a node to tail. If the node is not specified a node will be 
+            add a node to tail. If the node is not specified a node will be
             created and added.
         Input:
-            - node: the node to append. if not provided a new NodeTree will be 
+            - node: the node to append. if not provided a new NodeTree will be
                     created and linked.
         Output:
             - returns the newly linked TreeNode instance.
@@ -131,13 +132,13 @@ class TreeNode:
         self.__node_tails.append(node)
         node.__node_tails = []
         return node
-    
+
     def remove_tail(self, node):
         """
         Description:
-            removes a node from tail. if it is found and removed returens True, 
+            removes a node from tail. if it is found and removed returens True,
             else returns False.
-        Input: 
+        Input:
             - node: the node object to be removed from tail nodes list.
         Output:
             - returns True if the node is found and removed, else returns False.
@@ -151,7 +152,7 @@ class TreeNode:
     def walk(self, path=[]):
         """
         Description:
-            this method walks through the tree and returns all nodes in 
+            this method walks through the tree and returns all nodes in
             each path to the leafs.
         Output:
             - returns the list of all possible pathes from the current node
@@ -169,14 +170,14 @@ class TreeNode:
                 else:
                     paths.append(branch.walk(path+[self.__node_id]))
             return paths
-    
+
     def traverse(self):
         """
         Description:
             this function visits every node in the tree, and returns a dictionary
             of {id:content}.
         Ouptut:
-            - returns a dictionary containing node-ids as key 
+            - returns a dictionary containing node-ids as key
               and node contents as values for each node in the tree
         """
         if self.__node_tails == []:
@@ -194,7 +195,7 @@ class TreeNode:
         Output:
             - returns a dictionary with to key-words: "path" and "contents".
               each describing the possible paths and node contents.
-        """ 
+        """
         paths = self.walk(path=[])
         contents = self.traverse()
         return {'paths':paths, 'contents':contents}
@@ -218,7 +219,7 @@ class TreeNode:
             # if it is a connector
             elif 'source' in obj.keys():
                 connections_list.append(obj)
-        
+
         # make connections
         target_ids = set()
         source_ids = set()
@@ -228,7 +229,7 @@ class TreeNode:
             source_ids.add(connection.get('source'))
             target_ids.add(connection.get('target'))
             source.add_tail(target)
-        
+
         root_id = (source_ids - target_ids).pop()
         self.__node_tails = nodes_dict[root_id].__node_tails
         self.__node_content = nodes_dict[root_id].__node_content
@@ -248,18 +249,20 @@ def load_data(path):
         - tree data dictionary. containing "tree", "description", and "image" key-words.
     """
     tree_data = {'tree':None, 'image':None, 'description':None}
-    
+
     try:
         with open(path+'/'+'tree.pkl', 'rb') as f:
             tree_data['tree'] = pickle.load(f)
-
+    except:
+        pass
+    try:
         with open(path+'/'+'tree.txt', 'rb') as f:
             tree_data['description'] = f.read()
     except:
-        return None
+        pass
     try:
-        with open(path+'/'+'tree.png', 'rb') as f:
-            tree_data['image'] = PIL.Image.open(f)
+        # with open(path+'/'+'tree.png', 'rb') as f:
+            tree_data['image'] = path+'/'+'tree.png'
     except:
         pass
 

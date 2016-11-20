@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 
+from django.views.decorators.csrf import csrf_protect
+
 
 class Test:
     def __init__(self, A, B):

@@ -1,5 +1,3 @@
-# import sys
-# sys.path.append('./home/models')
 from home.models import Subjects, TreeInfo
 from django.db import IntegrityError
 from django.core.exceptions import FieldError
