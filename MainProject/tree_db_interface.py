@@ -6,6 +6,7 @@ to back end DB access.
 import dbaccess as db
 from tree.tree import TreeNode, load_data, save_data
 import os
+from MainProject.settings import STATICFILES_DIRS as FILE_DIR
 
 def get_categories():
     """
@@ -95,8 +96,10 @@ def load_trees(qset_obj):
     # load tree objects
     for tuple in qset_obj:
         dir = tuple['DIRLink']
-        dir = os.path.abspath(os.path.join(os.getcwd(), dir))
-        tree_objects.append(load_data(dir))
+        complete_dir = FILE_DIR[0] + '' + dir #os.path.abspath(os.path.join(os.getcwd(), dir))
+        t = load_data(complete_dir)
+        t['image'] = dir + '/tree.png'
+        tree_objects.append(t)
     return tree_objects
 
 

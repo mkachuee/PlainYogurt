@@ -23,6 +23,7 @@
         });
     </script>
 </head>
+
 <body>
 
 
@@ -42,8 +43,7 @@
 
     </div>
     </section>
-
-
+    
     <div class="container">
         {% for obj in combined_result %}
         <div class="row">
@@ -51,11 +51,12 @@
                 <div class="thumbnail">
                     <div class="caption">
                         <h4>{{obj.0.name|capfirst}}</h4>
-                        <p>{{obj.1.description}} {{obj.1.image}}</p>
+                        <p>{{obj.1.description}}</p>
                         <p><a href="" class="label label-danger" rel="tooltip" title="Zoom">Zoom</a>
                         <a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>
                     </div>
-                    <img src="/home/erlab/PycharmProjects/PlainYogurt/TreeFiles/Mechanics/tree.png" alt="...">
+                    {% load static %}
+                    <img src="{% static obj.1.image%}" alt="{{obj.0.name|capfirst}}">
                 </div>
           </div>
         </div>
