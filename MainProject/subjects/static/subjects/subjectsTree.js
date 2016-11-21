@@ -50,6 +50,7 @@ function loadData() {
 	var decoded = $('<div/>').html(dataInJson).text();	
 	dataObject = eval('(' + decoded + ')');
 
+	console.log(dataObject);
 	d3.csv(readingFile, function (csv) 
 	{
 		data.values = prepData(csv);
