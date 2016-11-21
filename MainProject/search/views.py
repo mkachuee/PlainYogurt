@@ -22,10 +22,10 @@ def debug_fake_data():
 
     t = []
     data = {}
-    data["name"] = "Fake result"
+    data["name"] = "Computer Graphics"
     t.append(data)
     data = {}
-    data["description"] = "Fake description"
+    data["description"] = "Drawing with computers"
     data["image"] = "subjects/img/ComputerGraphic.jpg"
     t.append(data)
 

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -13,12 +12,12 @@
             $("[rel='tooltip']").tooltip();
 
             $('.thumbnail').hover(
-                function(){
-                    $(this).find('.caption').slideDown(250); //.fadeIn(250)
-                },
-                function(){
-                    $(this).find('.caption').slideUp(250); //.fadeOut(205)
-                }
+                    function(){
+                        $(this).find('.caption').slideDown(250); //.fadeIn(250)
+                    },
+                    function(){
+                        $(this).find('.caption').slideUp(250); //.fadeOut(205)
+                    }
             );
         });
     </script>
@@ -26,26 +25,31 @@
 
 <body>
 
-
-    <section id="search">
-      <div class="container">
-        <br><br>
-	          <form action = "{% url 'search' %}" method='post' class='form-horizontal'> {% csrf_token %}
-	              <div class="form-group">
-	                 <center><input type="text" placeholder="{{q}}" class="form-control" name="q" style="margin:auto; width:800px; height:45px;"></center>
-    	         </div>
-
-	             <div class="form-group">
-		              <center><button class="btn btn-primary" type="submit" value="Submit">Search</button></center>
-	           </div>
-	         </form>
-          <center><h1>Search Result</h1></center>
-
-    </div>
-    </section>
-    
+<div class="jumbotron">
     <div class="container">
-        {% for obj in combined_result %}
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-md-6 col-md-offset-3">
+                <form action = "{% url 'search' %}" method='post' class='form-inline'> {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" placeholder="{{q}}" class="form-control" name="q">
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit" value="Submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Search Result</h1>
+        </div>
+    </div>
+
+    {% for obj in combined_result %}
         <div class="row">
             <div class="col-md-3">
                 <div class="thumbnail">
@@ -53,16 +57,16 @@
                         <h4>{{obj.0.name|capfirst}}</h4>
                         <p>{{obj.1.description}}</p>
                         <p><a href="" class="label label-danger" rel="tooltip" title="Zoom">Zoom</a>
-                        <a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>
+                            <a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>
                     </div>
                     {% load static %}
                     <img src="{% static obj.1.image%}" alt="{{obj.0.name|capfirst}}">
                 </div>
-          </div>
+            </div>
         </div>
-        {% endfor %}
+    {% endfor %}
 
-  </div>
+</div>
 
 
 
