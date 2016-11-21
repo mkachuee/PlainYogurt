@@ -62,11 +62,16 @@ def split_list(data, partsCount):
 def search(request):
     context = {}
     if request.method == 'POST':
-        context['q'] = request.POST.get("q", "hello")
+        context['q'] = request.POST.get("q", "m")
     else:
-        context['q'] = ""
+        context['q'] = " "
 
     q = context['q']
+    if (q == ''):
+        q = '10231028301823' # return no results the user entered an empty string..
+
+
+
     context['tuples'] = search_trees(q)
     context['result_objects'] = load_trees(context['tuples'])
 
