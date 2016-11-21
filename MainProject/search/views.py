@@ -16,9 +16,9 @@ from django.http import HttpResponse
 from django.template import loader
 
 """
-Change this constants to false if you don't want to use fake data
+Change this constant to false if you don't want to use fake data
 """
-DEBUG_MODE_USE_FAKE_DATA = True
+DEBUG_MODE_USE_FAKE_DATA = False
 
 def debug_fake_data():
     combined_result = []
