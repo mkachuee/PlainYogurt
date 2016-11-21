@@ -31,6 +31,7 @@
                         </div>
                         <div class="form-actions">
                             <input type='submit' value='Login'>
+                            <input type="hidden" name="next" value="{% url 'loginSuccess' %}" />
                         </div>
                         <p>
                             Not a member yet? Click <a href="{% url 'register' %}">here</a>
