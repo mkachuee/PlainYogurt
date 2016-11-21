@@ -15,6 +15,22 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import loader
 
+DEBUG_MODE = True
+
+def debug_fake_data():
+    combined_result = []
+
+    t = []
+    data = {}
+    data["name"] = "Fake result"
+    t.append(data)
+    data = {}
+    data["description"] = "Fake description"
+    data["image"] = "subjects/img/ComputerGraphic.jpg"
+    t.append(data)
+
+    combined_result.append(t)
+    return combined_result;
 
 @csrf_protect
 def search(request):
@@ -32,5 +48,7 @@ def search(request):
     for i in range(0, len(context['tuples'])):
         t = [context['tuples'][i], context['result_objects'][i]]
         context['combined_result'].append(t)
-    return render(request, 'search/search.html', context)
 
+    if (DEBUG_MODE):
+        context['combined_result'] = debug_fake_data()
+    return render(request, 'search/search.html', context)
