@@ -15,22 +15,45 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import loader
 
-DEBUG_MODE = True
+DEBUG_MODE_USE_FAKE_DATA = True
 
 def debug_fake_data():
     combined_result = []
 
-    t = []
-    data = {}
-    data["name"] = "Computer Graphics"
-    t.append(data)
-    data = {}
-    data["description"] = "Drawing with computers"
-    data["image"] = "subjects/img/ComputerGraphic.jpg"
-    t.append(data)
+    for i in range(0,15):
+        t = []
+        data = {}
+        data["name"] = "Computer Graphics"
+        t.append(data)
+        data = {}
+        data["description"] = "Drawing with computers"
+        data["image"] = "subjects/img/ComputerGraphic.jpg"
+        t.append(data)
+        combined_result.append(t)
+        t = []
+        data = {}
+        data["name"] = "Machine Learning"
+        t.append(data)
+        data = {}
+        data["description"] = "learning with machine"
+        data["image"] = "subjects/img/MachineLearning.jpg"
+        t.append(data)
+        combined_result.append(t)
+        t = []
+        data = {}
+        data["name"] = "Software Design"
+        t.append(data)
+        data = {}
+        data["description"] = "design a software"
+        data["image"] = "subjects/img/SoftWareDesign.jpg"
+        t.append(data)
+        combined_result.append(t)
 
-    combined_result.append(t)
     return combined_result;
+
+def split_list(data, partsCount):
+    chunks = [data[x:x + partsCount] for x in range(0, len(data), partsCount)]
+    return chunks
 
 @csrf_protect
 def search(request):
@@ -49,6 +72,8 @@ def search(request):
         t = [context['tuples'][i], context['result_objects'][i]]
         context['combined_result'].append(t)
 
-    if (DEBUG_MODE):
+    if (DEBUG_MODE_USE_FAKE_DATA):
         context['combined_result'] = debug_fake_data()
+
+    context['combined_result_4cols'] =
     return render(request, 'search/search.html', context)
