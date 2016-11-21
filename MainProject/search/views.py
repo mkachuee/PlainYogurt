@@ -75,5 +75,4 @@ def search(request):
     if (DEBUG_MODE_USE_FAKE_DATA):
         context['combined_result'] = debug_fake_data()
 
-    context['combined_result_4cols'] =
     return render(request, 'search/search.html', context)
