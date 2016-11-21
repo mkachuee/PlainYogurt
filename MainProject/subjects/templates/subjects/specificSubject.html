@@ -10,6 +10,17 @@
 :set filetype=html
 :set smartindent
 -->
+
+<!-- Custom Fonts - Kelly added-->
+<link href="{% static 'home/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+<!-- Theme CSS - kelly added-->
+<link href="{% static 'home/css/agency.min.css' %}" rel="stylesheet">
+
 <!-- We use google fonts for many of the examples, but they are not necessary -->
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Roboto|Raleway:600,400,200' rel='stylesheet'
@@ -43,9 +54,9 @@ var dataInJson = "{{data}}"
 
 </head>
 
-<body>
-<div id='temp_header'>
-	<h1> {{subjectName}} Knowledge Tree </h1>
+<body style='background-color: #222222'>
+<div id='temp_header' style='color:white'>
+	<h1> <a href='/' style="color:#fed136; text-decoration: none; font-family: Kaushan Script;font-size: 20px !important;">Prerek &emsp;</a>{{subjectName}} Knowledge Tree </h1>
 </div>
 
 <div id='cssmenu'>
@@ -71,11 +82,11 @@ var dataInJson = "{{data}}"
 
 <div style="width: 100%; overflow:auto">
 <!-- Our main content container-->
-<div class="container" style="clear: both; width:70%; overflow: auto; margin-top: 30px; background-color:lightyellow;">
+<div class="container" style="clear: both; width:70%; overflow: auto; margin-top: 30px; background-color:lightgray;">
 	<div id="viz_container" class="z-depth-3">
 	</div>
 </div>
-<div id="link_container" style="float:right; width:30%;">
+<div id="link_container" style="float:right; width:30%; color:lightgray;">
 </div>
 <div style="clear:both"></div>
 
