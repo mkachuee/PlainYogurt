@@ -9,7 +9,7 @@ TREE_PATH = './tree_data/example_cnn'
 #os.mkdir(TREE_PATH)
 
 tree_root = tree.TreeNode()
-tree_root.set_content('Deep Learning')
+tree_root.set_content({'name':'Deep Learning', 'description':'', 'links':[]})
 
 node_1 = tree_root.add_tail()
 node_1.set_content({'name':'Convolutional Neural Networks', 
