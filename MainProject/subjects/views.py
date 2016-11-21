@@ -24,13 +24,8 @@ def specificSubject(request, subjectName):
 	with open(data_path, 'rb') as f:
 		data = pickle.load(f)
 
-	
-	data['contents'][0] = {'name':'name 1', 'description':'des1', 'links':[{link:'//http',name:'wiki'}]}
-	
-
-	for key,value in data['contents'].items():
-		data['contents'][key] = value.replace('\n','');
+	#data['contents'][0] = {'name':'name 1', 'description':'des1', 'links':[{link:'//http',name:'wiki'}]}
 
 	data_in_json = json.dumps(data)
-	context = {'subjectName': subjectName, 'data': data_in_json, 'id_name_pair': id_name_pair}
+	context = {'subjectName': subjectName, 'data': data_in_json}
 	return render(request, 'subjects/specificSubject.html', context)
