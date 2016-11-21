@@ -15,6 +15,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template import loader
 
+"""
+Change this constants to false if you don't want to use fake data
+"""
 DEBUG_MODE_USE_FAKE_DATA = True
 
 def debug_fake_data():
