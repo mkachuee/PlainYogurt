@@ -145,11 +145,13 @@
                     <div class="caption">
                         <h4>{{obj.0.name|capfirst}}</h4>
                         <p>{{obj.1.description}}</p>
-                        <p><a href="" class="label label-danger" rel="tooltip" title="Zoom">Zoom</a>
-                            <a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>
+                        <!--<p><a href="" class="label label-danger" rel="tooltip" title="Zoom">Zoom</a>-->
+                            <!--<a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>-->
                     </div>
-                    {% load static %}
-                    <img src="{% static obj.1.image%}" alt="{{obj.0.name|capfirst}}">
+                    <a href="{{obj.1.tree}}">
+                         {% load static %}
+                         <img src="{% static obj.1.image%}" alt="{{obj.0.name|capfirst}}">
+                    </a>
                 </div>
             </div>
             {% endfor %}

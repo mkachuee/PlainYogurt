@@ -72,6 +72,10 @@ def search(request):
 
     context['combined_result'] = []
     for i in range(0, len(context['tuples'])):
+        if (context['result_objects'][i]['tree'] is None):
+            context['result_objects'][i]['tree'] = '/search/'
+        else:
+            context['result_objects'][i]['tree'] = '/subjects/' + context['tuples'][i]['name'] + '/'
         t = [context['tuples'][i], context['result_objects'][i]]
         context['combined_result'].append(t)
 

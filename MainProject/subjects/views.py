@@ -20,7 +20,8 @@ def specificSubject(request, subjectName):
 	module_dir = os.path.dirname(__file__)  # get current directory
 	
 	# TODO: remove the next 3 lines and replace data with the {path,content} dictionary for the correct subject
-	data_path = os.path.join(module_dir, 'example_cnn.pkl')
+	# data_path = os.path.join(module_dir, 'example_cnn.pkl')
+	data_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/static/' + '/TreeFiles/' + subjectName + '/tree.pkl'
 	with open(data_path, 'rb') as f:
 		data = pickle.load(f)
 

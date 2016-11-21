@@ -364,7 +364,7 @@ CREATE TABLE `home_treeinfo` (
   `DIRLink` varchar(200) NOT NULL,
   `tags` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -373,7 +373,7 @@ CREATE TABLE `home_treeinfo` (
 
 LOCK TABLES `home_treeinfo` WRITE;
 /*!40000 ALTER TABLE `home_treeinfo` DISABLE KEYS */;
-INSERT INTO `home_treeinfo` VALUES (4,'Aerospace Physics','Dynamics and Controls','Physics','Aerospace','/TreeFiles/AerospacePhysics','aerospace physics dynamics controls'),(5,'Algebra','basics','Math','Algebra','/TreeFiles/Algebra','algebra division multiplication addition'),(6,'Deep Learning','deep neural networks','Artificial Intillegence','Neural nets','/TreeFiles/DeepLearning','neural nets learning ai artifical intillegence'),(7,'Machine Learning','classification regression','Artificial Intillegence','Machine Learning','/TreeFiles/MachineLearning','machine learning ai artificial intillgence'),(8,'Mechanics','Free Body Diagrams','Physics','FBD','/TreeFiles/Mechanics','free body diagram mechanics physics');
+INSERT INTO `home_treeinfo` VALUES (4,'Aerospace Physics','Dynamics and Controls','Physics','Aerospace','/TreeFiles/AerospacePhysics','aerospace physics dynamics controls'),(5,'Algebra','basics','Math','Algebra','/TreeFiles/Algebra','algebra division multiplication addition'),(6,'Deep Learning','deep neural networks','Artificial Intillegence','Neural nets','/TreeFiles/DeepLearning','neural nets learning ai artifical intillegence'),(7,'Machine Learning','classification regression','Artificial Intillegence','Machine Learning','/TreeFiles/MachineLearning','machine learning ai artificial intillgence'),(8,'Mechanics','Free Body Diagrams','Physics','FBD','/TreeFiles/Mechanics','free body diagram mechanics physics'),(9,'Math','multiplication','Math','Algebra','/TreeFiles/Math','multiplication, mult, add'),(10,'ConvolutionalNeuralNetwork','CNN','Machine Learning','CNN','/TreeFiles/ConvolutionalNeuralNetwork','learning');
 /*!40000 ALTER TABLE `home_treeinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -386,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-20 19:33:42
+-- Dump completed on 2016-11-21 15:33:17
