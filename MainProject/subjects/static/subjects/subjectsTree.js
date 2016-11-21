@@ -50,7 +50,7 @@ function loadData() {
 	var decoded = $('<div/>').html(dataInJson).text();	
 	dataObject = eval('(' + decoded + ')');
 
-	console.log(dataObject);
+
 	d3.csv(readingFile, function (csv) 
 	{
 		data.values = prepData(csv);
@@ -157,8 +157,15 @@ function initialize() {
 	})
         .fixedSpan(100) // default: -1, change to change horizontal aspect 
 	.label(function (d) 
-	{                                           // returns label for each node.
-		return trimLabel(d.key || (d['Level' + d.depth]))
+	{
+		var subjectID = (d.key || (d['Level' + d.depth]));
+		
+		var name
+		if(subjectID)
+			name = dataObject['contents'][subjectID]['name']; 
+		else
+			name = "collapse all";
+		return trimLabel(name);
 	})
 	.on("measure", onMeasure) 	// Make any measurement changes
 	.on("mouseover", onMouseOver)   // mouseover callback - all viz components issue these events
@@ -208,13 +215,30 @@ function createDataTip(x, y, h1, h2, h3)
 	.transition().style("opacity", 1);
 }
 
-function updateLinks(subjectName)
+function updateLinks(subjectID)
 {
+	console.log("NEW");
+	console.log(subjectID);
+	console.log(dataObject);
 	var html = "";
+	var subjectObject = dataObject['contents'][subjectID];
+
+	var subjectName = subjectObject['name'];
 	html += "<h3 style=\"margin-left: 30px\"> links to learn " + subjectName + "</h3>\n";
-	// TODO: append to html with link names/links (href)
+	
 	html += "<br>\n";
-	html += "<a style=\"margin-left: 30px\"href=\"https://en.wikipedia.org/wiki/Machine_learning\" target=\"_blank\"> wikipedia link </a>\n";
+
+
+	var links = subjectObject['links'];
+	for (var i = 0; i < links.length; i++)
+	{
+		html += "<a style=\"margin-left: 30px\"href=\"";
+		html += links[i]['link'];
+		html += "\" target=\"_blank\"> ";
+		html += links[i]['name'];
+		html += " </a>\n";
+		html += "<br>";
+	}
 	document.getElementById("link_container").innerHTML=html;
 }
 
@@ -230,10 +254,10 @@ function onMouseOver(e, d, i)
 	var rect = e.getBoundingClientRect();
 	if (d.target) d = d.target; //This if for link elements
 	
-	var subjectName = d.key;
-	var description = dataObject['contents'][subjectName];
+	var subjectName = dataObject['contents'][d.key]['name'];
+	var description = dataObject['contents'][d.key]['description'];
 	
-	createDataTip(rect.left, rect.top, (d.key || (d['Level' + d.depth])), description, "");
+	createDataTip(rect.left, rect.top, subjectName, description, "");
 }
 
 function onMouseOut(e, d, i) 
