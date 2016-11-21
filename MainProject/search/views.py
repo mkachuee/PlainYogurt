@@ -49,7 +49,7 @@ def debug_fake_data():
         t.append(data)
         combined_result.append(t)
 
-    return combined_result;
+    return combined_result
 
 def split_list(data, partsCount):
     chunks = [data[x:x + partsCount] for x in range(0, len(data), partsCount)]
@@ -75,4 +75,5 @@ def search(request):
     if (DEBUG_MODE_USE_FAKE_DATA):
         context['combined_result'] = debug_fake_data()
 
+    context['combined_result_4cols'] = split_list(context['combined_result'], 4)
     return render(request, 'search/search.html', context)

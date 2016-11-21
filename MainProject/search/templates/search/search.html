@@ -49,8 +49,9 @@
         </div>
     </div>
 
-    {% for obj in combined_result %}
+    {% for result in combined_result_4cols %}
         <div class="row">
+            {% for obj in result %}
             <div class="col-md-3">
                 <div class="thumbnail">
                     <div class="caption">
@@ -63,6 +64,7 @@
                     <img src="{% static obj.1.image%}" alt="{{obj.0.name|capfirst}}">
                 </div>
             </div>
+            {% endfor %}
         </div>
     {% endfor %}
 
