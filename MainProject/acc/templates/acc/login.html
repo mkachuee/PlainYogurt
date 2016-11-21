@@ -90,14 +90,15 @@
                                 {{ form.password }}
                             </p>
                         </div>
-<<<<<<< HEAD
-                        <div class="form-actions">
+
+                        <!--<div class="form-actions">
                             <input type='submit' value='Login'>
-                            <input type="hidden" name="next" value="{% url 'loginSuccess' %}" />
-=======
+                            <input type="hidden" name="next" value="{% url 'loginSuccess' %}" />-->
+
                         <div class="form-group">
                             <center><button class="btn btn-primary" type="submit" value="Login">Search</button></center>
->>>>>>> origin/master
+                            <input type="hidden" name="next" value="{% url 'loginSuccess' %}" />
+
                         </div>
                         <p>
                             Not a member yet? Click <a href="{% url 'register' %}">here</a>
