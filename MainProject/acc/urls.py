@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^loginSuccess/$', accView.loginSuccess, name='loginSuccess'),
     url(r'^logout/$', authView.logout, {'next_page': 'login'}),
     url(r'^register/$', accView.register, name='register'),
-    url(r'^registerSuccess/$', accView.registerSuccess, name='registerSuccess')
+    url(r'^registerSuccess/$', accView.registerSuccess, name='registerSuccess'),
+    url(r'^profile/$', accView.profile, name='profile')
 ]

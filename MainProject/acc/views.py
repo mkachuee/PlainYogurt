@@ -72,6 +72,9 @@ def customLogin(request, template_name='registration/login.html',
 def loginSuccess(request):
     return render_to_response('acc/home.html')
 
+def profile(request):
+    return render_to_response('acc/profile.html')
+
 @login_required(login_url="login/")
 def home(request):
     return render(request, "acc/home.html")
