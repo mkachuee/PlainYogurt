@@ -1,0 +1,301 @@
+/* This is for components that exist on every single page */
+@import 'https://fonts.googleapis.com/css?family=Nixie+One|Raleway:200,300,400,600';
+
+
+/* GENERAL */
+a {
+    color: #2D2D2D;
+    font-family: Raleway;
+    font-weight: 600;
+}
+
+button {
+    font-family: Raleway;
+    font-weight: 400;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 500px;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.btn-light {
+    color: #2D2D2D;
+    background-color: #FCFCFB;
+    border: 1px solid #2575C4;
+}
+
+.btn-light:hover {
+    color: #FCFCFB;
+    background-color: #2575C4;
+    text-decoration: underline;
+}
+
+.btn-light-alt {
+    color: #2D2D2D;
+    background-color: #FCFCFB;
+    border: 1px solid #2D2D2D;
+}
+
+.btn-light-alt:hover {
+    color: #FCFCFB;
+    background-color: #2D2D2D;
+    border: 1px solid #2D2D2D;
+    text-decoration: underline;
+}
+
+.btn-dark {
+    color: #FCFCFB;
+    background-color: #2E3191;
+    border: 1px solid #2D3291;
+    
+}
+
+.btn-dark:hover {
+    color: #2D2D2D;
+    background-color: #FCFCFB;
+    text-decoration: underline;
+}
+
+#menu-toggle {
+    position: absolute;
+    top: 0;
+    left: 600px;
+}
+
+
+ /* NAVBAR */
+#mainNav {
+    background: linear-gradient(to right, #2E3191, #2776C6);
+    border-color: rgba(34, 34, 34, 0.05);
+    padding-top: 7px;
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.navbar {
+  height: 50px;
+}
+
+#nav-left {
+    display: inline-block;
+}
+
+#logo {
+    height: 32px;
+    margin-left: 10px;
+}
+
+#navbar-form {
+    font-family: Nixie One;
+    width: 100%;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 auto;
+    text-transform: uppercase;  
+}
+
+#search-bar {
+    font-family: Raleway;
+    font-weight: 400;
+    height: 28px;
+    width: 35vw;
+    border-radius: 500px;
+    text-align: center;
+    z-index: 0;
+    background: rgba(256,256,256,0.3);
+    border-width: 0px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+#nav-right {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+#nav-right li {
+    display: inline-block;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.input-group {
+    position: relative;
+}
+
+input::-webkit-input-placeholder {
+  color: #555555 !important;
+  font-family: 'NixieOne';
+  font-weight: 100;
+  font-size: 11pt;
+  letter-spacing: 2px;
+}
+ 
+input:-moz-placeholder { /* Firefox 18- */
+  color: #555555 !important;
+  font-family: 'NixieOne';
+}
+ 
+input::-moz-placeholder {  /* Firefox 19+ */
+  color: #555555 !important;
+  font-family: 'NixieOne';
+}
+ 
+input:-ms-input-placeholder {
+  color: #555555 !important;
+  font-family: 'NixieOne';
+}
+
+.fa-search {
+  padding: 0px;
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  z-index: 1;
+  color: #555555;
+}
+
+/* Navbar Media Queries */
+@media (max-width: 1000px) {
+    #nav-contain {
+        width: 100%
+    }
+}
+
+/* Navbar FONT AWESOME ICONS */
+i {
+  padding-top: 6px;
+}
+
+.circle-icon {
+    cursor: pointer;
+    opacity: 0.4;
+    color: white;
+    background: transparent;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    transition: all 0.3s;
+    border-color: white;
+}
+
+.circle-icon:hover {
+  opacity: 1;
+  background: white;
+  color: #2776C6;
+}
+
+.fa-bars:hover {
+  color: #2E3191;
+}
+
+
+/* MENU */
+#menu {
+    z-index: 10000;
+    position: fixed;
+    width: 350px;
+    height: 100vh;
+    top: 0;
+    left: -350px;
+    background: linear-gradient(to bottom, #2776C6, #2E3191);
+    box-shadow: 1px 0px 15px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 1px 0px 15px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 0px 15px 0px rgba(0,0,0,0.75);
+}
+
+#close {
+    font-size: 3em;
+    cursor: pointer;
+    float: right;
+}
+
+#menu-nav {
+  margin-top: 50px;
+  padding: 0;
+  list-style: none;
+}
+
+#menu-logo {
+    height: 100px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+#menu-nav li {
+    display: block;
+    width: 100%;
+    text-indent: 50px;
+    margin-bottom: 10px;
+}
+
+#menu-nav li a {
+    display: block;
+    font-size: 2.5em;
+    text-decoration: none;
+    color: #2D2D2D;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+#menu-nav li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+}
+
+#menu-toggle {
+    cursor: pointer;
+}
+
+
+/* FOOTER */
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #2776C6;
+  padding-top: 15px;
+  height: auto;
+}
+
+footer li {
+  width: 75px;
+}
+
+footer a {
+    color: #2D2D2D;
+    transition: all 0.3s;
+}
+
+footer a:hover {
+    color: #FCFCFB;
+    text-decoration: none;
+}
+
+#logopic {
+  height: 50px;
+  width: auto;
+}
+
+/* Footer Media Queries */
+
+@media (max-width: 600px) {
+    button {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+}

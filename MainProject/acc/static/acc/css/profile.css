@@ -1,0 +1,269 @@
+@import url('fonts.css');
+
+
+a {
+  color: white;
+  transition: all 0.3s;
+}
+
+a:hover,
+a:focus {
+  color: #ffd412;
+  text-decoration: none;
+}
+
+
+/* BUTTONS */
+.btn-primary {
+  width: 100px;
+  border-radius: 50px;
+  border-width: 1px;
+  border-color: #2776C6;
+  background: white;
+  color: #555555;
+  font-family: 'Raleway-ExtraLight';
+  letter-spacing: 2px;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #2776C6;
+  border-color: #2776C6;
+}
+
+#button-edit {
+  margin-top: 95px;
+  width: 60px;
+  z-index: 100;
+  border-color: #AAAAAA;
+}
+
+#button-edit:hover,
+#button-edit:focus {
+  background-color: #AAAAAA;
+  border-color: #AAAAAA;
+}
+
+@media(max-width: 991px) {
+  #button-edit {
+    margin-top: 5px;
+    margin-bottom: 20px;
+  }
+}
+
+
+.buttons li {
+  padding-right: 0px;
+}
+
+/* PROFILE PICTURE */
+#profile-border {
+  height: 224px;
+  width: 224px;
+  border-radius: 112px;
+  background: linear-gradient(to right, #2E3191, #2776C6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#profile-image {
+  height: 220px;
+  width: auto;
+  border-style: solid;
+  padding: 2px;
+  background: white;
+}
+
+/* PROFILE INFORMATION */
+.profile-info {
+  text-align: center;
+}
+
+@media(min-width: 992px) {
+  .profile-info {
+    text-align: left;
+  }
+}
+
+.profile-information {
+  padding-top: 25px;
+  line-height: 40px;
+}
+
+.first-name,
+.last-name {
+  font-family: 'Raleway-ExtraLight';
+  letter-spacing: 3px;
+  font-size: 36px;
+}
+
+.last-name {
+  font-family: 'Raleway-Regular';
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.role {
+  font-family: 'NixieOne';
+  letter-spacing: 2px;
+  font-size: 20px;
+  color: #3399ff;
+  line-height: 32px;
+}
+
+@media(max-width: 991px) {
+  .profile-information {
+    line-height: 36px;
+  }
+
+  .first-name,
+  .last-name {
+    font-size: 28px;
+  }
+
+  .role {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+/* SOCIAL MEDIA ICONS */
+.social-media {
+  padding-top: 10px;
+}
+
+.social-media li {
+  padding-right: 0px;
+}
+
+.social-media a {
+  color: white;
+  transition: all 0.3s;
+}
+
+.social-media i {
+  padding-top: 8px;
+}
+
+.circle-icon-social {
+  padding: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  transition: all 0.3s;
+  border-color: white;
+  position: relative;
+  margin-top: -6px;
+}
+
+.circle-icon-social:hover,
+.circle-icon-social:focus {
+  background: white;
+}
+
+.fa-facebook {
+  background-color: #3B5998;
+  border-color: #3B5998;
+  /*padding-top: 5px;*/
+}
+
+.fa-facebook:hover,
+.fa-facebook:focus {
+  color: #3B5998;
+}
+
+.fa-twitter {
+  background-color: #00ACED;
+  border-color: #00ACED;
+}
+
+.fa-twitter:hover,
+.fa-twitter:focus {
+  color: #00ACED;
+}
+
+.fa-linkedin {
+  background-color: #007BB6;
+  border-color: #007BB6;
+}
+
+.fa-linkedin:hover,
+.fa-linkedin:focus {
+  color: #007BB6;
+}
+
+.fa-instagram {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+.fa-instagram:hover,
+.fa-instagram:focus {
+  color: #000000;
+}
+
+.fa-plus {
+  background-color: #2776C6;
+  border-color: #2776C6;
+}
+
+.fa-plus:hover,
+.fa-plus:focus {
+  color: #2776C6;
+}
+
+/* BIOGRAPHY SECTION */
+.biography {
+
+}
+.biography .titles {
+  font-family: 'NixieOne';
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: ##FBF6F6;
+}
+
+@media(max-width: 991px) {
+  .biography .titles {
+    font-size: 12px;
+  }
+}
+
+.biography .description,
+.biography .tags {
+  padding-top: 5px;
+  /*font-family: 'Raleway-ExtraLight';*/
+  font-size: 11px;
+  color: #FBF6F6;
+}
+
+.biography .tags {
+  padding-top: 8px;
+  font-size: 12px;
+}
+
+
+/* FOOTER SECTION */
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #2776C6;
+  padding-top: 15px;
+  height: auto;
+}
+
+footer li {
+  width: 75px;
+}
+
+#logopic {
+  height: 50px;
+  margin: -5px;
+  width: auto;
+}

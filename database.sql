@@ -206,7 +206,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`),
   CONSTRAINT `django_admin__content_type_id_c4bce8eb_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +215,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2016-11-13 21:31:34.558186','4','Aerospace Physics | Physics | Aerospace',1,'[{\"added\": {}}]',1,1),(2,'2016-11-13 21:32:20.522012','5','Algebra | Math | Algebra',1,'[{\"added\": {}}]',1,1),(3,'2016-11-13 21:33:36.034659','6','Deep Learning | Artificial Intillegence | Neural nets',1,'[{\"added\": {}}]',1,1),(4,'2016-11-13 21:34:47.964982','7','Machine Learning | Artificial Intillegence | Machine Learning',1,'[{\"added\": {}}]',1,1),(5,'2016-11-13 21:36:02.622682','8','Mechanics | Physics | FBD',1,'[{\"added\": {}}]',1,1),(6,'2016-11-20 06:55:38.746956','8','Mechanics | Physics | FBD',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(7,'2016-11-20 06:55:44.431688','7','Machine Learning | Artificial Intillegence | Machine Learning',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(8,'2016-11-20 06:55:50.968620','6','Deep Learning | Artificial Intillegence | Neural nets',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(9,'2016-11-20 06:55:57.602794','5','Algebra | Math | Algebra',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(10,'2016-11-20 06:56:03.796655','4','Aerospace Physics | Physics | Aerospace',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(11,'2016-11-20 18:24:55.010007','8','Mechanics | Physics | FBD',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(12,'2016-11-20 18:31:23.354289','7','Machine Learning | Artificial Intillegence | Machine Learning',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(13,'2016-11-20 18:31:29.311873','6','Deep Learning | Artificial Intillegence | Neural nets',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(14,'2016-11-20 18:31:34.274629','5','Algebra | Math | Algebra',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(15,'2016-11-20 18:31:39.350870','4','Aerospace Physics | Physics | Aerospace',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(16,'2016-11-20 18:34:28.252314','7','Machine Learning | Artificial Intillegence | Machine Learning',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(17,'2016-11-20 18:34:36.432389','6','Deep Learning | Artificial Intillegence | Neural nets',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(18,'2016-11-20 18:34:46.028085','4','Aerospace Physics | Physics | Aerospace',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1);
+INSERT INTO `django_admin_log` VALUES (1,'2016-11-13 21:31:34.558186','4','Aerospace Physics | Physics | Aerospace',1,'[{\"added\": {}}]',1,1),(2,'2016-11-13 21:32:20.522012','5','Algebra | Math | Algebra',1,'[{\"added\": {}}]',1,1),(3,'2016-11-13 21:33:36.034659','6','Deep Learning | Artificial Intillegence | Neural nets',1,'[{\"added\": {}}]',1,1),(4,'2016-11-13 21:34:47.964982','7','Machine Learning | Artificial Intillegence | Machine Learning',1,'[{\"added\": {}}]',1,1),(5,'2016-11-13 21:36:02.622682','8','Mechanics | Physics | FBD',1,'[{\"added\": {}}]',1,1),(6,'2016-11-20 06:55:38.746956','8','Mechanics | Physics | FBD',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(7,'2016-11-20 06:55:44.431688','7','Machine Learning | Artificial Intillegence | Machine Learning',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(8,'2016-11-20 06:55:50.968620','6','Deep Learning | Artificial Intillegence | Neural nets',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(9,'2016-11-20 06:55:57.602794','5','Algebra | Math | Algebra',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(10,'2016-11-20 06:56:03.796655','4','Aerospace Physics | Physics | Aerospace',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(11,'2016-11-20 18:24:55.010007','8','Mechanics | Physics | FBD',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(12,'2016-11-20 18:31:23.354289','7','Machine Learning | Artificial Intillegence | Machine Learning',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(13,'2016-11-20 18:31:29.311873','6','Deep Learning | Artificial Intillegence | Neural nets',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(14,'2016-11-20 18:31:34.274629','5','Algebra | Math | Algebra',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(15,'2016-11-20 18:31:39.350870','4','Aerospace Physics | Physics | Aerospace',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(16,'2016-11-20 18:34:28.252314','7','Machine Learning | Artificial Intillegence | Machine Learning',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(17,'2016-11-20 18:34:36.432389','6','Deep Learning | Artificial Intillegence | Neural nets',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(18,'2016-11-20 18:34:46.028085','4','Aerospace Physics | Physics | Aerospace',2,'[{\"changed\": {\"fields\": [\"DIRLink\"]}}]',1,1),(19,'2016-11-21 23:47:13.820250','10','Convolutional Neural Network | Machine Learning | CNN',2,'[{\"changed\": {\"fields\": [\"name\", \"DIRLink\"]}}]',1,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +364,7 @@ CREATE TABLE `home_treeinfo` (
   `DIRLink` varchar(200) NOT NULL,
   `tags` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -373,7 +373,7 @@ CREATE TABLE `home_treeinfo` (
 
 LOCK TABLES `home_treeinfo` WRITE;
 /*!40000 ALTER TABLE `home_treeinfo` DISABLE KEYS */;
-INSERT INTO `home_treeinfo` VALUES (4,'Aerospace Physics','Dynamics and Controls','Physics','Aerospace','/TreeFiles/AerospacePhysics','aerospace physics dynamics controls'),(5,'Algebra','basics','Math','Algebra','/TreeFiles/Algebra','algebra division multiplication addition'),(6,'Deep Learning','deep neural networks','Artificial Intillegence','Neural nets','/TreeFiles/DeepLearning','neural nets learning ai artifical intillegence'),(7,'Machine Learning','classification regression','Artificial Intillegence','Machine Learning','/TreeFiles/MachineLearning','machine learning ai artificial intillgence'),(8,'Mechanics','Free Body Diagrams','Physics','FBD','/TreeFiles/Mechanics','free body diagram mechanics physics');
+INSERT INTO `home_treeinfo` VALUES (4,'Aerospace Physics','Dynamics and Controls','Physics','Aerospace','/TreeFiles/AerospacePhysics','aerospace physics dynamics controls'),(5,'Algebra','basics','Math','Algebra','/TreeFiles/Algebra','algebra division multiplication addition'),(6,'Deep Learning','deep neural networks','Artificial Intillegence','Neural nets','/TreeFiles/DeepLearning','neural nets learning ai artifical intillegence'),(7,'Machine Learning','classification regression','Artificial Intillegence','Machine Learning','/TreeFiles/MachineLearning','machine learning ai artificial intillgence'),(8,'Mechanics','Free Body Diagrams','Physics','FBD','/TreeFiles/Mechanics','free body diagram mechanics physics'),(9,'Math','multiplication','Math','Algebra','/TreeFiles/Math','multiplication, mult, add'),(10,'Convolutional Neural Network','CNN','Machine Learning','CNN','/TreeFiles/Convolutional Neural Network','learning');
 /*!40000 ALTER TABLE `home_treeinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -386,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-20 19:33:42
+-- Dump completed on 2016-11-21 15:48:19

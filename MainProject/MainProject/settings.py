@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_HOST_USER='localhost'
+EMAIL_PORT=1025
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+SEND_BROKEN_LINK_EMAILS = True
+
 
 # Application definition
 
