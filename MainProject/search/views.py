@@ -64,7 +64,7 @@ def search(request):
     if request.method == 'POST':
         context['q'] = request.POST.get("q", "m")
     else:
-        context['q'] = " "
+        context['q'] = ""
 
     q = context['q']
     if (q == ''):
@@ -78,7 +78,7 @@ def search(request):
     context['combined_result'] = []
     for i in range(0, len(context['tuples'])):
         if (context['result_objects'][i]['tree'] is None):
-            context['result_objects'][i]['tree'] = '/search/'
+            context['result_objects'][i]['tree'] = ''
         else:
             context['result_objects'][i]['tree'] = '/subjects/' + context['tuples'][i]['name'] + '/'
         t = [context['tuples'][i], context['result_objects'][i]]
