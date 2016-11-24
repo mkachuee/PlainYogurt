@@ -5,6 +5,7 @@ import pdb
 import pickle
 
 import xml.etree.ElementTree as xmlet
+from html.parser import HTMLParser
 import PIL
 
 
@@ -199,7 +200,8 @@ class TreeNode:
         paths = self.walk(path=[])
         contents = self.traverse()
         return {'paths':paths, 'contents':contents}
-
+    
+    
     def load_xml(self, filename):
         """
         Description:
@@ -207,6 +209,39 @@ class TreeNode:
         Input:
             - filename: the xml file path to load from.
         """
+        def content_parser(html_content):
+            node_content = {'name':'','description':'',
+                    'links':[]}
+            texts = []
+            links = []
+
+
+            class MyHTMLParser(HTMLParser):
+                def handle_starttag(self, tag, attrs):
+                    #print("Encountered a start tag:", tag)
+                    for (name,val) in attrs:
+                        if name == 'href':
+                            links.append({'name':'', 'link':val})
+                def handle_endtag(self, tag):
+                    pass#print("Encountered an end tag :", tag)
+                def handle_data(self, data):
+                    texts.append(data)
+                    #print("Encountered some data  :", data)
+            
+            parser = MyHTMLParser()
+            parser.feed(html_content)
+            if len(texts) > 0:
+                node_content['name'] = texts[0]
+            if len(texts) > 1:
+                node_content['description'] = ''.join(texts[1:])
+            node_content['links'] = links
+
+            #print('NAME:' + node_content['name'])
+            #print('DES:' + node_content['description'])
+            #print('LINKS:' + str(node_content['links']))
+            return node_content
+
+        
         xml_tree = xmlet.parse(filename)
         nodes_dict = {}
         connections_list = []
@@ -215,11 +250,13 @@ class TreeNode:
             # if it is a node
             if 'value' in obj.keys():
                 nodes_dict[obj.get('id')] = \
-                        TreeNode(node_content=obj.get('value'))
+                        TreeNode(node_content=content_parser(
+                            obj.get('value')))
+                        #TreeNode(node_content=obj.get('value'))
             # if it is a connector
             elif 'source' in obj.keys():
                 connections_list.append(obj)
-
+        
         # make connections
         target_ids = set()
         source_ids = set()
