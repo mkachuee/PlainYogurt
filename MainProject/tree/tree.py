@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # author: Mohammad Kachuee
 
 import os
