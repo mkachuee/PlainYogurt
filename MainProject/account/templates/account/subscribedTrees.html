@@ -79,60 +79,42 @@
     </nav>
 
     <header>
-    <div class="container">
-          <div class="intro-text">
-            <div class="row">
-              <div class="col-xs-10 col-sm-10 col-md-1 col-md-offset-2 text-center">
-                 <button class="btn btn-primary" id="button-edit">Edit</button>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-3">
-                <center>
-                  <div id="profile-border">
-                    <img alt="Profile Picture" src="{% static 'account/img/profile/sajad.jpg' %}" class="img-circle img-responsive" id="profile-image">
-                  </div>
-                </center>
-              </div>
-
-              <div class="col-xs-12 col-sm-12 col-md-5 profile-info">
-                  <p class="profile-information">
-                  <div class=" col-md-9 col-lg-9 ">
-                    <table class="table table-user-information">
-                      <tbody>
-                        <tr>
-                          <td>Name:</td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>Status:</td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>Date of Birth</td>
-                          <td></td>
-                        </tr>
-
-                        <tr>
-                          <td>Gender</td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>Email</td>
-                          <td><a href="mailto:info@support.com">info@support.com</a></td>
-                        </tr>
-                        <tr><td></td><td></td></tr>
-                      </tbody>
-                    </table>
-
-                 <!--  <a href="#" class="btn btn-primary">My Sales Performance</a>
-                  <a href="#" class="btn btn-primary">Team Sales Performance</a> -->
+        <div class="container">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="col-md-6 col-md-offset-3">
+                    <h1>Subscribed Trees</h1>
                 </div>
-              </div>
+            </div>
+
+            {% for result in combined_result_4cols %}
+                <div class="row">
+                    {% for obj in result %}
+                    <div class="col-md-3">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h4>{{obj.0.name|capfirst}}</h4>
+                                <p>{{obj.1.description}}</p>
+                                <!--<p><a href="" class="label label-danger" rel="tooltip" title="Zoom">Zoom</a>-->
+                                <!---->
+                                <form action="{% url 'subscribeTree' %}" method="POST">
+                                    {% csrf_token %}
+                                    <p><button name="subscribe" value="{{obj.0.DIRLink}}">Subscribe</button></p>
+                                    <!--<p><a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>-->
+                                </form>
+                            </div>
+                            <a href="{{obj.1.tree}}">
+                                 {% load static %}
+                                 <img src="{% static obj.1.image%}" alt="{{obj.0.name|capfirst}}">
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
 
 
-          </div>
-          </div>
-        </section>
-    </div>
+
     </header>
 
 

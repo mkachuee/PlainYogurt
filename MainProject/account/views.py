@@ -40,7 +40,12 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from tree_db_interface import search_trees, load_trees
-import manage_profile as mp
+from search.views import search
+from .manage_profile import add_tree_to_profile
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, HttpResponse
+
+
 
 def register(request):
     if request.method == 'POST':
@@ -85,15 +90,38 @@ def profile(request):
 def home(request):
     return render(request, "account/home.html")
 
+def split_list(data, partsCount):
+    chunks = [data[x:x + partsCount] for x in range(0, len(data), partsCount)]
+    return chunks
 def subscribeTree(request):
-    if request.method == 'POST':
-        tree_key = request.POST.get("subscribe", "120391293")
+
+    if request.user.is_authenticated:
+        context ={}
+        if request.method == 'POST':
+            tree_key = request.POST.get("subscribe", "120391293")
+        else:
+            tree_key = "120391293"
+
+        trees = search_trees(tree_key)
+
+        if trees:
+            add_tree_to_profile(trees)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
-        tree_key = "120391293"
-
-    trees = search_trees(tree_key)
-
-    if trees:
-
-
-    return render(request, "account/profile.html")
+        return HttpResponseRedirect(reverse(customLogin))
+# def displaySubscribedTrees(request):
+#
+#
+#     context['tuples'] =
+#     context['result_objects'] = load_trees(context['tuples'])
+#
+#     context['combined_result'] = []
+#     for i in range(0, len(context['tuples'])):
+#         if (context['result_objects'][i]['tree'] is None):
+#             context['result_objects'][i]['tree'] = ''
+#         else:
+#             context['result_objects'][i]['tree'] = '/subjects/' + context['tuples'][i]['name'] + '/'
+#         t = [context['tuples'][i], context['result_objects'][i]]
+#         context['combined_result'].append(t)
+#
+#     context['combined_result_4cols'] = split_list(context['combined_result'], 4)

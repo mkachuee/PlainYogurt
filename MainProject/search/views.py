@@ -61,8 +61,8 @@ def split_list(data, partsCount):
 @csrf_protect
 def search(request):
     context = {}
-    if request.method == 'POST':
-        context['q'] = request.POST.get("q", "m")
+    if request.method == 'GET':
+        context['q'] = request.GET.get("q", "m")
     else:
         context['q'] = ""
 

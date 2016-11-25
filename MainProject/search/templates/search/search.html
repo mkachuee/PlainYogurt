@@ -95,7 +95,7 @@
                 <div class="container">
                     <center><h1>Find a Tree.</h1></center>
                 <br><br>
-                 <form action = "{% url 'search' %}" method='post' class='form-horizontal'> {% csrf_token %}
+                 <form action = "{% url 'search' %}" method='GET' class='form-horizontal'> {% csrf_token %}
                   <div class="form-group">
                      <center><input type="text" placeholder="{{q}}" class="form-control" name="q" style="margin:auto; width:800px; height:45px;"></center>
                  </div>
@@ -164,7 +164,7 @@
     {% endfor %}
 
 </div>
-  </div>
+
 
     <footer>
         <div class="container">
