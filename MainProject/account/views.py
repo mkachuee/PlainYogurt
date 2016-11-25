@@ -1,3 +1,8 @@
+import os
+import sys
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if path not in sys.path:
+    sys.path.append(path)
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
@@ -34,8 +39,8 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
-
-
+from tree_db_interface import search_trees, load_trees
+import manage_profile as mp
 
 def register(request):
     if request.method == 'POST':
@@ -54,6 +59,7 @@ def register(request):
 
 
 def registerSuccess(request):
+
     return render_to_response('account/registerSuccess.html')
 
 
@@ -78,3 +84,16 @@ def profile(request):
 @login_required(login_url="login/")
 def home(request):
     return render(request, "account/home.html")
+
+def subscribeTree(request):
+    if request.method == 'POST':
+        tree_key = request.POST.get("subscribe", "120391293")
+    else:
+        tree_key = "120391293"
+
+    trees = search_trees(tree_key)
+
+    if trees:
+
+
+    return render(request, "account/profile.html")
