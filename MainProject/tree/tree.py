@@ -224,6 +224,13 @@ class TreeNode:
                             links.append({'name':'', 'link':val})
                 def handle_endtag(self, tag):
                     pass#print("Encountered an end tag :", tag)
+                    if len(links)>0 and len(texts)>0:
+                        if links[-1]['name']=='':
+                            links[-1]['name'] = texts[-1]
+                            del texts[-1]
+                    #print(texts)
+                    #print(links)
+                    #pdb.set_trace()
                 def handle_data(self, data):
                     texts.append(data)
                     #print("Encountered some data  :", data)
