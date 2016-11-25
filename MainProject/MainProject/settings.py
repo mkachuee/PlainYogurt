@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'contribute.apps.ContributeConfig',
     'createAccount.apps.CreateaccountConfig',
     'learningSoftwareDesign.apps.LearningsoftwaredesignConfig',
-    'acc.apps.AccConfig',
+    'account.apps.AccountConfig',
     'search.apps.SearchConfig'
 ]
 

@@ -1,6 +1,6 @@
 from django.test import TestCase
-from acc.forms import RegistrationForm
-from acc.forms import LoginForm
+from account.forms import RegistrationForm
+from account.forms import LoginForm
 
 
 # Create your tests here.

@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.template.context_processors import csrf
-from acc.forms import RegistrationForm
+from account.forms import RegistrationForm
 from django.contrib.auth.views import login
 
 import functools
@@ -42,7 +42,7 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/acc/registerSuccess')
+            return HttpResponseRedirect('/account/registerSuccess')
 
     else:
         form = RegistrationForm()
@@ -50,11 +50,11 @@ def register(request):
     token.update(csrf(request))
     token['form'] = form
 
-    return render_to_response('acc/register.html', token)
+    return render_to_response('account/register.html', token)
 
 
 def registerSuccess(request):
-    return render_to_response('acc/registerSuccess.html')
+    return render_to_response('account/registerSuccess.html')
 
 
 def customLogin(request, template_name='registration/login.html',
@@ -70,11 +70,11 @@ def customLogin(request, template_name='registration/login.html',
 
 
 def loginSuccess(request):
-    return render_to_response('acc/home.html')
+    return render_to_response('account/profile.html')
 
 def profile(request):
-    return render_to_response('acc/profile.html')
+    return render_to_response('account/profile.html')
 
 @login_required(login_url="login/")
 def home(request):
-    return render(request, "acc/home.html")
+    return render(request, "account/home.html")
