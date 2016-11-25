@@ -15,6 +15,7 @@ class Test:
 
 def home(request):
     test = Test(1, 2)
+
     if request.method == "POST":
         name = request.POST['name']
         email = request.POST['email']

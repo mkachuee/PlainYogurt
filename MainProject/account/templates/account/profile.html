@@ -35,33 +35,30 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
 </head>
 
 <body class="index">
 
-    <!-- Navigation -->
-<!--     <div id="mySidenav" class="sidenav">
-      <a href="#">About</a>
-      <a href="#">Settings</a>
-      <a href="#">My Trees</a>
-      <a href="#">Contact</a>
-      <a href="javascript:void(0)" onclick="closeNav()">Close Sidebar</a>
-    </div> -->
+   
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-                </button>
-                <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+                <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    
+                </button> -->
+                <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> -->
+                <a href="{% url 'home' %}">
+                  <span style="font-size:30px;"class="glyphicon glyphicon-home"></span></a>
+                
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden">
-                        <a href="#page-top">123123</a>
+                        <a href="#page-top"></a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#"> My Tree's</a>
@@ -71,11 +68,9 @@
                     </li>
                     
                     <li>
-                        <a class="page-scroll" href="#about">About</a>
+                        <a class="page-scroll" href="{% url 'logout' %}">Logout</a>
                     </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
-                    </li>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
