@@ -79,6 +79,12 @@
                     <li>
                         <a class="page-scroll" href="/">Home</a>
                     </li>
+
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'profile' %}"><span style="font-size:30px" class="glyphicon glyphicon-user"></span></a>
+                        </li>
+                    {% endif %}
                    
                 </ul>
             </div>
@@ -149,7 +155,7 @@
                         <!---->
                         <form action="{% url 'subscribeTree' %}" method="POST">
                             {% csrf_token %}
-                            <p><button name="subscribe" value="{{obj.0.DIRLink}}">Subscribe</button></p>
+                            <p><button name="subscribe" value="{{obj.0.id}}">Subscribe</button></p>
                             <!--<p><a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>-->
                         </form>
                     </div>

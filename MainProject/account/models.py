@@ -14,5 +14,4 @@ class Profile(models.Model):
     username = models.CharField(max_length=200)     # username link between User model and Profile model
     first = models.CharField(max_length=200)
     last = models.CharField(max_length=200)
-    email = models.EmailField(max_length=200)
-    subscribedTrees = models.ManyToManyField(TreeInfo)
+    subscribedTrees = models.CharField(max_length=200)

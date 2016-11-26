@@ -80,6 +80,15 @@ def search_trees(str):
     found_entries  = db.search_tree(str)
     return found_entries
 
+def search_tree_by_id_list(ids):
+    id_list = ids.split(',')
+    found_entries = db.search_tree_by_id(id_list[0])
+
+    for i in range(1, len(id_list)):
+        curr_entry = db.search_tree_by_id(id_list[i])
+        found_entries = found_entries | curr_entry
+
+    return found_entries
 
 
 
