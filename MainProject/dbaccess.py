@@ -269,3 +269,11 @@ def search_tree(str):
         return result.values()
     except FieldError as e:
         return None
+
+def search_tree_by_id(id):
+
+    try:
+        result = TreeInfo.objects.filter(id=id)
+        return result.values()
+    except FieldError as e:
+        return None

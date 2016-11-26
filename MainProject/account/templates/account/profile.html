@@ -61,15 +61,22 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#"> My Tree's</a>
+                        <a class="page-scroll" href="{% url 'displaySubscribedTrees' %}"> My Tree's</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="{%url 'search' %}">Search Tree's</a>
                     </li>
-                    
+
                     <li>
                         <a class="page-scroll" href="{% url 'logout' %}">Logout</a>
                     </li>
+
+                    {% if user.is_authenticated %}
+                     <li>
+                        <a class="page-scroll">Logged in as: {{user.username}}</a>
+                    </li>
+                    {% endif %}
+
 
                 </ul>
             </div>

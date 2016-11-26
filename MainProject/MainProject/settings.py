@@ -146,4 +146,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/static/']
-print(STATICFILES_DIRS)

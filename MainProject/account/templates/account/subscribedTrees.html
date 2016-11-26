@@ -70,7 +70,11 @@
                     <li>
                         <a class="page-scroll" href="{% url 'logout' %}">Logout</a>
                     </li>
-
+                    {% if user.is_authenticated %}
+                     <li>
+                        <a class="page-scroll">Logged in as: {{user.username}}</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -82,6 +86,7 @@
         <div class="container">
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="col-md-6 col-md-offset-3">
+                    <br><br><br><br>
                     <h1>Subscribed Trees</h1>
                 </div>
             </div>
@@ -133,7 +138,20 @@
 
     <!-- Theme JavaScript -->
     <script src="{% static 'home/js/agency.js' %}"></script>
+    <script>
+        $( document ).ready(function() {
+            $("[rel='tooltip']").tooltip();
 
+            $('.thumbnail').hover(
+                function(){
+                    $(this).find('.caption').slideDown(250); //.fadeIn(250)
+                },
+                function(){
+                    $(this).find('.caption').slideUp(250); //.fadeOut(205)
+                }
+            );
+        });
+    </script>
 </body>
 
 </html>

@@ -11,27 +11,27 @@ from .models import Profile
 def add_username(username):
     user = Profile(username=username)
     user.save()
-def find_username_info(username):
-    info = Profile.filter(username=username)
+
+def get_username_info(username):
+    info = Profile.objects.filter(username=username)
     return info.values()
+
 def add_tree_to_profile(trees, username):
-    user = find_username_info(username)
+    user = get_username_info(username)
+    temp_user = user[0]
 
-    t = False
+
     for obj in trees:
-        for tup in user['subscribedTrees']:
-            if (tup['DIRLink'] == obj['DIRLink']):
-                t = True
-                break
+        if str(obj['id']) not in temp_user['subscribedTrees'].split(','):
+            if temp_user['subscribedTrees'] == '':
+                temp = '' + str(obj['id'])
 
-        if t:
+            else:
+                temp = temp_user['subscribedTrees'] + "," + str(obj['id'])
             try:
-                user.subscribedTrees.add(obj)
-                user.save()
-
+                user.update(subscribedTrees = temp)
             except TypeError as e:
                 pass
-        else:
-            pass
+
 
     return True

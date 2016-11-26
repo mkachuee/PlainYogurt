@@ -62,7 +62,7 @@ def split_list(data, partsCount):
 def search(request):
     context = {}
     if request.method == 'GET':
-        context['q'] = request.GET.get("q", "m")
+        context['q'] = request.GET.get("q", "")
     else:
         context['q'] = ""
 
