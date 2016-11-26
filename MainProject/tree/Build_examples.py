@@ -22,6 +22,12 @@ tree_root.load_xml('./run_data/example_cs.xml')
 with open('./run_data/treecs.pkl', 'wb') as f:
     pickle.dump(tree_root.to_list(), f)
 
+tree_root = tree.TreeNode()
+tree_root.load_xml('./run_data/example_sci_full.xml')
+#tree_root.save('./run_data/example_cs.pkl')
+
+with open('./run_data/treesci.pkl', 'wb') as f:
+    pickle.dump(tree_root.to_list(), f)
 
 
 embed()
