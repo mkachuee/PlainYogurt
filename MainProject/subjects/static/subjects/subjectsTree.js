@@ -47,10 +47,11 @@ var timer = null;
 
 function loadData() {
 	// create dataObject (dictionary)
+	console.log($('<div/>').html(dataInJson).text());
 	var decoded = $('<div/>').html(dataInJson).text();	
 	dataObject = eval('(' + decoded + ')');
 
-
+//	console.log(dataObject);
 	d3.csv(readingFile, function (csv) 
 	{
 		data.values = prepData(csv);

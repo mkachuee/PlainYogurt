@@ -26,6 +26,16 @@ def specificSubject(request, subjectName):
 		data = pickle.load(f)
 
 	#data['contents'][0] = {'name':'name 1', 'description':'des1', 'links':[{link:'//http',name:'wiki'}]}
+	for key1,value1 in data['contents'].items():
+		for key2,value2 in value1.items():
+			if(key2 == "links"):
+				for i in range(len(value2)):
+					for key4,value4 in value2[i].items():
+						data['contents'][key1][key2][i][key4] = value4.replace('"','')
+						#data['contents'][key1][key2][i][key4] = value4.replace('\\n',' ')
+			else:
+				data['contents'][key1][key2] = value2.replace('"','')
+				#data['contents'][key1][key2] = value2.replace('\\n',' ')
 
 	data_in_json = json.dumps(data)
 	context = {'subjectName': subjectName, 'data': data_in_json}
