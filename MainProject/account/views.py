@@ -94,9 +94,7 @@ def profile(request):
 def home(request):
     return render(request, "account/home.html")
 
-def split_list(data, partsCount):
-    chunks = [data[x:x + partsCount] for x in range(0, len(data), partsCount)]
-    return chunks
+
 
 def subscribeTree(request):
     if request.user.is_authenticated:
@@ -118,20 +116,25 @@ def subscribeTree(request):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         return HttpResponseRedirect(reverse(customLogin))
-
+def split_list(data, partsCount):
+    chunks = [data[x:x + partsCount] for x in range(0, len(data), partsCount)]
+    return chunks
 def displaySubscribedTrees(request):
 
     if request.user.is_authenticated:
         user = request.user.username
         info = get_username_info(user)
         info = info[0]
+
         context = {}
         if info['subscribedTrees'] == '':
             context['tuples'] = '' # will not load any tree's, id's are numbers.
             context['result_objects'] = ''
+            print(abd)
         else:
             context['tuples'] = search_tree_by_id_list(info['subscribedTrees'])
             context['result_objects'] = load_trees(context['tuples'])
+
 
         context['combined_result'] = []
         for i in range(0, len(context['tuples'])):
@@ -141,8 +144,7 @@ def displaySubscribedTrees(request):
                 context['result_objects'][i]['tree'] = '/subjects/' + context['tuples'][i]['name'] + '/'
             t = [context['tuples'][i], context['result_objects'][i]]
             context['combined_result'].append(t)
-
         context['combined_result_4cols'] = split_list(context['combined_result'], 4)
-        return render(request, "account/subscribedTrees.html")
+        return render(request, "account/subscribedTrees.html", context)
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

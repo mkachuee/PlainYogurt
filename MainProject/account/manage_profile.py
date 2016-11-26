@@ -22,17 +22,14 @@ def add_tree_to_profile(trees, username):
 
 
     for obj in trees:
-        if obj['id'] not in temp_user['subscribedTrees'].split(','):
+        if str(obj['id']) not in temp_user['subscribedTrees'].split(','):
             if temp_user['subscribedTrees'] == '':
                 temp = '' + str(obj['id'])
 
             else:
-                print(abd)
-                temp = temp_user['subscribedTrees'] + "," + obj['id']
+                temp = temp_user['subscribedTrees'] + "," + str(obj['id'])
             try:
-                user[0]['subscribedTrees'] = temp
-                print(abd)
-                user.save()
+                user.update(subscribedTrees = temp)
             except TypeError as e:
                 pass
 
