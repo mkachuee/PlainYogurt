@@ -178,8 +178,30 @@ function initialize() {
 	//We use this function to size the components based on the selected value from the RadiaLProgressTest.html page.
 	changeSize(d3.select("#currentDisplay").attr("item_value"));
 
+	// toggle every node
+	for(i = 0; i < data.values.length; i++)
+	{
+		// expand all first level, then call recursive function
+		toggleAllNodes(data.values[i]);
+	}
 }
 
+function toggleAllNodes(data)
+{
+	if(data.values == null || data.values.length == 0)
+	{
+		// do nothing
+	}
+	else
+	{
+		for(i = 0; i < data.values.length; i++)
+		{
+			toggleAllNodes(data.values[i]);
+		}
+	}
+	viz.toggleNode(data);
+	
+}
 
 function trimLabel(label) 
 {
