@@ -48,7 +48,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="/" style="color:#ffffff;">PREREK</a>
+                <a class="navbar-brand page-scroll" href="#page-top" style="color:#ffffff;">PREREK</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,7 +58,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/"> Home</a>
+                        <a class="page-scroll" href="{%url 'profile' %}">Profile</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="{% url 'displaySubscribedTrees' %}"> My Trees</a>
@@ -87,90 +87,65 @@
 
     </nav>
 
-    <header>
-    <div class="container">
-          <div class="intro-text">
-            <div class="row">
-                <form action="{% url 'editProfile' %}" method='get'>
-                    <div class="form-group col-xs-10 col-sm-10 col-md-1 col-md-offset-2 text-center">
-                        <button class="btn btn-primary" type="submit" value="edit">Edit</button>
-                    </div>
-                    <div class="form-group col-xs-12 col-sm-12 col-md-3">
-                        <center>
-                            <div id="profile-border">
-                                <img alt="Profile Picture" src="{% static 'account/img/profile/sajad.jpg' %}"
-                                     class="img-circle img-responsive" id="profile-image">
-                            </div>
-                        </center>
-                    </div>
+     <header>
+      <div class="container">
+            <div class="intro-text">
+              <h1>Form for browse</h1>
+              <br><br>
+                <form class="form-horizontal" enctype='multipart/form-data' method='post' action=''>
+                  <fieldset>
+                    <div class="form-group">
+		                      <label for="firstname" class="col-sm-4 control-label">Name: <span class="required">*</span></label>
+		                        <div class="col-sm-5 col-offset-sm-2">
+			                           <input type="text" class="form-control" name="name">
+		                        </div>
+	                  </div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-5 profile-info">
-                        <p class="profile-information">
-                        <div class=" col-md-9 col-lg-9 ">
-                            <table class="table table-user-information">
-                                <tbody>
-                                <tr>
-                                    <td>Name:</td>
-                                    <td>{{ name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Status:</td>
-                                    <td>{{ status }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Date of Birth</td>
-                                    <td>{{ dob }}</td>
-                                </tr>
+	                  <div class="form-group">
+	                     <label for="lastname" class="col-sm-4 control-label">Topic: <span class="required">*</span></label>
+		                     <div class="col-sm-5 col-offset-sm-2">
+			                        <input type="text" class="form-control" name="topic">
+	    	                  </div>
+	                  </div>
 
-                                <tr>
-                                    <td>Gender</td>
-                                    <td>{{ gender }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td><a href="{{ email }}">{{ email }}</a></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
+	                  <div class="form-group">
+		                    <label for="username" class="col-sm-4 control-label">Category: <span class="required">*</span></label>
+		                      <div class="col-sm-5 col-offset-sm-2">
+			                         <input type="text" class="form-control" name="category">
+	    	                  </div>
+	                  </div>
+
+
+	                  <div class="form-group">
+		                    <label for="email" class="col-sm-4 control-label">Subject: <span class="required">*</span></label>
+		                      <div class="col-sm-5 col-offset-sm-2">
+			                         <input type="text" name="subject" class="form-control">
+	    	                 </div>
+	                  </div>
+
+	                  <div class="form-group">
+		                    <label for="affiliation" class="col-sm-4 control-label">Tags:</label>
+		                      <div class="col-sm-5 col-offset-sm-2">
+			                         <input type="text" name="tags" class="form-control">
+	    	                 </div>
+	                  </div>
+                    <br>
+                    <div class="form-group">
+		                    <div class="col-sm-4 col-sm-offset-4"><center>
+	                         <button type="submit" class="btn btn-default" value="browse1">Browse1</button>
+                           <button type="submit" class="btn btn-default" value="browse2">Browse2</button>
+	                         <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+	    	                      <!--<input type="submit" value="Submit">-->
+                            </center>
+	                      </div>
+	                  </div>
+                  </fieldset>
                 </form>
             </div>
-        </div>
-    </div>
+      </div>
     </header>
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <span class="copyright">Copyright &copy; Plain Yogurt 2016</span>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline quicklinks">
-                        <li><a href="#">Privacy Policy</a>
-                        </li>
-                        <li><a href="#">Terms of Use</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
 
 
     <!-- jQuery -->
