@@ -92,6 +92,9 @@ def profile(request):
 
 def editProfile(request):
     if request.user.is_authenticated:
+        # Submiting edit profile
+        if request.method == 'POST':
+            dosomething = "dosomething"
         return render(request, "account/editProfile.html")
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
