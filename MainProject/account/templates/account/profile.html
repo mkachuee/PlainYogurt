@@ -44,14 +44,11 @@
     <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    
-                </button> -->
-                <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> -->
-                <a href="{% url 'home' %}">
-                  <span style="font-size:30px;"class="glyphicon glyphicon-home"></span></a>
-                
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top" style="color:#ffffff;">PREREK</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -61,10 +58,13 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="{% url 'displaySubscribedTrees' %}"> My Tree's</a>
+                        <a class="page-scroll" href="/">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="{%url 'search' %}">Search Tree's</a>
+                        <a class="page-scroll" href="{% url 'displaySubscribedTrees' %}"> My Trees</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="{%url 'search' %}">Search Trees</a>
                     </li>
 
                     <li>
