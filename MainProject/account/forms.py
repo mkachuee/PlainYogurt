@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
+import datetime
 
 
 class RegistrationForm(UserCreationForm):
@@ -54,3 +55,14 @@ class LoginForm(AuthenticationForm):
     password = forms.CharField(label="Password", max_length=30,
                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'name': 'password'}))
 
+class EditProfileForm(forms.Form):
+    name = forms.CharField(label="name", max_length=200,
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'name'}))
+    status = forms.CharField(label="status", max_length=200,
+                           widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'status'}))
+    dob = forms.CharField(label="dob", max_length=200,
+                           widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'dob'}))
+    gender = forms.CharField(label="gender", max_length=200,
+                           widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'gender'}))
+    email = forms.CharField(label="email", max_length=200,
+                       widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'email'}))
