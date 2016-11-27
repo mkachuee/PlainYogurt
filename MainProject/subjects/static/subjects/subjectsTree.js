@@ -47,11 +47,9 @@ var timer = null;
 
 function loadData() {
 	// create dataObject (dictionary)
-	console.log($('<div/>').html(dataInJson).text());
 	var decoded = $('<div/>').html(dataInJson).text();	
 	dataObject = eval('(' + decoded + ')');
 
-//	console.log(dataObject);
 	d3.csv(readingFile, function (csv) 
 	{
 		data.values = prepData(csv);
@@ -94,6 +92,9 @@ function prepData(csv) {
 			})
 	.key(function (d) {
 			return d.Level3;
+			})
+	.key(function (d) {
+			return d.Level4;
 			})
 	.entries(values);
 
@@ -182,7 +183,8 @@ function initialize() {
 	for(i = 0; i < data.values.length; i++)
 	{
 		// expand all first level, then call recursive function
-		toggleAllNodes(data.values[i]);
+		viz.toggleNode(data.values[i]);
+		//toggleAllNodes(data.values[i]);
 	}
 }
 
@@ -240,9 +242,6 @@ function createDataTip(x, y, h1, h2, h3)
 
 function updateLinks(subjectID)
 {
-	console.log("NEW");
-	console.log(subjectID);
-	console.log(dataObject);
 	var html = "";
 	var subjectObject = dataObject['contents'][subjectID];
 
@@ -279,8 +278,15 @@ function onMouseOver(e, d, i)
 	
 	var subjectName = dataObject['contents'][d.key]['name'];
 	var description = dataObject['contents'][d.key]['description'];
-	
-	createDataTip(rect.left, rect.top, subjectName, description, "");
+	if(subjectName == "")
+		return;
+
+	console.log(document.documentElement.scrollTop);
+	var x_mid = (rect.left + rect.right)/2;
+ 	var y_mid = (rect.top + rect.bottom)/2;
+ 	var offset = document.documentElement.scrollTop;
+	var y_final = y_mid + offset;
+	createDataTip(x_mid, y_final, subjectName, description, "");
 }
 
 function onMouseOut(e, d, i) 
