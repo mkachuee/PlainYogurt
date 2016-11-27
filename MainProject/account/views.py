@@ -90,6 +90,12 @@ def profile(request):
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def editProfile(request):
+    if request.user.is_authenticated:
+        return render(request, "account/editProfile.html")
+    else:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 @login_required(login_url="login/")
 def home(request):
     return render(request, "account/home.html")

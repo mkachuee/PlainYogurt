@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^logout/$', authView.logout, {'next_page': 'home'}, name='logout'),
     url(r'^register/$', views.register, name='register'),
     url(r'^registerSuccess/$', views.registerSuccess, name='registerSuccess'),
-    url(r'^profile/$', views.profile, name='profile')
+    url(r'^profile/$', views.profile, name='profile'),
+    url(r'^editProfile/$', views.editProfile, name='editProfile')
 ]
