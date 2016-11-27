@@ -7,6 +7,7 @@ urlpatterns = [
         name='login'),
     url(r'^loginSuccess/$', views.loginSuccess, name='loginSuccess'),
     url(r'^subscribe/$', views.subscribeTree, name='subscribeTree'),
+    url(r'^unsubscribe/$', views.unsubscribeTree, name='unsubscribeTree'),
     url(r'^mytrees', views.displaySubscribedTrees, name='displaySubscribedTrees'),
     url(r'^logout/$', authView.logout, {'next_page': 'home'}, name='logout'),
     url(r'^register/$', views.register, name='register'),

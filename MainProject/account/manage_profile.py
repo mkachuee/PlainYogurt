@@ -35,3 +35,19 @@ def add_tree_to_profile(trees, username):
 
 
     return True
+def remove_tree_from_profile(id, user):
+    info = get_username_info(user)
+    temp_info = info[0]
+
+    t = temp_info['subscribedTrees'].split(',')
+    new_t = []
+    for i in range(0, len(t)):
+        if (t[i] == id):
+            continue
+        else:
+            new_t.append(t[i])
+
+    new_t = ",".join(new_t)
+
+    info.update(subscribedTrees = new_t)
+    return True

@@ -101,9 +101,9 @@
                                 <p>{{obj.1.description}}</p>
                                 <!--<p><a href="" class="label label-danger" rel="tooltip" title="Zoom">Zoom</a>-->
                                 <!---->
-                                <form action="{% url 'subscribeTree' %}" method="POST">
+                                <form action="{% url 'unsubscribeTree' %}" method="POST">
                                     {% csrf_token %}
-                                    <p><button name="subscribe" value="{{obj.0.DIRLink}}">Subscribe</button></p>
+                                    <p><button name="unsubscribe" value="{{obj.0.id}}">un-subscribe</button></p>
                                     <!--<p><a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>-->
                                 </form>
                             </div>

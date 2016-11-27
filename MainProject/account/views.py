@@ -41,7 +41,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from tree_db_interface import search_trees, load_trees, search_tree_by_id_list
 from search.views import search
-from .manage_profile import add_tree_to_profile, get_username_info, add_username
+from .manage_profile import add_tree_to_profile, get_username_info, add_username, remove_tree_from_profile
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 
@@ -130,7 +130,7 @@ def displaySubscribedTrees(request):
         if info['subscribedTrees'] == '':
             context['tuples'] = '' # will not load any tree's, id's are numbers.
             context['result_objects'] = ''
-            print(abd)
+
         else:
             context['tuples'] = search_tree_by_id_list(info['subscribedTrees'])
             context['result_objects'] = load_trees(context['tuples'])
@@ -148,3 +148,16 @@ def displaySubscribedTrees(request):
         return render(request, "account/subscribedTrees.html", context)
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def unsubscribeTree(request):
+    if request.user.is_authenticated:
+
+        if request.method == 'POST':
+            id = str(request.POST.get('unsubscribe', 'a'))
+        user = request.user.username
+        remove_tree_from_profile(id, user)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    else:
+        return render(request, "account/home.html")
+
