@@ -161,3 +161,8 @@ def unsubscribeTree(request):
     else:
         return render(request, "account/home.html")
 
+def createTreePage(request):
+    if request.user.is_authenticated:
+        return render(request, "account/createTree.html")
+    else:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
