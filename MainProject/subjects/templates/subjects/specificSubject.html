@@ -80,13 +80,13 @@ var dataInJson = "{{data}}"
 	</ul>
 </div>
 
-<div style="width: 100%; overflow:auto">
+<div style="width: 100%;">
 <!-- Our main content container-->
-<div class="container" style="clear: both; width:70%; overflow: auto; margin-top: 30px; background-color:white;">
-	<div id="viz_container" class="z-depth-3">
+<div class="container" style="clear: both; width:70%; margin-top: 30px; background-color:white; overflow:hidden;">
+	<div id="viz_container" class="z-depth-3; overflow:hidden;">
 	</div>
 </div>
-<div id="link_container" style="float:right; width:30%; color:lightgray;">
+<div id="link_container" style="position: fixed; right: 0; width:30%; color:lightgray;">
 </div>
 <div style="clear:both"></div>
 
@@ -104,7 +104,7 @@ $(document).ready(function () {
 		//Set display size based on window size.
 		screenWidth = (rect.width < 960) ? Math.round(rect.width * .95) : Math.round((rect.width - 210) * .95);
 
-		screenHeight = 750;
+		screenHeight = 1500;
 		d3.select("#currentDisplay")
 		.attr("item_value", screenWidth + "," + screenHeight)
 		.attr("class", "selected")
