@@ -85,7 +85,6 @@ def search(request):
             context['result_objects'][i]['tree'] = '/subjects/' + t[2] + '/'
         t = [context['tuples'][i], context['result_objects'][i]]
         context['combined_result'].append(t)
-
     if (DEBUG_MODE_USE_FAKE_DATA):
         context['combined_result'] = debug_fake_data()
 

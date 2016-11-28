@@ -93,17 +93,18 @@ def profile(request):
     if request.user.is_authenticated:
         username = request.user.username
         profile_values = get_username_info(username)
-        profile = profile_values.get()
+        if len(profile_values) > 0:
+            profile = profile_values.get()
 
+            token = {}
+            token.update(csrf(request))
+            token['username'] = username
+            token['name'] = profile['name']
+            token['status'] = profile['status']
+            token['dob'] = profile['dob']
+            token['gender'] = profile['gender']
+            token['email'] = profile['email']
         token = {}
-        token.update(csrf(request))
-        token['username'] = username
-        token['name'] = profile['name']
-        token['status'] = profile['status']
-        token['dob'] = profile['dob']
-        token['gender'] = profile['gender']
-        token['email'] = profile['email']
-
         return render(request, "account/profile.html", token)
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -233,7 +234,6 @@ def add_tree_to_database(request):
 
 
         path = add_tree(file, figure, tree_description, tree_details)
-        print(abd)  # t1
         return render(request, "account/subscribedTrees.html")
 
     else:

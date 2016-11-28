@@ -140,7 +140,7 @@ def add_tree_info(**kwargs):
 
         """
 
-        PATH = settings.STATICFILES_DIRS[0] + 'TreeFiles/'
+        PATH = '/TreeFiles/'
         PATH = PATH + dirname
         return PATH
 
@@ -158,13 +158,13 @@ def add_tree_info(**kwargs):
 
         dirlink = generate_dir_name(name)
         dirlink = get_dir_link(dirlink)
-        if not os.path.isdir(dirlink):
-            os.mkdir(dirlink)  # , exists_ok=True)
+        if not os.path.isdir(settings.STATICFILES_DIRS[0] + dirlink):
+            os.mkdir(settings.STATICFILES_DIRS[0] + dirlink)  # , exists_ok=True)
 
     treeInfo = TreeInfo(name=name, category=category, subject=subject, topic=topic, tags=tags, DIRLink=dirlink)
     try:
         treeInfo.save()
-        return dirlink
+        return settings.STATICFILES_DIRS[0] + dirlink
     except ValueError as e:
         return None
 

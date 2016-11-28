@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.allSubjects, name='allSubjects'),
-    url(r'^(?P<subjectName>[a-z A-Z 0-9]+)/$', views.specificSubject, name='specificSubject'),
+    url(r'^(?P<subjectName>[a-z A-Z 0-9 _ -]+)/$', views.specificSubject, name='specificSubject'),
 ]

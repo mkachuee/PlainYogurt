@@ -142,19 +142,20 @@ def add_tree(tree_file, tree_figure, tree_description, tree_details):
     with open(path + '/tree.txt', 'w') as f:
         f.write(tree_description)
 
-    x = tree_file.read()
-    # x = .decode("utf-8")
-    print(abd)
+    # x = tree_file.read()
+    # x = x.decode("ascii")
+    # y = type(x)
     with open(path + '/tree.xml', 'wb') as f:
         f.write(tree_file.read())
         f.flush()
 
+
     tree_root = TreeNode()
     tree_root.load_xml(path + '/tree.xml')
 
-    with open(path + '/tree.xml', 'wb') as f:
-        pickle.dump(f, tree_root.to_list())
-    print(abd)
+    with open(path + '/tree.pkl', 'wb') as f:
+        pickle.dump(tree_root.to_list(), f)
+
 
     # with open(path + '/' + 'tree.txt', 'w') as f:
     #     f.write()
