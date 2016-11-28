@@ -10,6 +10,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.template.context_processors import csrf
 from account.forms import RegistrationForm
+from account.forms import EditProfileForm
+from account.manage_profile import set_profile_values
 from django.contrib.auth.views import login
 
 import functools
@@ -44,7 +46,6 @@ from search.views import search
 from .manage_profile import add_tree_to_profile, get_username_info, add_username, remove_tree_from_profile
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-
 
 
 def register(request):
@@ -84,17 +85,51 @@ def customLogin(request, template_name='registration/login.html',
 def loginSuccess(request):
     return render_to_response('account/profile.html')
 
+
 def profile(request):
     if request.user.is_authenticated:
-        return render(request, "account/profile.html")
+        username = request.user.username
+        profile_values = get_username_info(username)
+        profile = profile_values.get()
+
+        token = {}
+        token.update(csrf(request))
+        token['username'] = username
+        token['name'] = profile['name']
+        token['status'] = profile['status']
+        token['dob'] = profile['dob']
+        token['gender'] = profile['gender']
+        token['email'] = profile['email']
+
+        return render(request, "account/profile.html", token)
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
 def editProfile(request):
     if request.user.is_authenticated:
-        return render(request, "account/editProfile.html")
+        if request.method == 'POST':
+            form = EditProfileForm(request.POST)
+            if form.is_valid():
+                name = form.cleaned_data['name']
+                status = form.cleaned_data['status']
+                dob = form.cleaned_data['dob']
+                gender = form.cleaned_data['gender']
+                email = form.cleaned_data['email']
+
+                set_profile_values(request.user.username, name, status, dob, gender, email)
+                return HttpResponseRedirect('/account/profile')
+        else:
+            form = EditProfileForm()
+
+        token = {}
+        token.update(csrf(request))
+        token['form'] = form
+
+        return render(request, "account/editProfile.html", token)
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 @login_required(login_url="login/")
 def home(request):
@@ -167,3 +202,8 @@ def unsubscribeTree(request):
     else:
         return render(request, "account/home.html")
 
+def createTreePage(request):
+    if request.user.is_authenticated:
+        return render(request, "account/createTree.html")
+    else:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

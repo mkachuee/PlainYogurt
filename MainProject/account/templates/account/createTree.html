@@ -48,7 +48,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="/" style="color:#ffffff;">PREREK</a>
+                <a class="navbar-brand page-scroll" href="#page-top" style="color:#ffffff;">PREREK</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,10 +58,10 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="/"> Home</a>
+                        <a class="page-scroll" href="{%url 'profile' %}">Profile</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="{%url 'profile' %}">Profile</a>
+                        <a class="page-scroll" href="{% url 'displaySubscribedTrees' %}"> My Trees</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="{%url 'search' %}">Search Trees</a>
@@ -72,11 +72,14 @@
                     <li>
                         <a class="page-scroll" href="{% url 'logout' %}">Logout</a>
                     </li>
+
                     {% if user.is_authenticated %}
                      <li>
                         <a class="page-scroll">Logged in as: {{user.username}}</a>
                     </li>
                     {% endif %}
+
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -84,75 +87,65 @@
 
     </nav>
 
-    <header>
-        <div class="container">
-            <div class="col-sm-8 col-sm-offset-2">
-                <div class="col-md-6 col-md-offset-3">
-                    <br><br><br><br>
-                    <h1>Subscribed Trees</h1>
-                </div>
+     <header>
+      <div class="container">
+            <div class="intro-text">
+              <h1>Form for browse</h1>
+              <br><br>
+                <form class="form-horizontal" enctype='multipart/form-data' method='post' action=''>
+                  <fieldset>
+                    <div class="form-group">
+		                      <label for="firstname" class="col-sm-4 control-label">Name: <span class="required">*</span></label>
+		                        <div class="col-sm-5 col-offset-sm-2">
+			                           <input type="text" class="form-control" name="name">
+		                        </div>
+	                  </div>
+
+	                  <div class="form-group">
+	                     <label for="lastname" class="col-sm-4 control-label">Topic: <span class="required">*</span></label>
+		                     <div class="col-sm-5 col-offset-sm-2">
+			                        <input type="text" class="form-control" name="topic">
+	    	                  </div>
+	                  </div>
+
+
+	                  <div class="form-group">
+		                    <label for="username" class="col-sm-4 control-label">Category: <span class="required">*</span></label>
+		                      <div class="col-sm-5 col-offset-sm-2">
+			                         <input type="text" class="form-control" name="category">
+	    	                  </div>
+	                  </div>
+
+
+	                  <div class="form-group">
+		                    <label for="email" class="col-sm-4 control-label">Subject: <span class="required">*</span></label>
+		                      <div class="col-sm-5 col-offset-sm-2">
+			                         <input type="text" name="subject" class="form-control">
+	    	                 </div>
+	                  </div>
+
+	                  <div class="form-group">
+		                    <label for="affiliation" class="col-sm-4 control-label">Tags:</label>
+		                      <div class="col-sm-5 col-offset-sm-2">
+			                         <input type="text" name="tags" class="form-control">
+	    	                 </div>
+	                  </div>
+                    <br>
+                    <div class="form-group">
+		                    <div class="col-sm-4 col-sm-offset-4"><center>
+	                         <button type="submit" class="btn btn-default" value="browse1">Browse1</button>
+                           <button type="submit" class="btn btn-default" value="browse2">Browse2</button>
+	                         <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+	    	                      <!--<input type="submit" value="Submit">-->
+                            </center>
+	                      </div>
+	                  </div>
+                  </fieldset>
+                </form>
             </div>
-
-            {% for result in combined_result_4cols %}
-                <div class="row">
-                    {% for obj in result %}
-                    <div class="col-md-3">
-                        <div class="thumbnail">
-                            <div class="caption">
-                                <h4>{{obj.0.name|capfirst}}</h4>
-                                <p>{{obj.1.description}}</p>
-                                <!--<p><a href="" class="label label-danger" rel="tooltip" title="Zoom">Zoom</a>-->
-                                <!---->
-                                <form action="{% url 'unsubscribeTree' %}" method="POST">
-                                    {% csrf_token %}
-                                    <p><button name="unsubscribe" value="{{obj.0.id}}">un-subscribe</button></p>
-                                    <!--<p><a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>-->
-                                </form>
-                            </div>
-                            <a href="{{obj.1.tree}}">
-                                 {% load static %}
-                                 <img src="{% static obj.1.image%}" alt="{{obj.0.name|capfirst}}">
-                            </a>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-        </div>
-
-
-
+      </div>
     </header>
 
-    <section></section>
-
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <span class="copyright">Copyright &copy; Plain Yogurt 2016</span>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline quicklinks">
-                        <li><a href="#">Privacy Policy</a>
-                        </li>
-                        <li><a href="#">Terms of Use</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
 
 
     <!-- jQuery -->
@@ -170,20 +163,7 @@
 
     <!-- Theme JavaScript -->
     <script src="{% static 'home/js/agency.js' %}"></script>
-    <script>
-        $( document ).ready(function() {
-            $("[rel='tooltip']").tooltip();
 
-            $('.thumbnail').hover(
-                function(){
-                    $(this).find('.caption').slideDown(250); //.fadeIn(250)
-                },
-                function(){
-                    $(this).find('.caption').slideUp(250); //.fadeOut(205)
-                }
-            );
-        });
-    </script>
 </body>
 
 </html>
