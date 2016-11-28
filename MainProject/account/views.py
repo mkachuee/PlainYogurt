@@ -213,7 +213,7 @@ def createTreePage(request):
 def add_tree_to_database(request):
     if request.method == 'POST':
 
-        tree_name = request.POST.get('name', '')
+        tree_name = request.POST.get('treeName', '')
         tree_category = request.POST.get('category', '')
         tree_subject = request.POST.get('subject', '')
         tree_topic = request.POST.get('topic', '')
@@ -228,12 +228,13 @@ def add_tree_to_database(request):
         tree_description = request.POST.get('description', '')
 
         tree_details = {'name': tree_name, 'category': tree_category, 'subject': tree_subject, 'topic': tree_topic, 'tags': tree_tags}
-        print(abd)  # t1
+
 
 
 
         path = add_tree(file, figure, tree_description, tree_details)
-
+        print(abd)  # t1
+        return render(request, "account/subscribedTrees.html")
 
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

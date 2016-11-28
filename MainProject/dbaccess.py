@@ -140,8 +140,8 @@ def add_tree_info(**kwargs):
 
         """
 
-        PATH = settings.STATICFILES_DIRS
-        PATH = PATH + '/' + dirname
+        PATH = settings.STATICFILES_DIRS[0] + 'TreeFiles/'
+        PATH = PATH + dirname
         return PATH
 
 
@@ -151,12 +151,15 @@ def add_tree_info(**kwargs):
     topic = kwargs.get('topic', '')
     tags = kwargs.get('tags', '')
     dirlink = ''
+
     if ('DIRLink' in kwargs):
         dirlink = kwargs.get('DIRLink', '')
     else:
 
         dirlink = generate_dir_name(name)
         dirlink = get_dir_link(dirlink)
+        if not os.path.isdir(dirlink):
+            os.mkdir(dirlink)  # , exists_ok=True)
 
     treeInfo = TreeInfo(name=name, category=category, subject=subject, topic=topic, tags=tags, DIRLink=dirlink)
     try:

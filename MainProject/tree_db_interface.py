@@ -131,18 +131,22 @@ def save_tree(tree_object, **tree_details):
 
     return temp_status
 
-def add_tree(tree_file, tree_figure, tree_description, **tree_details):
-    path = db.add_tree_info(tree_details)
+def add_tree(tree_file, tree_figure, tree_description, tree_details):
+    path = db.add_tree_info(**tree_details)
+
 
     with open(path + '/tree.png', 'wb') as f:
-        f.write(tree_figure)
+        f.write(tree_figure.read())
         f.flush()
 
     with open(path + '/tree.txt', 'w') as f:
         f.write(tree_description)
 
+    x = tree_file.read()
+    # x = .decode("utf-8")
+    print(abd)
     with open(path + '/tree.xml', 'wb') as f:
-        f.write(tree_file)
+        f.write(tree_file.read())
         f.flush()
 
     tree_root = TreeNode()
@@ -150,7 +154,7 @@ def add_tree(tree_file, tree_figure, tree_description, **tree_details):
 
     with open(path + '/tree.xml', 'wb') as f:
         pickle.dump(f, tree_root.to_list())
-
+    print(abd)
 
     # with open(path + '/' + 'tree.txt', 'w') as f:
     #     f.write()
