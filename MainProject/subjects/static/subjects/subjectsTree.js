@@ -179,14 +179,29 @@ function initialize() {
 	//We use this function to size the components based on the selected value from the RadiaLProgressTest.html page.
 	changeSize(d3.select("#currentDisplay").attr("item_value"));
 
-	// toggle every node
 	for(i = 0; i < data.values.length; i++)
 	{
-		// expand all first level, then call recursive function
 		viz.toggleNode(data.values[i]);
-		//toggleAllNodes(data.values[i]);
 	}
 }
+
+$(document).on("scroll", function(){ 
+if($(document).scrollTop() > 169)
+    {
+        //begin to scroll
+	//$("#link_container").css("float",null);
+        $("#link_container").css("position","fixed");
+        $("#link_container").css("top",0);
+        $("#link_container").css("right",0);
+    }
+    else
+    {
+        //lock it back into place
+	(document).getElementById("link_container").style.position = null;
+        //$("#link_container").css("position","null");
+	$("#link_container").css("top","null");
+    }
+});
 
 function toggleAllNodes(data)
 {
@@ -207,7 +222,7 @@ function toggleAllNodes(data)
 
 function trimLabel(label) 
 {
-	return (String(label).length > 35) ? String(label).substr(0, 32) + "..." : label;
+	return (String(label).length > 25) ? String(label).substr(0, 22) + "..." : label;
 }
 
 
@@ -272,6 +287,7 @@ function onMeasure()
 
 function onMouseOver(e, d, i) 
 {
+	console.log(d);
 	if (d == data) return;
 	var rect = e.getBoundingClientRect();
 	if (d.target) d = d.target; //This if for link elements
@@ -281,7 +297,6 @@ function onMouseOver(e, d, i)
 	if(subjectName == "")
 		return;
 
-	console.log(document.documentElement.scrollTop);
 	var x_mid = (rect.left + rect.right)/2;
  	var y_mid = (rect.top + rect.bottom)/2;
  	var offset = document.documentElement.scrollTop;

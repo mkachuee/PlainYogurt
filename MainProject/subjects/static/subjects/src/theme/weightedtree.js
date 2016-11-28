@@ -4,7 +4,6 @@
 //
 vizuly.theme.weighted_tree = function (viz) {
 
-
     var skins = {
         "Axiis": {
             name: "Axiis",                          // Skin Name
