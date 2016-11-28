@@ -3,6 +3,7 @@ An interface between file management (load, and save)
 to back end DB access.
 
 """
+import pickle
 import dbaccess as db
 from tree.tree import TreeNode, load_data, save_data
 import os
@@ -129,3 +130,29 @@ def save_tree(tree_object, **tree_details):
         temp_status = save_data(tree_info['DIRLink'], tree_object)
 
     return temp_status
+
+def add_tree(tree_file, tree_figure, tree_description, **tree_details):
+    path = db.add_tree_info(tree_details)
+
+    with open(path + '/tree.png', 'wb') as f:
+        f.write(tree_figure)
+        f.flush()
+
+    with open(path + '/tree.txt', 'w') as f:
+        f.write(tree_description)
+
+    with open(path + '/tree.xml', 'wb') as f:
+        f.write(tree_file)
+        f.flush()
+
+    tree_root = TreeNode()
+    tree_root.load_xml(path + '/tree.xml')
+
+    with open(path + '/tree.xml', 'wb') as f:
+        pickle.dump(f, tree_root.to_list())
+
+
+    # with open(path + '/' + 'tree.txt', 'w') as f:
+    #     f.write()
+    return path
+

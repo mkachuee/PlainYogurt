@@ -5,7 +5,7 @@ import uuid
 import os
 import re
 from django.db.models import Q
-
+import MainProject.settings as settings
 subjectsFieldName = ['subject', 'category', 'topic']
 treeInfoFieldName = ['name', 'topic', 'category', 'subject', 'DIRLink', 'tags']
 
@@ -126,7 +126,7 @@ def add_tree_info(**kwargs):
         """
         cat = uuid.uuid1()
         cat_str = cat.urn
-        dirname = str + cat_str[9:18]
+        dirname = str + '_' + cat_str[9:18]
         return dirname
 
     def get_dir_link(dirname):
@@ -140,7 +140,7 @@ def add_tree_info(**kwargs):
 
         """
 
-        PATH = os.getcwd()
+        PATH = settings.STATICFILES_DIRS
         PATH = PATH + '/' + dirname
         return PATH
 

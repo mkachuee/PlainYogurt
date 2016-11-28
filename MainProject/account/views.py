@@ -1,5 +1,7 @@
 import os
 import sys
+import pickle
+
 path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if path not in sys.path:
     sys.path.append(path)
@@ -41,7 +43,8 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
-from tree_db_interface import search_trees, load_trees, search_tree_by_id_list
+from tree_db_interface import search_trees, load_trees, search_tree_by_id_list, add_tree
+import tree.tree as tree
 from search.views import search
 from .manage_profile import add_tree_to_profile, get_username_info, add_username, remove_tree_from_profile
 from django.core.urlresolvers import reverse
@@ -207,3 +210,31 @@ def createTreePage(request):
         return render(request, "account/createTree.html")
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+def add_tree_to_database(request):
+    if request.method == 'POST':
+
+        tree_name = request.POST.get('name', '')
+        tree_category = request.POST.get('category', '')
+        tree_subject = request.POST.get('subject', '')
+        tree_topic = request.POST.get('topic', '')
+        tree_tags = request.POST.get('tags', '')
+
+        x = request.FILES.keys()
+        if 'figure' in request.FILES.keys() and 'tree' in request.FILES.keys():
+            figure = request.FILES['figure']
+            file = request.FILES['tree']
+
+
+        tree_description = request.POST.get('description', '')
+
+        tree_details = {'name': tree_name, 'category': tree_category, 'subject': tree_subject, 'topic': tree_topic, 'tags': tree_tags}
+        print(abd)  # t1
+
+
+
+        path = add_tree(file, figure, tree_description, tree_details)
+
+
+    else:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
