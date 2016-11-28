@@ -170,7 +170,6 @@ def displaySubscribedTrees(request):
         user = request.user.username
         info = get_username_info(user)
         info = info[0]
-
         context = {}
         if info['subscribedTrees'] == '':
             context['tuples'] = '' # will not load any tree's, id's are numbers.
@@ -230,12 +229,13 @@ def add_tree_to_database(request):
 
         tree_details = {'name': tree_name, 'category': tree_category, 'subject': tree_subject, 'topic': tree_topic, 'tags': tree_tags}
 
+        [path, id] = add_tree(file, figure, tree_description, tree_details)
+        
+        trees = search_tree_by_id_list(str(id))
+        add_tree_to_profile(trees, request.user.username)
 
-
-
-        path = add_tree(file, figure, tree_description, tree_details)
-        return render(request, "account/subscribedTrees.html")
-
+        # return render(request, "account/mytrees.html")
+        return displaySubscribedTrees(request)
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

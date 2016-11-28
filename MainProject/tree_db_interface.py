@@ -132,7 +132,7 @@ def save_tree(tree_object, **tree_details):
     return temp_status
 
 def add_tree(tree_file, tree_figure, tree_description, tree_details):
-    path = db.add_tree_info(**tree_details)
+    path, id = db.add_tree_info(**tree_details)
 
 
     with open(path + '/tree.png', 'wb') as f:
@@ -160,5 +160,5 @@ def add_tree(tree_file, tree_figure, tree_description, tree_details):
 
     # with open(path + '/' + 'tree.txt', 'w') as f:
     #     f.write()
-    return path
+    return path, id
 

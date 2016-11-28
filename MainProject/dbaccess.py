@@ -164,9 +164,16 @@ def add_tree_info(**kwargs):
     treeInfo = TreeInfo(name=name, category=category, subject=subject, topic=topic, tags=tags, DIRLink=dirlink)
     try:
         treeInfo.save()
-        return settings.STATICFILES_DIRS[0] + dirlink
+
+
     except ValueError as e:
         return None
+
+   #added to subscribe created tree...
+    temp = search_tree_by_dir(dirlink)
+    id = temp[0]['id']
+
+    return settings.STATICFILES_DIRS[0] + dirlink, id
 
 
 
@@ -277,6 +284,13 @@ def search_tree_by_id(id):
 
     try:
         result = TreeInfo.objects.filter(id=id)
+        return result.values()
+    except FieldError as e:
+        return None
+def search_tree_by_dir(dir):
+
+    try:
+        result = TreeInfo.objects.filter(DIRLink=dir)
         return result.values()
     except FieldError as e:
         return None
