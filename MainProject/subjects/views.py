@@ -38,5 +38,6 @@ def specificSubject(request, subjectName):
 				#data['contents'][key1][key2] = value2.replace('\\n',' ')
 
 	data_in_json = json.dumps(data)
+	subjectName = data['contents'][0]['name']
 	context = {'subjectName': subjectName, 'data': data_in_json}
 	return render(request, 'subjects/specificSubject.html', context)
