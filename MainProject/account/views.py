@@ -185,7 +185,11 @@ def displaySubscribedTrees(request):
             if (context['result_objects'][i]['tree'] is None):
                 context['result_objects'][i]['tree'] = ''
             else:
-                context['result_objects'][i]['tree'] = '/subjects/' + context['tuples'][i]['name'] + '/'
+                # context['result_objects'][i]['tree'] = '/subjects/' + context['tuples'][i]['name'] + '/'
+
+                t = context['tuples'][i]['DIRLink'].split('/')
+
+                context['result_objects'][i]['tree'] = '/subjects/' + t[2] + '/'
             t = [context['tuples'][i], context['result_objects'][i]]
             context['combined_result'].append(t)
         context['combined_result_4cols'] = split_list(context['combined_result'], 4)
