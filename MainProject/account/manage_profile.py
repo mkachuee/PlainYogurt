@@ -9,12 +9,23 @@ from .models import Profile
 
 
 def add_username(username):
-    user = Profile(username=username)
+    user = Profile(username=username, name="", status="", dob = "", gender="", email="", subscribedTrees="")
     user.save()
 
 def get_username_info(username):
     info = Profile.objects.filter(username=username)
     return info.values()
+
+def set_profile_values(username, name, status, dob, gender, email):
+    profile = Profile.objects.get(username=username)
+
+    profile.name = name
+    profile.status = status
+    profile.dob = dob
+    profile.gender = gender
+    profile.email = email
+    profile.save()
+    return True
 
 def add_tree_to_profile(trees, username):
     user = get_username_info(username)
@@ -35,6 +46,7 @@ def add_tree_to_profile(trees, username):
 
 
     return True
+
 def remove_tree_from_profile(id, user):
     info = get_username_info(user)
     temp_info = info[0]

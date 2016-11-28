@@ -11,7 +11,10 @@ from home.models import TreeInfo
 # Create your models here.
 
 class Profile(models.Model):
-    username = models.CharField(max_length=200)     # username link between User model and Profile model
-    first = models.CharField(max_length=200)
-    last = models.CharField(max_length=200)
+    username = models.CharField(max_length=200, primary_key=True)     # username link between User model and Profile model
+    name = models.CharField(max_length=200)
+    status = models.CharField(max_length=200)
+    dob = models.CharField(max_length=200)
+    gender = models.CharField(max_length=200)
+    email = models.CharField(max_length=200)
     subscribedTrees = models.CharField(max_length=200)
