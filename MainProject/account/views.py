@@ -104,7 +104,7 @@ def profile(request):
             token['dob'] = profile['dob']
             token['gender'] = profile['gender']
             token['email'] = profile['email']
-        token = {}
+
         return render(request, "account/profile.html", token)
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
