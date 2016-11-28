@@ -17,12 +17,15 @@ def get_username_info(username):
     return info.values()
 
 def set_profile_values(username, name, status, dob, gender, email):
-    profile = Profile.objects.filter(username=username)
+    profile = Profile.objects.get(username=username)
+
     profile.name = name
     profile.status = status
     profile.dob = dob
     profile.gender = gender
     profile.email = email
+    profile.save()
+    return True
 
 def add_tree_to_profile(trees, username):
     user = get_username_info(username)

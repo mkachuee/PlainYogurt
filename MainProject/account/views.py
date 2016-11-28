@@ -90,13 +90,16 @@ def profile(request):
     if request.user.is_authenticated:
         username = request.user.username
         profile_values = get_username_info(username)
+        profile = profile_values.get()
 
         token = {}
         token.update(csrf(request))
         token['username'] = username
-        token['name'] = profile_values
-        print(profile_values)
-
+        token['name'] = profile['name']
+        token['status'] = profile['status']
+        token['dob'] = profile['dob']
+        token['gender'] = profile['gender']
+        token['email'] = profile['email']
 
         return render(request, "account/profile.html", token)
     else:
