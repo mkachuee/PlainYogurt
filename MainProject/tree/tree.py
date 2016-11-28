@@ -41,8 +41,8 @@ class TreeNode:
         self.__node_tails = node_tails
         self.__path = None
 
-    def reset_id()
-        TreeNode.current_id = -1
+    def reset_id(self):
+        TreeNode.current_id = 0
     
     def save(self, filename):
         """

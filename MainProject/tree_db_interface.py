@@ -151,6 +151,7 @@ def add_tree(tree_file, tree_figure, tree_description, tree_details):
 
 
     tree_root = TreeNode()
+    tree_root.reset_id()
     tree_root.load_xml(path + '/tree.xml')
 
     with open(path + '/tree.pkl', 'wb') as f:
