@@ -73,16 +73,16 @@ def registerSuccess(request):
     return render_to_response('account/registerSuccess.html')
 
 
-def customLogin(request, template_name='registration/login.html',
+def customLogin(request, template_name,
           redirect_field_name=REDIRECT_FIELD_NAME,
           authentication_form=AuthenticationForm,
           extra_context=None, redirect_authenticated_user=False):
         return login(request,
-                 template_name,
-                 redirect_field_name,
-                 authentication_form,
-                 extra_context,
-                 redirect_authenticated_user)
+                 template_name = template_name,
+                 redirect_field_name = REDIRECT_FIELD_NAME,
+                 authentication_form = authentication_form,
+                 extra_context=None,
+                 redirect_authenticated_user=False)
 
 
 def loginSuccess(request):
