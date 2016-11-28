@@ -41,6 +41,9 @@ class TreeNode:
         self.__node_tails = node_tails
         self.__path = None
 
+    def reset_id()
+        TreeNode.current_id = -1
+    
     def save(self, filename):
         """
         Description:
@@ -208,14 +211,17 @@ class TreeNode:
             loads the TreeNode object from a xml file.
         Input:
             - filename: the xml file path to load from.
+        Returns:
+            - the resultant NoteTree object.(it also updates this)
         """
+        # inline content parser function
         def content_parser(html_content):
             node_content = {'name':'','description':'',
                     'links':[]}
             texts = []
             links = []
 
-
+            # html parsing
             class MyHTMLParser(HTMLParser):
                 def handle_starttag(self, tag, attrs):
                     #print("Encountered a start tag:", tag)
@@ -234,7 +240,7 @@ class TreeNode:
                 def handle_data(self, data):
                     texts.append(data)
                     #print("Encountered some data  :", data)
-            
+            # add parsed data to node content
             parser = MyHTMLParser()
             parser.feed(html_content)
             if len(texts) > 0:
@@ -248,7 +254,7 @@ class TreeNode:
             #print('LINKS:' + str(node_content['links']))
             return node_content
 
-        
+
         xml_tree = xmlet.parse(filename)
         nodes_dict = {}
         connections_list = []
